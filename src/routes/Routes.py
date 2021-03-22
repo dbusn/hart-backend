@@ -1,7 +1,6 @@
 from flask import request, jsonify
 
 from definitions import API_BASE_URL, RESOURCES
-from src.helpers.ConvertAudioToFlacHelper import convertWebmToFlac
 from src.helpers.Logger import Logger
 from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
 from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
@@ -169,7 +168,6 @@ def send_audiopath():
     # send return, success code
     return jsonify(result), 200
 
-
 @app.route(API_BASE_URL + "/microcontroller/audiofile", methods=["POST"])
 def send_audiofile():
     """
@@ -191,13 +189,6 @@ def send_audiofile():
 
     # get the parameters as json file from the multipart form
     data = json.load(request.files['data'])
-
-    if data['type'] != "audio/flac":
-        if data['type'] == "audio/webm":
-            file = convertWebmToFlac(file)
-        else:
-            Logger.log_error("/microcontroller/audiofile: Unknown mimetype.")
-            return API_BASE_URL + "/microcontroller/audiofile: Unknown mimetype.", 400
 
     # issue translate event
     transcribe_translate_request = TranscribeAndTranslateRequest(
@@ -225,11 +216,3 @@ def send_audiofile():
 
     # send return, success code
     return jsonify(result), 200
-
-@app.route(API_BASE_URL + "/microcontroller/audio_webm", methods=["POST"])
-def send_audio_webm():
-    """
-    POST send recorded audio to be transcribed in webm format, translated and sent to the microcontroller
-    """
-    Logger.log_info("INCOMING API CALL: /microcontroller/audio_webm")
-
