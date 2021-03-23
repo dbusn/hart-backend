@@ -1,6 +1,6 @@
 import os
 
-PRODUCTION = False
+DISTRIBUTION = False
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))  # this is the project root
 
