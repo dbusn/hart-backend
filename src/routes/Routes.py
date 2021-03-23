@@ -1,17 +1,20 @@
 from flask import request, jsonify
 
 from definitions import API_BASE_URL, RESOURCES
+from src.handlers.Dispatcher import Dispatcher
 from src.helpers.Logger import Logger
 from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
 from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
 from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
 from src.routes.RouteValidation import validate_json
 
-from werkzeug.utils import secure_filename
 import io
 import json
 
-from app import app, dispatcher
+from app import app
+
+
+dispatcher = Dispatcher()
 
 
 # =============================================================================
@@ -216,3 +219,6 @@ def send_audiofile():
 
     # send return, success code
     return jsonify(result), 200
+
+
+Logger.log_info("Routes initialized")

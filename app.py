@@ -5,7 +5,6 @@ from flask_cors import CORS
 
 from definitions import PRODUCTION, RESOURCES
 from src.handlers.Dispatcher import Dispatcher
-from src.helpers.Logger import Logger
 from src.modules.ArduinoConnection import ArduinoConnection
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 
@@ -30,10 +29,6 @@ if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
     # Check if google api is working correctly
     GoogleApiWrapper(credentials_path=os.path.join(RESOURCES, 'gcloud_credentials.json'))
 
-    # Import routes
-    import src.routes.Routes
-    Logger.log_info("Routes initialized")
-
 
 if PRODUCTION:
     @app.route('/', methods=['GET'])
@@ -47,5 +42,12 @@ if PRODUCTION:
         return render_template("index.html")
 
 
+if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
+    # Import routes
+    from src.routes.Routes import *
+
+
 if __name__ == "__main__" and PRODUCTION:
+    log.setLevel(logging.INFO)
+
     app.run(debug=False, use_reloader=False, threaded=True)
