@@ -50,13 +50,12 @@ if DISTRIBUTION:
     def error_route(e):
         return render_template("index.html")
 
-
 if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
     # Import routes
     from src.routes.Routes import *
 
-
 if __name__ == "__main__" and DISTRIBUTION:
     log.setLevel(logging.INFO)
-
+    import webbrowser
+    webbrowser.open("http://localhost:5000")
     app.run(debug=False, use_reloader=False, threaded=True)

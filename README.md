@@ -23,7 +23,7 @@ For running the application in development mode
     from PyInstaller.utils.hooks import collect_data_files
     datas = collect_data_files ( 'grpc' )
     ```
-8. Generate the distribution using the command `pyinstaller --add-data "resources;resources" --add-data "templates;templates" --add-data "static;static" --add-data "src/modules/ffmpeg;src/modules/ffmpeg" app.py`
+8. Generate the distribution using the command `pyinstaller --add-data "resources;resources" --add-data "templates;templates" --add-data "static;static" --add-data "src/modules/ffmpeg;src/modules/ffmpeg" --icon="static\favicon.ico" app.py app.py`
 
 # API Specification
 
