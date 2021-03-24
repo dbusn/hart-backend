@@ -1,6 +1,7 @@
 from flask import request, jsonify
 
 from definitions import API_BASE_URL, RESOURCES
+from src.helpers.ConvertAudioToFlacHelper import convertWebmToFlac
 from src.handlers.Dispatcher import Dispatcher
 from src.helpers.Logger import Logger
 from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
@@ -104,7 +105,8 @@ def send_sentences():
     data = request.json
 
     # issue translate event
-    translate_request = TranscribeAndTranslateRequest(original_sentences=data['sentences'], source_language=data['language'])
+    translate_request = TranscribeAndTranslateRequest(original_sentences=data['sentences'],
+                                                      source_language=data['language'])
     try:
         translate_request = dispatcher.handle(translate_request)
     except RuntimeError:
@@ -171,6 +173,7 @@ def send_audiopath():
     # send return, success code
     return jsonify(result), 200
 
+
 @app.route(API_BASE_URL + "/microcontroller/audiofile", methods=["POST"])
 def send_audiofile():
     """
@@ -193,9 +196,18 @@ def send_audiofile():
     # get the parameters as json file from the multipart form
     data = json.load(request.files['data'])
 
+    # If submitted type is not audio/flac, then audio first needs to be converted into audio/flac format.
+    if data['type'] != "audio/flac":
+        if data['type'] == "audio/webm" or data['type'] == "audio/ogg":
+            file = convertWebmToFlac(file)
+        else:
+            Logger.log_error("/microcontroller/audiofile: Unknown mimetype.")
+            return API_BASE_URL + "/microcontroller/audiofile: Unknown mimetype.", 400
+
     # issue translate event
     transcribe_translate_request = TranscribeAndTranslateRequest(
         audio_file=file,
+        audio_type=data['type'],
         source_language=data['source_language'],
         target_language=data['target_language'])
     try:

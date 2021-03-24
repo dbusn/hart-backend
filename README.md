@@ -1,6 +1,8 @@
 # backend
 
-Install requirements with `pip install -r /path/to/requirements.txt`
+Install requirements with `pip install -r /path/to/requirements.txt`.
+
+Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src/modules/ffmpeg` folder.
 
 ## Running the application
 ### Development mode
@@ -16,7 +18,12 @@ For running the application in development mode
 4. Change the links in the `index.html` referring to js/img/css files by adding the prefix `static/`
 5. Change the `DISTRIBUTION` boolean in the `definitions.py` file to `True`.
 6. (optional) Change the `debug` option in the `arduino_config.json`. 
-7. Generate the distribution using the command `pyinstaller --add-data "resources;resources" --add-data "templates;templates" --add-data "static;static" app.py`
+7. Create a custom additional hook for pyinstaller regarding the `grpc` library. You can do this by going to your environment, in which pyinstaller is installed. Within the pyinstaller folder, go to `hooks/` and create a new file called `hook-grpc.py` in there with the code:
+    ```python
+    from PyInstaller.utils.hooks import collect_data_files
+    datas = collect_data_files ( 'grpc' )
+    ```
+8. Generate the distribution using the command `pyinstaller --add-data "resources;resources" --add-data "templates;templates" --add-data "static;static" --add-data "src/modules/ffmpeg;src/modules/ffmpeg" app.py`
 
 # API Specification
 
@@ -188,7 +195,7 @@ RESULT:
 <details>
 <summary>/microcontroller/audiofile</summary>
 
-Send an audiofile,fires microcontroller, and return transcription and translation. This request is a bit different, as it is not a json post, but a multipart form. This multipart form contains two fields, one which is the audiofile in bytes, the second one which is the parameters in a json dumped to string. See the curl / body.
+Send an audiofile, fires microcontroller, and return transcription and translation. This request is a bit different, as it is not a json post, but a multipart form. This multipart form contains two fields, one which is the audiofile in bytes, the second one which is the parameters in a json dumped to string. See the curl / body.
 
 REQUEST:
 
@@ -205,7 +212,7 @@ BODY
 EXAMPLE PYTHON REQUEST (cus curl would be a bitch for this one)
 
     file = open(FILE_PATH, "rb")
-	data = {"source_language": "nl", "target_language": "en"}
+	data = {"source_language": "nl", "target_language": "en", "type": "audio/flac"}
     # package stuff to send and perform POST request
 	values = {"file": (FILE_PATH, file, "audio/flac"),
 			"data" : ('data', json.dumps(data), 'application/json')}

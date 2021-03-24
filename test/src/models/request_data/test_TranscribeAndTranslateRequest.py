@@ -3,21 +3,25 @@ from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndT
 
 import pytest
 
+
 def test_constructor_error_1():
     with pytest.raises(ValueError,
-                       match="TranscribAndTranslateRequest.__init__: no source language passed"):
-        TranscribeAndTranslateRequest(audio_file=object, original_sentences=object)
+                       match="TranscribeAndTranslateRequest.__init__: no source language passed"):
+        TranscribeAndTranslateRequest(audio_file=object, audio_type="some type", original_sentences=object)
+
 
 def test_constructor_error_2():
     with pytest.raises(ValueError,
-                       match="TranscribAndTranslateRequest.__init__: no audio file or sentences passed"):
+                       match="TranscribeAndTranslateRequest.__init__: no audio file or sentences passed"):
         TranscribeAndTranslateRequest(source_language='en')
+
 
 def test_constructor_standard_case_1():
     ptr = TranscribeAndTranslateRequest(original_sentences=["first sentence", "second sentence"], source_language='en')
 
     assert ptr.original_sentences[0] == "first sentence"
     assert ptr.original_sentences[1] == "second sentence"
+
 
 def test_get_event_type_case_1_constructor():
     ptr = TranscribeAndTranslateRequest(original_sentences=["some sentence"], source_language='en')

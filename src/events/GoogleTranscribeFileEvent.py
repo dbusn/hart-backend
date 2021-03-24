@@ -1,6 +1,5 @@
-import io
-
 from src.events.AbstractEvent import AbstractEvent
+from src.helpers.Logger import Logger
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.AbstractRequest import AbstractRequest
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
@@ -27,8 +26,14 @@ class GoogleTranscribeEvent(AbstractEvent):
             raise AssertionError("GoogleTranscribeEvent.handle: make sure to authenticate with the Google API by "
                                  "setting your credentials correctly.")
 
-        # read the audio file
-        content = request_data.audio_file.read()
+        # read the audio file according to the submitted mime type
+        if request_data.audio_type == "audio/webm" or request_data.audio_type == "audio/ogg":
+            content = request_data.audio_file
+        elif request_data.audio_type == "audio/flac":
+            content = request_data.audio_file.read()
+        else:
+            raise ValueError("GoogleTranscribeEvent.handle: Unknown audio_type '" + request_data.audio_type
+                             + "' submitted.")
 
         # Get audio content
         audio = speech.RecognitionAudio(content=content)
@@ -46,6 +51,9 @@ class GoogleTranscribeEvent(AbstractEvent):
         request_data.original_sentences = []
         for sentence in response.results:
             request_data.original_sentences.append(sentence.alternatives[0].transcript)
+
+        Logger.log_info("GoogleTranscribeEvent.handle: Finished transcribing with resulting sentences:")
+        Logger.log_info(request_data.original_sentences)
 
         return request_data
 
