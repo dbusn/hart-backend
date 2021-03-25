@@ -12,24 +12,30 @@ class GoogleApiWrapper(metaclass=Singleton):
     Wrapper for authenticating with the Google API.
     Does not check for whether the Google API is installed.
     Only checks for whether it can authenticate.
-    TODO be able to (cross-os) check whether Google API is installed
     """
 
     # Stores whether the Google API is authenticated correctly
     authenticated: bool = False
 
     def __init__(self, credentials_path=None):
+        """
+        Initializes the Google API Wrapper. It checks whether the Google API credentials are set correctly by trying to
+        establish a connection with the Google API. If connection cannot be made, useful log messages will explain
+         what to do.
+
+        :param credentials_path:    Path to the Google API credentials json file
+        """
 
         cred = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
         # no global environment variable for the credentials
-        if (cred is None):
+        if cred is None:
             # no path is given manually, so cannot authenticate
-            if (credentials_path is None):
+            if credentials_path is None:
                 Logger.log_info("GoogleApiWrapper.checkGoogleApiConnection: Currently, no google credentials are set. "
-                    "Operations that use the Google API will therefore not work until you set your credentials "
-                    "and restart the application. "
-                    "Either place the credentials in the //resources// named gcloud_'credentials.json' "
-                    "or set global env variable 'GOOGLE_APPLICATION_CREDENTIALS' appropriately.")
+                                "Operations that use the Google API will therefore not work until you set your "
+                                "credentials and restart the application. "
+                                "Either place the credentials in the //resources// named gcloud_'credentials.json' "
+                                "or set global env variable 'GOOGLE_APPLICATION_CREDENTIALS' appropriately.")
                 return
             # set the global variable to the credentials in the resources folder
             else:
@@ -37,11 +43,11 @@ class GoogleApiWrapper(metaclass=Singleton):
         # global environment is set, but the file does not exist
         elif not os.path.isfile(cred):
             # no alternative path is given, so cannot authenticate
-            if (credentials_path is None):
+            if credentials_path is None:
                 Logger.log_info("GoogleApiWrapper.checkGoogleApiConnection: Currently, no google credentials are set. "
-                    "the file " + cred + " was not found. "
-                    "Either place the credentials in the //resources// named gcloud_'credentials.json' "
-                    "or set global env variable 'GOOGLE_APPLICATION_CREDENTIALS' appropriately.")
+                                "the file " + cred + " was not found. Either place the credentials in the "
+                                "//resources// named gcloud_'credentials.json' or set global env variable "
+                                "'GOOGLE_APPLICATION_CREDENTIALS' appropriately.")
                 return
             # set the global variable to the credentials in the resources folder
             else:
@@ -51,8 +57,12 @@ class GoogleApiWrapper(metaclass=Singleton):
         self.checkGoogleApiConnection()
 
     def checkGoogleApiConnection(self):
+        """
+        Checks whether a connection with the Google API can be established.
+        """
+
         # Logging general information
-        Logger.log_info("GoogleApiWrapper.checkGoogleApiConnection: Checking connection to Google API")
+        Logger.log_info("GoogleApiWrapper.checkGoogleApiConnection: Checking connection to Google API.")
         cred = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
         Logger.log_info("GoogleApiWrapper.checkGoogleApiConnection: Currently, "
                         "using credentials: " + cred)
@@ -73,12 +83,18 @@ class GoogleApiWrapper(metaclass=Singleton):
         except DefaultCredentialsError as e:
             # Logging information that connection has failed
             Logger.log_warning("GoogleApiWrapper.checkGoogleApiConnection: "
-                               "Could not connect to Google API")
+                               "Could not connect to Google API.")
             Logger.log_warning(e)
             Logger.log_warning("GoogleApiWrapper.checkGoogleApiConnection: "
                                "Make sure to set you google credentials correctly!")
 
     def setCredentials(self, credential_path):
+        """
+        Given a path to a google credentials json, this function sets the environment variable using that path.
+
+        :param credential_path:     The path to the credentials file.
+        """
+
         Logger.log_info("GoogleApiWrapper.checkGoogleApiConnection: "
                         "Overwriting global env variable for gcloud credentials to " + credential_path)
         # set environment variable.

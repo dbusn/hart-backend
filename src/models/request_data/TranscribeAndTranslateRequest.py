@@ -1,14 +1,12 @@
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.AbstractRequest import AbstractRequest
 
-from google.cloud import speech
-
 from typing import List, BinaryIO
 
 
 class TranscribeAndTranslateRequest(AbstractRequest):
     """
-    Request type for a transformation that includes a transcription from an Audio file to sentences
+    Request type for a transformation that includes a transcription from an Audio file to sentences.
     """
 
     # audio file
@@ -41,18 +39,18 @@ class TranscribeAndTranslateRequest(AbstractRequest):
         """
         Constructor to make object for transcribing and/or translating text/sentences. This constructor has 2 purposes:
             (1) To create a TranscribeAndTranslateRequest with the purpose of transcribing
-                an audiofile and then translating
+                an audiofile and then translating.
             (2) To create a TranscribeAndTranslateRequest with the purpose of translating
                 given sentences.
 
         Function throws an error when neither audiofile or original_sentences are set. If both are set, it
-        eventually overwritesthe given sentences with the transcription.
+        eventually overwrites the given sentences with the transcription.
 
-        @param audio_file           Bitewise fileobject of flac file
-        @param audio_type           String containing the type of audio (mimeType) submitted (i.e. 'audio/webm')
-        @param original_sentences   ["list of sentences", "as strings each"]
-        @param source_language      String containing the code of the source_language
-        @param target_language      String containing the code of the target_language
+        @param audio_file           Bitewise fileobject of flac file.
+        @param audio_type           String containing the type of audio (mimeType) submitted (i.e. 'audio/webm').
+        @param original_sentences   ["list of sentences", "as strings each"].
+        @param source_language      String containing the code of the source_language.
+        @param target_language      String containing the code of the target_language.
 
         @raises ValueError          If neither audio_file and original_sentences filled 
                                     or when source_language is None
@@ -60,7 +58,7 @@ class TranscribeAndTranslateRequest(AbstractRequest):
 
         # source language needs to be set
         if not source_language:
-            raise ValueError("TranscribeAndTranslateRequest.__init__: no source language passed")
+            raise ValueError("TranscribeAndTranslateRequest.__init__: no source language passed.")
 
         # set source and goal language of transformation
         self.source_language = source_language
@@ -76,7 +74,7 @@ class TranscribeAndTranslateRequest(AbstractRequest):
             self.audio_type = None
             self.audio_file = None
         else:
-            raise ValueError("TranscribeAndTranslateRequest.__init__: no audio file or sentences passed")
+            raise ValueError("TranscribeAndTranslateRequest.__init__: no audio file or sentences passed.")
 
     def get_event_type(self) -> EventType:
         # return event type for transcription and translation if source is an audio file
@@ -86,4 +84,5 @@ class TranscribeAndTranslateRequest(AbstractRequest):
         elif self.original_sentences is not None:
             return EventType.TRANSLATE_USING_GOOGLE_API
         else:
-            raise ValueError("TranscribeAndTranslateRequest.get_event_type(): no audio file or sentences, illegalstate")
+            raise ValueError("TranscribeAndTranslateRequest.get_event_type(): no audio file or sentences, illegal "
+                             "state.")

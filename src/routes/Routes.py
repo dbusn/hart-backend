@@ -55,10 +55,12 @@ def send_phonemes():
     try:
         dispatcher.handle(request_data)
     except RuntimeError:
-        return API_BASE_URL + "/microcontroller/phonemes: Could not handle PhonemeTransformRequest successfully", 500
+        message = API_BASE_URL + "/microcontroller/phonemes: Could not handle PhonemeTransformRequest successfully."
+        Logger.log_error("Routes.send_phonemes - " + message)
+        return message, 500
 
     # empty body return, success code
-    return "", 200
+    return 200
 
 
 # =============================================================================
@@ -82,7 +84,9 @@ def send_words():
     try:
         dispatcher.handle(sentence_request)
     except RuntimeError:
-        return API_BASE_URL + "/microcontroller/words: Could not handle PhonemeTransformRequest successfully", 500
+        message = API_BASE_URL + "/microcontroller/words: Could not handle PhonemeTransformRequest successfully."
+        Logger.log_error("Routes.send_words - " + message)
+        return message, 500
 
     # create result json with all sent phonemes
     result = {"words": data['words'], "decomposition": []}
@@ -97,7 +101,7 @@ def send_words():
 @validate_json
 def send_sentences():
     """
-    POST send sentence(s) to the microcontroller
+    POST send sentence(s) to the microcontroller.
     """
     Logger.log_info("INCOMING API CALL: /microcontroller/sentences")
 
@@ -110,14 +114,18 @@ def send_sentences():
     try:
         translate_request = dispatcher.handle(translate_request)
     except RuntimeError:
-        return API_BASE_URL + "/microcontroller/sentences: Could not handle TranslateRequest successfully", 500
+        message = API_BASE_URL + "/microcontroller/sentences: Could not handle TranslateRequest successfully."
+        Logger.log_error("Routes.send_sentences - " + message)
+        return message, 500
 
     # Issue decomposition into phonemes and sending to microcontroller
     decomposition_request = PhonemeTransformRequest(sentences=translate_request.translated_sentences)
     try:
         dispatcher.handle(decomposition_request)
     except RuntimeError:
-        return API_BASE_URL + "/microcontroller/sentences: Could not handle PhonemeTransformRequest successfully", 500
+        message = API_BASE_URL + "/microcontroller/sentences: Could not handle PhonemeTransformRequest successfully."
+        Logger.log_error("Routes.send_sentences - " + message)
+        return message, 500
 
     result = {
         "sentences": translate_request.original_sentences,
@@ -154,7 +162,9 @@ def send_audiopath():
     try:
         dispatcher.handle(transcribe_translate_request)
     except RuntimeError:
-        return API_BASE_URL + "/microcontroller/audiopath: Could not handle TranslateRequest successfully", 500
+        message = API_BASE_URL + "/microcontroller/audiopath: Could not handle TranslateRequest successfully."
+        Logger.log_error("Routes.send_audiopath - " + message)
+        return message, 500
 
     audio_file.close()
 
@@ -163,7 +173,9 @@ def send_audiopath():
     try:
         dispatcher.handle(decomposition_request)
     except RuntimeError:
-        return API_BASE_URL + "/microcontroller/audiopath: Could not handle PhonemeTransformRequest successfully", 500
+        message = API_BASE_URL + "/microcontroller/audiopath: Could not handle PhonemeTransformRequest successfully."
+        Logger.log_error("Routes.send_audiopath - " + message)
+        return message, 500
 
     result = {
         "transcription": transcribe_translate_request.original_sentences,
@@ -183,11 +195,15 @@ def send_audiofile():
 
     # check if the post request has the audiofile
     if 'file' not in request.files:
-        return "No audiofile added", 400
+        message = API_BASE_URL + "/microcontroller/audiofile: No audiofile was added."
+        Logger.log_error("Routes.send_audiofile - " + message)
+        return message, 400
 
     # check if the post request has the parameters
     if 'data' not in request.files:
-        return "No data file added", 400
+        message = API_BASE_URL + "/microcontroller/audiofile: Data object missing in request."
+        Logger.log_error("Routes.send_audiofile - " + message)
+        return message, 400
 
     # get file from the request multiform
     # type is regular python file object with a light wrapper, which we can ignore
@@ -201,8 +217,9 @@ def send_audiofile():
         if data['type'] == "audio/webm" or data['type'] == "audio/ogg":
             file = convertWebmToFlac(file)
         else:
-            Logger.log_error("/microcontroller/audiofile: Unknown mimetype.")
-            return API_BASE_URL + "/microcontroller/audiofile: Unknown mimetype.", 400
+            message = API_BASE_URL + "/microcontroller/audiofile: Unknown mimetype."
+            Logger.log_error("Routes.send_audiofile - " + message)
+            return message, 400
 
     # issue translate event
     transcribe_translate_request = TranscribeAndTranslateRequest(
@@ -213,7 +230,9 @@ def send_audiofile():
     try:
         dispatcher.handle(transcribe_translate_request)
     except RuntimeError:
-        return API_BASE_URL + "/microcontroller/audiofile: Could not handle TranslateRequest successfully", 500
+        message = API_BASE_URL + "/microcontroller/audiofile: Could not handle TranslateRequest successfully."
+        Logger.log_error("Routes.send_audiofile - " + message)
+        return message, 500
 
     # Issue decomposition into phonemes and sending to microcontroller
     decomposition_request = PhonemeTransformRequest(
@@ -221,7 +240,9 @@ def send_audiofile():
     try:
         dispatcher.handle(decomposition_request)
     except RuntimeError:
-        return API_BASE_URL + "/microcontroller/audiofile: Could not handle PhonemeTransformRequest successfully", 500
+        message = API_BASE_URL + "/microcontroller/audiofile: Could not handle PhonemeTransformRequest successfully."
+        Logger.log_error("Routes.send_audiofile - " + message)
+        return message, 500
 
     # format result
     result = {

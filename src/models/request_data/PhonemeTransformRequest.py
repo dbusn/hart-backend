@@ -9,7 +9,7 @@ from typing import List, Dict, Any, Union
 def split_sentences(sentences: List[str]) -> List[List[str]]:
     """
     Helper function to split sentences.
-    @param sentences    List of sentences in form ["sentence one", "sentence two"]
+    @param sentences    List of sentences in form ["sentence one", "sentence two"].
     @returns            List of sentences where every sentence is divided into a list of words.
     """
 
@@ -28,7 +28,7 @@ class PhonemeTransformRequest(AbstractRequest):
     Request type for a transformation that includes a phonemes transformation.
     """
 
-    # List of sentences in which each sentence is divided into a list of words
+    # List of sentences in which each sentence is divided into a list of words.
     sentences: List[List[str]]
 
     # Mapping of phoneme to the JSON pattern
@@ -60,10 +60,11 @@ class PhonemeTransformRequest(AbstractRequest):
                                             (2) [["first", "sentence"], ["second", "sentence"]]
         @param phonemes             Phonemes to be send to the arduino in form
                                         ["PHO1", "PHO2"]
-        @raises ValueError          If both sentences and phonemes are filled with data or when phoneme_patterns is None
+        @raises ValueError          If both sentences and phonemes are filled with data or when phoneme_patterns is
+                                        None.
         """
         if sentences is not None and phonemes is not None:
-            raise ValueError("PhonemeTransformRequest.__init__: both sentences and phonemes parameter was passed")
+            raise ValueError("PhonemeTransformRequest.__init__: both sentences and phonemes parameter was passed.")
 
         # set phoneme pattern
         self.phoneme_patterns = get_phoneme_patterns(RESOURCES)
@@ -94,7 +95,7 @@ class PhonemeTransformRequest(AbstractRequest):
 
     def get_event_type(self) -> EventType:
         if self.sentences is None:
-            # if sentences is None, then we want to send phonemes to the microcontroller
+            # if sentences is None, then we want to send phonemes to the microcontroller.
             return EventType.SEND_PHONEMES_TO_MICROCONTROLLER
         else:
             # fi sentences is not None, then we want to do a full processing process.

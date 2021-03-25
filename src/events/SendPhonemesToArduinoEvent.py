@@ -9,7 +9,7 @@ from typing import List
 
 class SendPhonemesToArduinoEvent(AbstractEvent):
     """
-    Event that sends given phonemes to arduino
+    Event that sends given phonemes to arduino.
 
     expects request_data to have attribute "phonemes" which is a 3 dimensional list of strings:
     list of words, with every word being a list of decomposition, with each decomposition being list of phoneme-strings.
