@@ -71,7 +71,7 @@ class PhonemeDecompositionEvent(AbstractEvent):
                     # check if there are valid decompositions
                     if len(valid_decompositions) == 0:
                         Logger.log_warning("PhonemeDecompositionEvent.handle: Word '" + str(word).lower()
-                                       + "' has no decompositions in CMU Phonemes with Reed equivalent")
+                                       + "' has no decompositions in CMU Phonemes with Reed equivalent.")
 
                     # set phoneme translation to request data
                     sentence_decomposition.append(valid_decompositions)

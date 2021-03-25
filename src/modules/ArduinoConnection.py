@@ -12,7 +12,7 @@ import copy
 
 class ArduinoConnection(metaclass=Singleton):
     """
-    Represents the connection with an Arduino
+    Represents the connection with an Arduino.
     """
 
     # configured
@@ -35,9 +35,9 @@ class ArduinoConnection(metaclass=Singleton):
 
     def connect_with_config(self, fp_json: str):
         """
-        Establish connection with arduino
+        Establish connection with arduino.
 
-        param fp_json: filepath to JSON with arduino specific settings
+        param fp_json: filepath to JSON with arduino specific settings.
         """
 
         # load json file
@@ -63,9 +63,9 @@ class ArduinoConnection(metaclass=Singleton):
 
     def parse_config_JSON(self, config):
         """
-        parse the config json file
+        parse the config json file.
 
-        param config_file: JSON dictionary with arduino specific settings
+        param config_file: JSON dictionary with arduino specific settings.
         """
 
         # get mapping of motor coord to id
@@ -84,7 +84,7 @@ class ArduinoConnection(metaclass=Singleton):
 
     def find_arduino_port(self) -> Any:
         """
-        finds the first port with an arduino connected with known serial number
+        finds the first port with an arduino connected with known serial number.
         """
 
         # run through ports to find matching serial-number
@@ -99,13 +99,13 @@ class ArduinoConnection(metaclass=Singleton):
 
     def send_pattern(self, pattern_JSON: Dict[str, Any]):
         """
-        Send a phoneme pattern to arduino
+        Send a phoneme pattern to arduino.
         """
 
         # check if connection is configured
         if not self.configured:
             raise Exception("ArduinoConnection.send_pattern: Illegal state, "
-                            "attempt to send pattern to arduino without it being configured")
+                            "attempt to send pattern to arduino without it being configured.")
 
         # deep copy json as to prevent overwriting mapping
         mapped_pattern_JSON = copy.deepcopy(pattern_JSON)
@@ -122,13 +122,13 @@ class ArduinoConnection(metaclass=Singleton):
 
     def query(self, message: str) -> str:
         """
-        Generic string query to the arduino
+        Generic string query to the arduino.
         """
 
         # check if configured
         if not self.configured:
             raise Exception("ArduinoConnection.query: Illegal state, "
-                            "attempt to send pattern to arduino without it being configured")
+                            "attempt to send pattern to arduino without it being configured.")
 
         # Send message to Arduino.
         if not self.debug:
@@ -144,7 +144,7 @@ class ArduinoConnection(metaclass=Singleton):
                 arduino_log = "ArduinoConnection.query: Arduino could not be obtained."
 
         else:
-            Logger.log_info("ArduinoConnection.query: A query would have now arrived at the arduino")
+            Logger.log_info("ArduinoConnection.query: A query would have now arrived at the arduino.")
             arduino_log = "Debug log"
 
         return arduino_log

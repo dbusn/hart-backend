@@ -15,7 +15,7 @@ class AbstractEvent(ABC):
     def handle(self, request_data: AbstractRequest) -> AbstractRequest:
         """
         Handles the event based on the given data.
-        :param request_data:    Data that has to be handled by the event
+        :param request_data:    Data that has to be handled by the event.
         """
         pass
 
@@ -23,7 +23,7 @@ class AbstractEvent(ABC):
     @abstractmethod
     def get_priority() -> int:
         """
-        Returns the priority of the event (higher means more priority and thus executed earlier)
+        Returns the priority of the event (higher means more priority and thus executed earlier).
         """
         pass
 
