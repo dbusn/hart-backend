@@ -1,18 +1,14 @@
 # backend
 
-Install requirements with `pip install -r /path/to/requirements.txt`
+Install requirements with `pip install -r /path/to/requirements.txt`.
+
+Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src/modules/ffmpeg` folder.
 
 ## Running the application
 ### Development mode
 For running the application in development mode
 1. Set the environment variables `FLASK_ENV=development` and `FLASK_APP=app.py` (on Windows this is done by `set <varname>=<varvalue>`)
-2. Set the PRODUCTION boolean in definitions.py to `False`
-3. Run the app with `flask run`
-
-### Production mode (not distribution)
-For running the application in production mode
-1. Set the environment variables `FLASK_ENV=production` and `FLASK_APP=app.py` (on Windows this is done by `set <varname>=<varvalue>`)
-2. Set the PRODUCTION boolean in definitions.py to `TRUE`
+2. Make sure the DISTRIBUTION boolean in definitions.py is set to `False`
 3. Run the app with `flask run`
 
 ## Creating distribution
@@ -20,9 +16,14 @@ For running the application in production mode
 2. Put the `index.html` just generated in the `templates` folder in the backend.
 3. Put the rest of the generated frontend files in the `static` folder in the backend.
 4. Change the links in the `index.html` referring to js/img/css files by adding the prefix `static/`
-5. Change the `PRODUCTION` boolean in the `definitions.py` file to `True`.
+5. Change the `DISTRIBUTION` boolean in the `definitions.py` file to `True`.
 6. (optional) Change the `debug` option in the `arduino_config.json`. 
-7. Generate the distribution using the command `pyinstaller --add-data "resources;resources" --add-data "templates;templates" --add-data "static;static" app.py`
+7. Create a custom additional hook for pyinstaller regarding the `grpc` library. You can do this by going to your environment, in which pyinstaller is installed. Within the pyinstaller folder, go to `hooks/` and create a new file called `hook-grpc.py` in there with the code:
+    ```python
+    from PyInstaller.utils.hooks import collect_data_files
+    datas = collect_data_files ( 'grpc' )
+    ```
+8. Generate the distribution using the command `pyinstaller --add-data "resources;resources" --add-data "templates;templates" --add-data "static;static" --add-data "src/modules/ffmpeg;src/modules/ffmpeg" --icon="static\favicon.ico" app.py app.py`
 
 # API Specification
 
@@ -128,6 +129,104 @@ RESULT:
         },
     ]}, 
     200 if OK
+
+</details>
+
+<details>
+<summary>/microcontroller/sentences</summary>
+
+Send a list of sentences to the arduino, returns the translation and fires microcontroller.
+
+REQUEST:
+
+    POST /api/v1/microcontroller/sentences
+
+BODY
+
+    {'sentences': ['This is sentence one.', 'This is sentence two.'], 'language': 'language abbreviated string'}
+The 'language abbreviated string' can be either
+1. 'en' for English
+2. 'nl' for Dutch
+3. 'de' for German
+4. 'fr' for French
+5. 'ru' for Russian
+
+RESULT:
+
+    {
+        "sentences" : ["This is sentence one", "This is sentence two"],
+        "translation" : ["Translation of sentence one", "Translation of sentence two"]
+    }, 
+    200 if OK
+
+</details>
+
+<details>
+<summary>/microcontroller/audiopath</summary>
+
+Send an audiopath of a file, fires microcontroller, and return transcription and translation.
+
+REQUEST:
+
+    POST /api/v1/microcontroller/audiopath
+
+BODY
+
+    {
+        'path': 'C:\Users\user\Documents\file.flac'
+        'source_language' : 'nl'
+        'target_language' : 'en'
+    }
+
+EXAMPLE CURL (windows)
+
+    curl -H "Content-Type: application/json" -d "{ \"path\": \"C:\\Projects\\tryout\\sound1channel.flac\", \"source_language\": \"nl\", \"target_language\": \"en\" }" http://localhost:5000/api/v1/microcontroller/audiopath
+
+RESULT:
+
+    {
+        "transcription" : ["This is sentence one", "This is sentence two"],
+        "translation" : ["Translation of sentence one", "Translation of sentence two"]
+    }, 
+    200 if OK
+
+</details>
+
+<details>
+<summary>/microcontroller/audiofile</summary>
+
+Send an audiofile, fires microcontroller, and return transcription and translation. This request is a bit different, as it is not a json post, but a multipart form. This multipart form contains two fields, one which is the audiofile in bytes, the second one which is the parameters in a json dumped to string. See the curl / body.
+
+REQUEST:
+
+    POST /api/v1/microcontroller/audiofile
+
+BODY
+
+    <form action="/microcontroller/audiofile" method="post" enctype="multipart/form-data">
+    File: <input type="file" name="file"><br>
+    Data: <input type="text" name="data"><br>
+    <input type="submit" value="Submit">
+    </form>
+
+EXAMPLE PYTHON REQUEST (cus curl would be a bitch for this one)
+
+    file = open(FILE_PATH, "rb")
+	data = {"source_language": "nl", "target_language": "en", "type": "audio/flac"}
+    # package stuff to send and perform POST request
+	values = {"file": (FILE_PATH, file, "audio/flac"),
+			"data" : ('data', json.dumps(data), 'application/json')}
+	
+	response = requests.post(URL, files=values)
+
+RESULT:
+
+    {
+        "transcription" : ["This is sentence one", "This is sentence two"],
+        "translation" : ["Translation of sentence one", "Translation of sentence two"]
+    }, 
+    200 if OK
+
 
 </details>
 

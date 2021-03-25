@@ -42,8 +42,7 @@ class PhonemeDecompositionEvent(AbstractEvent):
                 try:
                     # Try to transform the word into phonemes using the Arpabet and add it to the list
                     arpabet_return = arpabet[str(word).lower()]
-                    Logger.log_info("Sentence was decomposed to following (CMU) phonemes")
-                    Logger.log_info(arpabet_return)
+                    Logger.log_info("'" + str(word) + "' was decomposed to (CMU) phonemes " + str(arpabet_return))
 
                     # all the valid decompositions (consisting of CMU phonemes coupled to Reeds)
                     valid_decompositions = []
@@ -71,11 +70,12 @@ class PhonemeDecompositionEvent(AbstractEvent):
 
                     # check if there are valid decompositions
                     if len(valid_decompositions) == 0:
-                        raise KeyError("No decompositions in CMU Phonemes with Reed equivalent")
+                        Logger.log_warning("PhonemeDecompositionEvent.handle: Word '" + str(word).lower()
+                                       + "' has no decompositions in CMU Phonemes with Reed equivalent")
 
                     # set phoneme translation to request data
                     sentence_decomposition.append(valid_decompositions)
-                except KeyError:
+                except KeyError as e:
                     # If the word is not in the Arpabet/ no valid decompositions, continue processing, but log warning
                     Logger.log_warning("PhonemeDecompositionEvent.handle: Word '" + str(word).lower()
                                        + "' was not found in Arpabet dictionary.")
