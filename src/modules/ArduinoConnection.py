@@ -112,10 +112,10 @@ class ArduinoConnection(metaclass=Singleton):
 
         # map from coords to ids
         for i in range(len(mapped_pattern_JSON['pattern'])):
-            for j in range(len(mapped_pattern_JSON['pattern'][i]['pins'])):
-                # translate coordinate of pin (in pattern json) to ids of pins of arduino (in config json)
-                mapped_pattern_JSON['pattern'][i]['pins'][j]['pin'] = self.mapping[
-                    mapped_pattern_JSON['pattern'][i]['pins'][j]['pin']]
+            for j in range(len(mapped_pattern_JSON['pattern'][i]['iteration'])):
+                # translate coordinate (in pattern json) to ids of iteration of arduino (in config json)
+                mapped_pattern_JSON['pattern'][i]['iteration'][j]['coord'] = self.mapping[
+                    mapped_pattern_JSON['pattern'][i]['iteration'][j]['coord']]
 
         # send to arduino
         self.query(json.dumps(mapped_pattern_JSON, indent=4, sort_keys=True))
