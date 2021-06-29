@@ -1,271 +1,254 @@
 {
     "pattern": [
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 36,
-                    "pwm": 80
+                    "coord": 36,
+                    "amplitude": 204,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 35,
-                    "pwm": 80
+                    "coord": 35,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 36,
-                    "pwm": 60
+                    "coord": 36,
+                    "amplitude": 153,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 34,
-                    "pwm": 80
+                    "coord": 34,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 35,
-                    "pwm": 60
+                    "coord": 35,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 36,
-                    "pwm": 50
+                    "coord": 36,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 44,
-                    "pwm": 80
+                    "coord": 44,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 34,
-                    "pwm": 60
+                    "coord": 34,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 35,
-                    "pwm": 50
-                },
-                {
-                    "pin": 36,
-                    "pwm": 0
+                    "coord": 35,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 45,
-                    "pwm": 80
+                    "coord": 45,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 44,
-                    "pwm": 60
+                    "coord": 44,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 34,
-                    "pwm": 50
-                },
-                {
-                    "pin": 35,
-                    "pwm": 0
+                    "coord": 34,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 46,
-                    "pwm": 80
+                    "coord": 46,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 45,
-                    "pwm": 60
+                    "coord": 45,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 44,
-                    "pwm": 50
-                },
-                {
-                    "pin": 34,
-                    "pwm": 0
+                    "coord": 44,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 36,
-                    "pwm": 80
+                    "coord": 36,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 46,
-                    "pwm": 60
+                    "coord": 46,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 45,
-                    "pwm": 50
-                },
-                {
-                    "pin": 44,
-                    "pwm": 0
+                    "coord": 45,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 35,
-                    "pwm": 80
+                    "coord": 35,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 36,
-                    "pwm": 60
+                    "coord": 36,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 46,
-                    "pwm": 50
-                },
-                {
-                    "pin": 45,
-                    "pwm": 0
+                    "coord": 46,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 34,
-                    "pwm": 80
+                    "coord": 34,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 35,
-                    "pwm": 60
+                    "coord": 35,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 36,
-                    "pwm": 50
-                },
-                {
-                    "pin": 46,
-                    "pwm": 0
+                    "coord": 36,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 44,
-                    "pwm": 80
+                    "coord": 44,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 34,
-                    "pwm": 60
+                    "coord": 34,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 35,
-                    "pwm": 50
-                },
-                {
-                    "pin": 36,
-                    "pwm": 0
+                    "coord": 35,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 45,
-                    "pwm": 80
+                    "coord": 45,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 44,
-                    "pwm": 60
+                    "coord": 44,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 34,
-                    "pwm": 50
-                },
-                {
-                    "pin": 35,
-                    "pwm": 0
+                    "coord": 34,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 46,
-                    "pwm": 80
+                    "coord": 46,
+                    "amplitude": 204,
+                    "frequency": 300
                 },
                 {
-                    "pin": 45,
-                    "pwm": 60
+                    "coord": 45,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 44,
-                    "pwm": 50
-                },
-                {
-                    "pin": 34,
-                    "pwm": 0
+                    "coord": 44,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 46,
-                    "pwm": 60
+                    "coord": 46,
+                    "amplitude": 153,
+                    "frequency": 300
                 },
                 {
-                    "pin": 45,
-                    "pwm": 50
-                },
-                {
-                    "pin": 44,
-                    "pwm": 0
+                    "coord": 45,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
+            "time": 35
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 46,
-                    "pwm": 50
-                },
-                {
-                    "pin": 45,
-                    "pwm": 0
+                    "coord": 46,
+                    "amplitude": 128,
+                    "frequency": 300
                 }
             ],
-            "time": 120
-        },
-        {
-            "pins": [
-                {
-                    "pin": 46,
-                    "pwm": 0
-                }
-            ],
-            "time": 120
+            "time": 35
         }
     ]
 }

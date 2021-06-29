@@ -1,130 +1,89 @@
 {
     "pattern": [
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 15,
-                    "pwm": 100
+                    "coord": 15,
+                    "amplitude": 255,
+                    "frequency": 60
                 },
                 {
-                    "pin": 16,
-                    "pwm": 100
+                    "coord": 16,
+                    "amplitude": 255,
+                    "frequency": 60
                 },
                 {
-                    "pin": 25,
-                    "pwm": 100
+                    "coord": 25,
+                    "amplitude": 255,
+                    "frequency": 60
                 },
                 {
-                    "pin": 26,
-                    "pwm": 100
-                }
-            ],
-            "time": 250
-        },
-        {
-            "pins": [
-                {
-                    "pin": 15,
-                    "pwm": 0
-                },
-                {
-                    "pin": 16,
-                    "pwm": 0
-                },
-                {
-                    "pin": 25,
-                    "pwm": 0
-                },
-                {
-                    "pin": 26,
-                    "pwm": 0
+                    "coord": 26,
+                    "amplitude": 255,
+                    "frequency": 60
                 }
             ],
             "time": 100
         },
         {
-            "pins": [
-                {
-                    "pin": 15,
-                    "pwm": 100
-                },
-                {
-                    "pin": 16,
-                    "pwm": 100
-                },
-                {
-                    "pin": 25,
-                    "pwm": 100
-                },
-                {
-                    "pin": 26,
-                    "pwm": 100
-                }
+            "iteration": [
             ],
-            "time": 250
+            "time": 50
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 15,
-                    "pwm": 0
+                    "coord": 15,
+                    "amplitude": 255,
+                    "frequency": 60
                 },
                 {
-                    "pin": 16,
-                    "pwm": 0
+                    "coord": 16,
+                    "amplitude": 255,
+                    "frequency": 60
                 },
                 {
-                    "pin": 25,
-                    "pwm": 0
+                    "coord": 25,
+                    "amplitude": 255,
+                    "frequency": 60
                 },
                 {
-                    "pin": 26,
-                    "pwm": 0
+                    "coord": 26,
+                    "amplitude": 255,
+                    "frequency": 60
                 }
             ],
             "time": 100
         },
         {
-            "pins": [
-                {
-                    "pin": 15,
-                    "pwm": 100
-                },
-                {
-                    "pin": 16,
-                    "pwm": 100
-                },
-                {
-                    "pin": 25,
-                    "pwm": 100
-                },
-                {
-                    "pin": 26,
-                    "pwm": 100
-                }
+            "iteration": [
             ],
-            "time": 250
+            "time": 50
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 15,
-                    "pwm": 0
+                    "coord": 15,
+                    "amplitude": 255,
+                    "frequency": 60
                 },
                 {
-                    "pin": 16,
-                    "pwm": 0
+                    "coord": 16,
+                    "amplitude": 255,
+                    "frequency": 60
                 },
                 {
-                    "pin": 25,
-                    "pwm": 0
+                    "coord": 25,
+                    "amplitude": 255,
+                    "frequency": 60
                 },
                 {
-                    "pin": 26,
-                    "pwm": 0
+                    "coord": 26,
+                    "amplitude": 255,
+                    "frequency": 60
                 }
             ],
-            "time": 0
+            "time": 100
         }
     ]
 }

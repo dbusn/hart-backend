@@ -1,172 +1,119 @@
 {
     "pattern": [
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 31,
-                    "pwm": 100
+                    "coord": 31,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 32,
-                    "pwm": 100
+                    "coord": 32,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 41,
-                    "pwm": 100
+                    "coord": 41,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 42,
-                    "pwm": 100
+                    "coord": 42,
+                    "amplitude": 255,
+                    "frequency": 300
                 }
             ],
-            "time": 150
+            "time": 75
         },
         {
-            "pins": [
-                {
-                    "pin": 31,
-                    "pwm": 0
-                },
-                {
-                    "pin": 32,
-                    "pwm": 0
-                },
-                {
-                    "pin": 41,
-                    "pwm": 0
-                },
-                {
-                    "pin": 42,
-                    "pwm": 0
-                }
+            "iteration": [
             ],
-            "time": 50
+            "time": 33
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 31,
-                    "pwm": 100
+                    "coord": 31,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 32,
-                    "pwm": 100
+                    "coord": 32,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 41,
-                    "pwm": 100
+                    "coord": 41,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 42,
-                    "pwm": 100
+                    "coord": 42,
+                    "amplitude": 255,
+                    "frequency": 300
                 }
             ],
-            "time": 100
+            "time": 75
         },
         {
-            "pins": [
-                {
-                    "pin": 31,
-                    "pwm": 0
-                },
-                {
-                    "pin": 32,
-                    "pwm": 0
-                },
-                {
-                    "pin": 41,
-                    "pwm": 0
-                },
-                {
-                    "pin": 42,
-                    "pwm": 0
-                }
+            "iteration": [
             ],
-            "time": 50
+            "time": 33
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 31,
-                    "pwm": 100
+                    "coord": 31,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 32,
-                    "pwm": 100
+                    "coord": 32,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 41,
-                    "pwm": 100
+                    "coord": 41,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 42,
-                    "pwm": 100
+                    "coord": 42,
+                    "amplitude": 255,
+                    "frequency": 300
                 }
             ],
-            "time": 100
+            "time": 75
         },
         {
-            "pins": [
-                {
-                    "pin": 31,
-                    "pwm": 0
-                },
-                {
-                    "pin": 32,
-                    "pwm": 0
-                },
-                {
-                    "pin": 41,
-                    "pwm": 0
-                },
-                {
-                    "pin": 42,
-                    "pwm": 0
-                }
+            "iteration": [
             ],
-            "time": 50
+            "time": 33
         },
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 31,
-                    "pwm": 100
+                    "coord": 31,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 32,
-                    "pwm": 100
+                    "coord": 32,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 41,
-                    "pwm": 100
+                    "coord": 41,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 42,
-                    "pwm": 100
+                    "coord": 42,
+                    "amplitude": 255,
+                    "frequency": 300
                 }
             ],
-            "time": 100
-        },
-        {
-            "pins": [
-                {
-                    "pin": 31,
-                    "pwm": 0
-                },
-                {
-                    "pin": 32,
-                    "pwm": 0
-                },
-                {
-                    "pin": 41,
-                    "pwm": 0
-                },
-                {
-                    "pin": 42,
-                    "pwm": 0
-                }
-            ],
-            "time": 0
+            "time": 75
         }
     ]
 }
