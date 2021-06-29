@@ -139,42 +139,42 @@
             "iteration": [
                 {
                     "coord": 14,
-                    "amplitude": 100,
+                    "amplitude": 255,
                     "frequency": 60
                 },
                 {
                     "coord": 15,
-                    "amplitude": 100,
+                    "amplitude": 255,
                     "frequency": 60
                 },
                 {
                     "coord": 24,
-                    "amplitude": 100,
+                    "amplitude": 255,
                     "frequency": 60
                 },
                 {
                     "coord": 25,
-                    "amplitude": 100,
+                    "amplitude": 255,
                     "frequency": 60
                 },
                 {
                     "coord": 34,
-                    "amplitude": 100,
+                    "amplitude": 255,
                     "frequency": 60
                 },
                 {
                     "coord": 35,
-                    "amplitude": 100,
+                    "amplitude": 255,
                     "frequency": 60
                 },
                 {
                     "coord": 44,
-                    "amplitude": 100,
+                    "amplitude": 255,
                     "frequency": 60
                 },
                 {
                     "coord": 45,
-                    "amplitude": 100,
+                    "amplitude": 255,
                     "frequency": 60
                 }
             ],
