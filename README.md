@@ -9,7 +9,8 @@ Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and
 For running the application in development mode
 1. Set the environment variables `FLASK_ENV=development` and `FLASK_APP=app.py` (on Windows this is done by `set <varname>=<varvalue>`)
 2. Make sure the DISTRIBUTION boolean in definitions.py is set to `False`
-3. Run the app with `flask run`
+3. Configure the `CONNECTED_VIA_BLUETOOTH` boolean correctly within definitions.py for your use case.
+4. Run the app with `flask run`
 
 ## Creating distribution
 1. build the frontend with `npm run build`
