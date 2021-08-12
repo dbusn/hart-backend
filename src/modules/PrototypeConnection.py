@@ -68,6 +68,8 @@ class PrototypeConnection(metaclass=Singleton):
                 Logger.log_info("Connection is open: " + str(self.device.is_open))
             except Exception as e:
                 Logger.log_warning("Prototype connection NOT successfully created! " + str(e))
+                if CONNECTED_VIA_BLUETOOTH:
+                    Logger.log_warning("For the bluetooth connection it might help to restart the prototype.")
                 self.configured = False
                 return
 
