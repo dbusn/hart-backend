@@ -1,13 +1,17 @@
 {
-    "description" : "config settings for the arduino",
+    "description" : "config settings for the prototype",
     "mode" : "deug",
     "baudrate" : 115200,
     "serial_numbers" : [
         "A9LTHTFV", 
         "55838333932351C0C191",
         "5&34816366&0&1",
+        "9586730",
         "9004780"
         ],
+    "known_bluetooth_mac_addresses": [
+        "00:19:08:36:22:1B"
+    ],
     "mapping" : [
         { 
             "coord" : 11,

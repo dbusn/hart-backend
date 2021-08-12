@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 from definitions import DISTRIBUTION, RESOURCES
 from src.handlers.Dispatcher import Dispatcher
-from src.modules.ArduinoConnection import ArduinoConnection
+from src.modules.PrototypeConnection import PrototypeConnection
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 from src.helpers.Logger import Logger
 
@@ -33,7 +33,7 @@ if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
     dispatcher = Dispatcher()
 
     # config singleton ArduinoConnection
-    ArduinoConnection().connect_with_config(os.path.join(RESOURCES, 'arduino_config.json'))
+    PrototypeConnection().connect_with_config(os.path.join(RESOURCES, 'prototype_config.json'))
 
     # Check if google api is working correctly
     GoogleApiWrapper(credentials_path=os.path.join(RESOURCES, 'gcloud_credentials.json'))

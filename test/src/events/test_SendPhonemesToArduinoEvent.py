@@ -1,19 +1,19 @@
-from src.events.SendPhonemesToArduinoEvent import SendPhonemesToArduinoEvent
+from src.events.SendPhonemesToPrototypeEvent import SendPhonemesToPrototypeEvent
 from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
-from src.modules.ArduinoConnection import ArduinoConnection
+from src.modules.PrototypeConnection import PrototypeConnection
 
 from definitions import ROOT_DIR
 
 import os
 
-connection = ArduinoConnection()\
+connection = PrototypeConnection()\
                 .connect_with_config(os.path.join(ROOT_DIR, 'test', 'resources', 'arduino_config_test.json'))
 
 
 def test_handle_basic_case_1():
     ptr = PhonemeTransformRequest(phonemes=["H"])
 
-    request_data = SendPhonemesToArduinoEvent().handle(ptr)
+    request_data = SendPhonemesToPrototypeEvent().handle(ptr)
 
     print(request_data.sent_phonemes)
 
