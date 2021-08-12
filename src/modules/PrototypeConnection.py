@@ -63,6 +63,7 @@ class PrototypeConnection(metaclass=Singleton):
                     port = self.find_outgoing_communication_port()
 
                 Logger.log_info("Connecting to port: " + port)
+
                 self.device = serial.Serial(port, baudrate=self.baudrate, timeout=1)
                 Logger.log_info("Connection is open: " + str(self.device.is_open))
             except Exception as e:
@@ -71,6 +72,9 @@ class PrototypeConnection(metaclass=Singleton):
                 return
 
         self.configured = True
+
+    def close_connection(self):
+        self.device.close()
 
     def parse_config_JSON(self, config):
         """
