@@ -9,7 +9,7 @@ from typing import List
 
 class SendPhonemesToPrototypeEvent(AbstractEvent):
     """
-    Event that sends given phonemes to arduino.
+    Event that sends given phonemes to prototype.
 
     expects request_data to have attribute "phonemes" which is a 3 dimensional list of strings:
     list of words, with every word being a list of decomposition, with each decomposition being list of phoneme-strings.
@@ -45,12 +45,12 @@ class SendPhonemesToPrototypeEvent(AbstractEvent):
                             i += 1
                             break
 
-                # if a valid deconstruction is found, send it to the arduino
+                # if a valid deconstruction is found, send it to the prototype
                 if valid_deconstruction:
                     Logger.log_info("SendPhonemesToPrototypeEvent.handle: Sending word consisting of phonemes {}"
                                     .format(word[i]))
 
-                    # send phonemes to the arduino
+                    # send phonemes to the prototype
                     for phoneme in word[i]:
                         PrototypeConnection().send_pattern(request_data.phoneme_patterns[phoneme])
                         # add the fulfilled effect to the result field

@@ -40,7 +40,7 @@ if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
     # Initialize dispatcher
     dispatcher = Dispatcher()
 
-    # config singleton ArduinoConnection
+    # config singleton PrototypeConnection
     PrototypeConnection().connect_with_config(os.path.join(RESOURCES, 'prototype_config.json'))
 
     # Check if google api is working correctly

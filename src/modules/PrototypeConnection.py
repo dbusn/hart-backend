@@ -88,12 +88,12 @@ class PrototypeConnection(metaclass=Singleton):
         for pair in config['mapping']:
             self.mapping[pair['coord']] = pair['id']
 
-        # serials of known arduinos
+        # serials of known microcontrollers
         self.serials = config['serial_numbers']
 
         self.known_bluetooth_mac_addresses = config['known_bluetooth_mac_addresses']
 
-        # baudrate that is used in arduino
+        # baudrate that is used in prototype
         self.baudrate = config['baudrate']
 
         # debug mode or not
@@ -116,7 +116,7 @@ class PrototypeConnection(metaclass=Singleton):
 
     def send_pattern(self, pattern_JSON: Dict[str, Any]):
         """
-        Send a phoneme pattern to arduino.
+        Send a phoneme pattern to prototype.
         """
 
         # check if connection is configured
@@ -130,39 +130,39 @@ class PrototypeConnection(metaclass=Singleton):
         # map from coords to ids
         for i in range(len(mapped_pattern_JSON['pattern'])):
             for j in range(len(mapped_pattern_JSON['pattern'][i]['iteration'])):
-                # translate coordinate (in pattern json) to ids of iteration of arduino (in config json)
+                # translate coordinate (in pattern json) to ids of iteration of prototype (in config json)
                 mapped_pattern_JSON['pattern'][i]['iteration'][j]['coord'] = self.mapping[
                     mapped_pattern_JSON['pattern'][i]['iteration'][j]['coord']]
 
-        # send to arduino
+        # send to prototype
         self.query(json.dumps(mapped_pattern_JSON, indent=4, sort_keys=True))
 
     def query(self, message: str) -> str:
         """
-        Generic string query to the arduino.
+        Generic string query to the prototype.
         """
 
         # check if configured
         if not self.configured:
             raise Exception("PrototypeConnection.query: Illegal state, "
-                            "attempt to send pattern to arduino without it being configured.")
+                            "attempt to send pattern to prototype without it being configured.")
 
-        # Send message to Arduino.
+        # Send message to prototype.
         if not self.debug:
             try:
 
                 self.device.write(message.encode('ascii'))
 
-                # Make sure the Arduino always gives an output, otherwise Python will wait forever.
+                # Make sure the prototype always gives an output, otherwise Python will wait forever.
                 prototype_log = self.device.readline().strip().decode('ascii', errors="ignore")
-                Logger.log_info("Arduino says: " + prototype_log)
+                Logger.log_info("Prototype says: " + prototype_log)
             except Exception as e:
                 Logger.log_warning(
                     "PrototypeConnection.query: error occurred during sending. Complete error: " + str(e))
-                prototype_log = "PrototypeConnection.query: Arduino could not be obtained."
+                prototype_log = "PrototypeConnection.query: Prototype could not be obtained."
 
         else:
-            Logger.log_info("PrototypeConnection.query: A query would have now arrived at the arduino.")
+            Logger.log_info("PrototypeConnection.query: A query would have now arrived at the prototype.")
             prototype_log = "Debug log"
 
         return prototype_log

@@ -1,5 +1,5 @@
 {
-    "description" : "config settings for the arduino",
+    "description" : "config settings for the prototype",
     "mode" : "debug",
     "baudrate" : 115200,
     "serial_numbers" : [

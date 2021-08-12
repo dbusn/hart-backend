@@ -7,7 +7,7 @@ from definitions import ROOT_DIR
 import os
 
 connection = PrototypeConnection()\
-                .connect_with_config(os.path.join(ROOT_DIR, 'test', 'resources', 'arduino_config_test.json'))
+                .connect_with_config(os.path.join(ROOT_DIR, 'test', 'resources', 'prototype_config_test.json'))
 
 
 def test_handle_basic_case_1():
