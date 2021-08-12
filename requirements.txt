@@ -47,7 +47,7 @@ protobuf==3.14.0
 py==1.10.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-PyBluez==0.23
+PyBluez==0.30
 pycparser==2.20
 pyinstaller==4.1
 pyinstaller-hooks-contrib==2020.11
