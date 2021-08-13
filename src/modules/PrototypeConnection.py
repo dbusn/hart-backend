@@ -85,7 +85,8 @@ class PrototypeConnection(metaclass=Singleton):
         self.configured = True
 
     def close_connection(self):
-        self.device.close()
+        if self.device:
+            self.device.close()
 
     def parse_config_JSON(self, config):
         """
