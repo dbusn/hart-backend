@@ -33,6 +33,9 @@ class PrototypeConnection(metaclass=Singleton):
     # list of serials of known microcontrollers (should include current connected microcontroller)
     serials: List[str]
 
+    #  Stores the COM port for connecting with bluetooth if done manually
+    com_port: str
+
     # list of known MAC addresses of HC-05 bluetooth module chips
     known_bluetooth_mac_addresses: List[str]
 
@@ -57,11 +60,14 @@ class PrototypeConnection(metaclass=Singleton):
         if not self.debug:
             try:
                 if CONNECTED_VIA_BLUETOOTH:
-                    if len(self.known_bluetooth_mac_addresses) == 1:
-                        mac = self.known_bluetooth_mac_addresses[0]
+                    if self.com_port is None:
+                        if len(self.known_bluetooth_mac_addresses) == 1:
+                            mac = self.known_bluetooth_mac_addresses[0]
+                        else:
+                            mac = self.find_in_reach_bluetooth_known_mac()
+                        port = self.get_spp_com_port(mac)
                     else:
-                        mac = self.find_in_reach_bluetooth_known_mac()
-                    port = self.get_spp_com_port(mac)
+                        port = self.com_port
                 else:
                     port = self.find_outgoing_communication_port()
 
@@ -96,7 +102,11 @@ class PrototypeConnection(metaclass=Singleton):
         # serials of known microcontrollers
         self.serials = config['serial_numbers']
 
+        # Reads known bluetooth mac addresses
         self.known_bluetooth_mac_addresses = config['known_bluetooth_mac_addresses']
+
+        # Reads (possible) manually set bluetooth com port
+        self.com_port = config['bluetooth_com_port']
 
         # baudrate that is used in prototype
         self.baudrate = config['baudrate']
