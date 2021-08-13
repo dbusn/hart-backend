@@ -57,7 +57,10 @@ class PrototypeConnection(metaclass=Singleton):
         if not self.debug:
             try:
                 if CONNECTED_VIA_BLUETOOTH:
-                    mac = self.find_in_reach_bluetooth_known_mac()
+                    if len(self.known_bluetooth_mac_addresses) == 1:
+                        mac = self.known_bluetooth_mac_addresses[0]
+                    else:
+                        mac = self.find_in_reach_bluetooth_known_mac()
                     port = self.get_spp_com_port(mac)
                 else:
                     port = self.find_outgoing_communication_port()
