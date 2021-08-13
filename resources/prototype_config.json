@@ -12,6 +12,7 @@
     "known_bluetooth_mac_addresses": [
         "00:19:08:36:22:1B"
     ],
+    "bluetooth_com_port": null,
     "mapping" : [
         { 
             "coord" : 11,
