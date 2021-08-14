@@ -1,11 +1,12 @@
 import os
+import atexit
 
 from flask import Flask, render_template
 from flask_cors import CORS
 
 from definitions import DISTRIBUTION, RESOURCES
 from src.handlers.Dispatcher import Dispatcher
-from src.modules.ArduinoConnection import ArduinoConnection
+from src.modules.PrototypeConnection import PrototypeConnection
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 from src.helpers.Logger import Logger
 
@@ -23,6 +24,13 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 
+def close_prototype_connection():
+    PrototypeConnection().close_connection()
+
+
+atexit.register(close_prototype_connection)
+
+
 app = Flask(__name__)
 CORS(app)
 
@@ -32,8 +40,8 @@ if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
     # Initialize dispatcher
     dispatcher = Dispatcher()
 
-    # config singleton ArduinoConnection
-    ArduinoConnection().connect_with_config(os.path.join(RESOURCES, 'arduino_config.json'))
+    # config singleton PrototypeConnection
+    PrototypeConnection().connect_with_config(os.path.join(RESOURCES, 'prototype_config.json'))
 
     # Check if google api is working correctly
     GoogleApiWrapper(credentials_path=os.path.join(RESOURCES, 'gcloud_credentials.json'))

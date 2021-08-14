@@ -9,7 +9,8 @@ Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and
 For running the application in development mode
 1. Set the environment variables `FLASK_ENV=development` and `FLASK_APP=app.py` (on Windows this is done by `set <varname>=<varvalue>`)
 2. Make sure the DISTRIBUTION boolean in definitions.py is set to `False`
-3. Run the app with `flask run`
+3. Configure the `CONNECTED_VIA_BLUETOOTH` boolean correctly within definitions.py for your use case.
+4. Run the app with `flask run`
 
 ## Creating distribution
 1. build the frontend with `npm run build`
@@ -17,7 +18,7 @@ For running the application in development mode
 3. Put the rest of the generated frontend files in the `static` folder in the backend.
 4. Change the links in the `index.html` referring to js/img/css files by adding the prefix `static/`
 5. Change the `DISTRIBUTION` boolean in the `definitions.py` file to `True`.
-6. (optional) Change the `debug` option in the `arduino_config.json`. 
+6. (optional) Change the `debug` option in the `prototype_config.json`. 
 7. Create a custom additional hook for pyinstaller regarding the `grpc` library. You can do this by going to your environment, in which pyinstaller is installed. Within the pyinstaller folder, go to `hooks/` and create a new file called `hook-grpc.py` in there with the code:
     ```python
     from PyInstaller.utils.hooks import collect_data_files
@@ -101,7 +102,7 @@ RESULT:
 <details>
 <summary>/microcontroller/words</summary>
 
-Send a list of words to the arduino, returns the phoneme breakdown.
+Send a list of words to the prototype, returns the phoneme breakdown.
 
 REQUEST:
 
@@ -135,7 +136,7 @@ RESULT:
 <details>
 <summary>/microcontroller/sentences</summary>
 
-Send a list of sentences to the arduino, returns the translation and fires microcontroller.
+Send a list of sentences to the prototype, returns the translation and fires microcontroller.
 
 REQUEST:
 
@@ -270,9 +271,9 @@ Transforms an English sentence into phonemes
 </details>
 
 <details>
-<summary>SendPhonemesToArduinoEvent</summary>
+<summary>SendPhonemesToPrototypeEvent</summary>
 
-Event that sends given phonemes to arduino
+Event that sends given phonemes to prototype
 
 - Expects: 
     - _phonemes_, 3 dimensional list of strings: list of words, with every word being a list of decomposition, with each decomposition being list of phoneme-strings.
@@ -288,7 +289,7 @@ request_data attributes that the events expect/modify/create, and their specific
 - **sentences**: [ [ str ] ] 
 - **phoneme_patterns**: Dict[str : JSON] dictionary with  available (phoneme : json pattern) combinations
 - **phonemes**: [ [ [ [ str ] ] ] ] list of sentences, which are lists of words, with every word being a list of decomposition, with each decomposition being list of phoneme-strings. _created by PhonemeDecompositionEvent_
-- **sent_phonemes**:  [ [ str ] ] the decompositions that were sent to the arduino, _created by SendPhonemesToArduinoEvent_
+- **sent_phonemes**:  [ [ str ] ] the decompositions that were sent to the prototype, _created by SendPhonemesToPrototypeEvent_
 
 ## Making Event Chains
 
