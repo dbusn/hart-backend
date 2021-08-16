@@ -3,6 +3,7 @@ import atexit
 
 from flask import Flask, render_template
 from flask_cors import CORS
+from flask_socketio import SocketIO
 
 from definitions import DISTRIBUTION, RESOURCES
 from src.handlers.Dispatcher import Dispatcher
@@ -33,6 +34,7 @@ atexit.register(close_prototype_connection)
 
 app = Flask(__name__)
 CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
@@ -62,8 +64,12 @@ if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
     # Import routes
     from src.routes.Routes import *
 
+    # Import socket handlers
+    from src.routes.SocketHandlers import * 
+
 if __name__ == "__main__" and DISTRIBUTION:
     log.setLevel(logging.INFO)
     import webbrowser
     webbrowser.open("http://localhost:5000")
-    app.run(debug=False, use_reloader=False, threaded=True)
+    #app.run(debug=False, use_reloader=False, threaded=True)
+    socketio.run(app, debug=False, use_reloader=False, threaded=True, port=5000)
