@@ -39,6 +39,9 @@ class PrototypeConnection(metaclass=Singleton):
     # list of known MAC addresses of HC-05 bluetooth module chips
     known_bluetooth_mac_addresses: List[str]
 
+    # device object
+    device = None
+
     def __init__(self):
         pass
 
@@ -85,7 +88,7 @@ class PrototypeConnection(metaclass=Singleton):
         self.configured = True
 
     def close_connection(self):
-        if self.device:
+        if not self.device is None:
             self.device.close()
 
     def parse_config_JSON(self, config):
