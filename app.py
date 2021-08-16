@@ -1,5 +1,6 @@
 import os
 import atexit
+import threading
 
 from flask import Flask, render_template
 from flask_cors import CORS
@@ -34,7 +35,7 @@ atexit.register(close_prototype_connection)
 
 app = Flask(__name__)
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", threading=True)
 
 
 if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
@@ -72,4 +73,5 @@ if __name__ == "__main__" and DISTRIBUTION:
     import webbrowser
     webbrowser.open("http://localhost:5000")
     #app.run(debug=False, use_reloader=False, threaded=True)
-    socketio.run(app, debug=False, use_reloader=False, threaded=True, port=5000)
+    #socketio.run(app, debug=False, use_reloader=False, threaded=True, port=5000)
+    
