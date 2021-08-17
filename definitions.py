@@ -2,7 +2,7 @@ import os
 
 DISTRIBUTION = False
 
-CONNECTED_VIA_BLUETOOTH = True
+CONNECTED_VIA_BLUETOOTH = False
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))  # this is the project root
 

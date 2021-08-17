@@ -53,6 +53,8 @@ class SendPhonemesToPrototypeEvent(AbstractEvent):
                     # send phonemes to the prototype
                     for phoneme in word[i]:
                         PrototypeConnection().send_pattern(request_data.phoneme_patterns[phoneme])
+                        # TODO save data somewhere here to a database/csv
+
                         # add the fulfilled effect to the result field
                     request_data.sent_phonemes.append(word[i])
                 else:
