@@ -166,12 +166,23 @@ class PrototypeConnection(metaclass=Singleton):
         # Send message to prototype.
         if not self.debug:
             try:
+                self.device.flushInput()
 
-                self.device.write(message.encode('ascii'))
+                self.device.write(message.strip().encode())
 
                 # Make sure the prototype always gives an output, otherwise Python will wait forever.
-                prototype_log = self.device.readline().strip().decode('ascii', errors="ignore")
-                Logger.log_info("Prototype says: " + prototype_log)
+                prototype_log = self.device.readline().decode()
+
+                # Split the log for readability
+                prototype_log = prototype_log.split("\r")
+
+                # Flush input
+                self.device.flushInput()
+
+                # Log what the prototype has returned
+                Logger.log_info("Prototype says: ")
+                for log in prototype_log:
+                    Logger.log_info(log)
             except Exception as e:
                 Logger.log_warning(
                     "PrototypeConnection.query: error occurred during sending. Complete error: " + str(e))

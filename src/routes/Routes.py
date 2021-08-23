@@ -60,7 +60,7 @@ def send_phonemes():
         return message, 500
 
     # empty body return, success code
-    return 200
+    return "OK", 200
 
 
 # =============================================================================
