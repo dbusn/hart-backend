@@ -1,4 +1,8 @@
-import coloredlogs, logging
+import csv
+import coloredlogs
+import logging
+import os
+from typing import List
 coloredlogs.install()
 
 
@@ -18,3 +22,19 @@ class Logger:
     @staticmethod
     def log_error(text) -> None:
         logging.error(text)
+
+    @staticmethod
+    def save_activity(row : List, db="phonemes.csv") -> None:
+        folder = os.path.join(os.getcwd(), "Logging")
+        fp = os.path.join(folder, db)
+        if os.path.exists(folder):
+            if os.path.exists(fp):
+                with open(fp, "a") as f:
+                    csv.writer(f).writerow(row)
+            else:
+                with open(fp, "w") as f:
+                    csv.writer(f).writerow(row)
+        else:
+            os.mkdir(folder)
+            with open(fp, "w") as f:
+                csv.writer(f).writerow(row)

@@ -60,6 +60,8 @@ def check_specific_motor():
     data = request.json
     coord = data['coord']
 
+    Logger.save_activity(["a", "b"])
+
     PrototypeConnection().send_pattern(
         {
             "pattern": [
