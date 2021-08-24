@@ -2,6 +2,7 @@ import csv
 import coloredlogs
 import logging
 import os
+import datetime
 from typing import List
 coloredlogs.install()
 
@@ -25,6 +26,11 @@ class Logger:
 
     @staticmethod
     def save_activity(row : List, db="phonemes.csv") -> None:
+
+        # add timestamp
+        now = datetime.datetime.now()
+        row = [now.strftime("%Y-%m-%d %H:%M:%S")] + row
+
         folder = os.path.join(os.getcwd(), "Logging")
         fp = os.path.join(folder, db)
         if os.path.exists(folder):

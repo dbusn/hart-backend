@@ -118,9 +118,18 @@ def send_phonemes():
     # send to dispatcher
     try:
         dispatcher.handle(request_data)
+        # Save activity to Logger
+        row = [data['phonemes'], 'succes']
+        Logger.save_activity(row)
+
     except RuntimeError:
         message = API_BASE_URL + "/microcontroller/phonemes: Could not handle PhonemeTransformRequest successfully."
         Logger.log_error("Routes.send_phonemes - " + message)
+        
+        # Save activity to Logger
+        row = [data['phonemes'], 'failure']
+        Logger.save_activity(row)
+
         return message, 500
 
     # empty body return, success code
