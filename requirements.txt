@@ -16,7 +16,6 @@ ffmpeg-python==0.2.0
 Flask==1.1.2
 Flask-Cors==3.0.10
 future==0.18.2
-gensim==4.0.1
 google-api-core==1.25.1
 google-auth==1.25.0
 google-cloud==0.34.0

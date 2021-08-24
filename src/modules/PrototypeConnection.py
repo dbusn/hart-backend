@@ -73,7 +73,7 @@ class PrototypeConnection(metaclass=Singleton):
 
                 Logger.log_info("Connecting to port: " + port)
 
-                self.device = serial.Serial(port, baudrate=self.baudrate, timeout=1)
+                self.device = serial.Serial(port, baudrate=self.baudrate, timeout=5)
                 Logger.log_info("Connection is open: " + str(self.device.is_open))
             except Exception as e:
                 Logger.log_warning("Prototype connection NOT successfully created! " + str(e))
