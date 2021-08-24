@@ -28,6 +28,7 @@ dispatcher = Dispatcher()
 
 @app.route(API_BASE_URL + '/check_motors', methods=['POST'])
 def check_motors():
+    Logger.log_info("INCOMING API CALL: /check_motors")
     for i in [11, 12, 13, 14, 15, 16, 21, 22, 23, 24, 25, 26, 31, 32, 33, 34, 35, 36, 41, 42, 43, 44, 45, 46]:
         dict_pattern = {
             "pattern": [
@@ -54,6 +55,8 @@ def check_motors():
 @app.route(API_BASE_URL + '/check_specific_motor', methods=['POST'])
 @validate_json
 def check_specific_motor():
+    Logger.log_info("INCOMING API CALL: /check_specific_motor")
+
     data = request.json
     coord = data['coord']
 
