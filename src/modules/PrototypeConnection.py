@@ -6,8 +6,8 @@ from typing import Dict, Any, List
 
 import serial
 import serial.tools.list_ports
-import winreg
-import bluetooth
+# import winreg
+# import bluetooth
 
 import json
 import copy
@@ -60,14 +60,14 @@ class PrototypeConnection(metaclass=Singleton):
         if not self.debug:
             try:
                 if CONNECTED_VIA_BLUETOOTH:
-                    if self.com_port is None:
-                        if len(self.known_bluetooth_mac_addresses) == 1:
-                            mac = self.known_bluetooth_mac_addresses[0]
-                        else:
-                            mac = self.find_in_reach_bluetooth_known_mac()
-                        port = self.get_spp_com_port(mac)
-                    else:
-                        port = self.com_port
+                    # if self.com_port is None:
+                        # if len(self.known_bluetooth_mac_addresses) == 1:
+                            # mac = self.known_bluetooth_mac_addresses[0]
+                        # else:
+                        #     mac = self.find_in_reach_bluetooth_known_mac()
+                        # port = self.get_spp_com_port(mac)
+                    # else:
+                    port = self.com_port
                 else:
                     port = self.find_outgoing_communication_port()
 
@@ -198,55 +198,55 @@ class PrototypeConnection(metaclass=Singleton):
     # Windows registry location storing bluetooth details
     key_bthenum = r"SYSTEM\CurrentControlSet\Enum\BTHENUM"
 
-    def find_in_reach_bluetooth_known_mac(self):
-        """
-        Looks around for discoverable bluetooth devices and returns the mac address of a discoverable bluetooth device
-        of which the mac address is known and in the prototype configurations file.
-        :return: String containing MAC address.
-        """
-        Logger.log_info("PrototypeConnection.find_in_reach_bluetooth_known_mac: Looking for devices")
+    # def find_in_reach_bluetooth_known_mac(self):
+    #     """
+    #     Looks around for discoverable bluetooth devices and returns the mac address of a discoverable bluetooth device
+    #     of which the mac address is known and in the prototype configurations file.
+    #     :return: String containing MAC address.
+    #     """
+    #     Logger.log_info("PrototypeConnection.find_in_reach_bluetooth_known_mac: Looking for devices")
+    #
+    #     # sometimes bluetooth.discover_devices() fails to find all the devices
+    #     for i in range(3):
+    #         nearby_devices = bluetooth.discover_devices()
+    #
+    #         for mac in nearby_devices:
+    #             if mac in self.known_bluetooth_mac_addresses:
+    #                 return mac
+    #
+    #         Logger.log_info("PrototypeConnection.find_in_reach_bluetooth_known_mac: "
+    #                         "Try one more time to find target device..")
 
-        # sometimes bluetooth.discover_devices() fails to find all the devices
-        for i in range(3):
-            nearby_devices = bluetooth.discover_devices()
-
-            for mac in nearby_devices:
-                if mac in self.known_bluetooth_mac_addresses:
-                    return mac
-
-            Logger.log_info("PrototypeConnection.find_in_reach_bluetooth_known_mac: "
-                            "Try one more time to find target device..")
-
-    def get_spp_com_port(self, bt_mac_addr):
-        bt_mac_addr = bt_mac_addr.replace(':', '').upper()
-        for i in self.gen_enum_key('', 'LOCALMFG'):
-            for j in self.gen_enum_key(i, bt_mac_addr):
-                subkey = self.key_bthenum + '\\' + i + '\\' + j
-                port = self.get_reg_data(subkey, 'FriendlyName')
-                assert ('Standard Serial over Bluetooth link' in port[0])
-                items = port[0].split()
-                port = items[5][1:-1]
-                return port
-
-    def gen_enum_key(self, subkey, search_str):
-        hKey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, self.key_bthenum + '\\' + subkey)
-
-        try:
-            i = 0
-            while True:
-                output = winreg.EnumKey(hKey, i)
-                if search_str in output:
-                    yield output
-                i += 1
-
-        except:
-            pass
-
-        winreg.CloseKey(hKey)
-
-    def get_reg_data(self, subkey, name):
-        hKey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
-                              subkey)
-        output = winreg.QueryValueEx(hKey, name)
-        winreg.CloseKey(hKey)
-        return output
+    # def get_spp_com_port(self, bt_mac_addr):
+    #     bt_mac_addr = bt_mac_addr.replace(':', '').upper()
+    #     for i in self.gen_enum_key('', 'LOCALMFG'):
+    #         for j in self.gen_enum_key(i, bt_mac_addr):
+    #             subkey = self.key_bthenum + '\\' + i + '\\' + j
+    #             port = self.get_reg_data(subkey, 'FriendlyName')
+    #             assert ('Standard Serial over Bluetooth link' in port[0])
+    #             items = port[0].split()
+    #             port = items[5][1:-1]
+    #             return port
+    #
+    # def gen_enum_key(self, subkey, search_str):
+    #     hKey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, self.key_bthenum + '\\' + subkey)
+    #
+    #     try:
+    #         i = 0
+    #         while True:
+    #             output = winreg.EnumKey(hKey, i)
+    #             if search_str in output:
+    #                 yield output
+    #             i += 1
+    #
+    #     except:
+    #         pass
+    #
+    #     winreg.CloseKey(hKey)
+    #
+    # def get_reg_data(self, subkey, name):
+    #     hKey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
+    #                           subkey)
+    #     output = winreg.QueryValueEx(hKey, name)
+    #     winreg.CloseKey(hKey)
+    #     return output
