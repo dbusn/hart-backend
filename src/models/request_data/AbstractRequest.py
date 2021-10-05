@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 from src.models.EventTypeEnum import EventType
 
 

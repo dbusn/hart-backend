@@ -1,9 +1,9 @@
+from typing import List, Dict, Any, Union
+
 from definitions import RESOURCES
 from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.AbstractRequest import AbstractRequest
-
-from typing import List, Dict, Any, Union
 
 
 def split_sentences(sentences: List[str]) -> List[List[str]]:

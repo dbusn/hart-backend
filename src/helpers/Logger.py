@@ -1,4 +1,6 @@
-import coloredlogs, logging
+import coloredlogs
+import logging
+
 coloredlogs.install()
 
 

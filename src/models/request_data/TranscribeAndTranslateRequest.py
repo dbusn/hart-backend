@@ -1,7 +1,7 @@
+from typing import List, BinaryIO
+
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.AbstractRequest import AbstractRequest
-
-from typing import List, BinaryIO
 
 
 class TranscribeAndTranslateRequest(AbstractRequest):

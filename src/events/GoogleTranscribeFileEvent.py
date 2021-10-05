@@ -1,12 +1,12 @@
+from typing import List
+
+from google.cloud import speech
+
 from src.events.AbstractEvent import AbstractEvent
 from src.helpers.Logger import Logger
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.AbstractRequest import AbstractRequest
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
-
-from google.cloud import speech
-
-from typing import List
 
 
 class GoogleTranscribeEvent(AbstractEvent):

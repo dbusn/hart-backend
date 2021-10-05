@@ -1,9 +1,8 @@
 from abc import ABC, abstractmethod
+from typing import List
 
 from src.models.EventTypeEnum import EventType
 from src.models.request_data import AbstractRequest
-
-from typing import List
 
 
 class AbstractEvent(ABC):
