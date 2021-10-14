@@ -1,46 +1,29 @@
 {
     "pattern": [
         {
-            "pins": [
+            "iteration": [
                 {
-                    "pin": 11,
-                    "pwm": 100
+                    "coord": 11,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 21,
-                    "pwm": 100
+                    "coord": 21,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 31,
-                    "pwm": 100
+                    "coord": 31,
+                    "amplitude": 255,
+                    "frequency": 300
                 },
                 {
-                    "pin": 41,
-                    "pwm": 100
+                    "coord": 41,
+                    "amplitude": 255,
+                    "frequency": 300
                 }
             ],
-            "time": 500
-        },
-        {
-            "pins": [
-                {
-                    "pin": 11,
-                    "pwm": 0
-                },
-                {
-                    "pin": 21,
-                    "pwm": 0
-                },
-                {
-                    "pin": 31,
-                    "pwm": 0
-                },
-                {
-                    "pin": 41,
-                    "pwm": 0
-                }
-            ],
-            "time": 0
+            "time": 400
         }
     ]
 }

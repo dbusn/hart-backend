@@ -3,27 +3,27 @@
         {
             "iteration": [
                 {
-                    "coord": 33,
+                    "coord": 13,
                     "amplitude": 255,
                     "frequency": 300
                 },
                 {
-                    "coord": 34,
+                    "coord": 14,
                     "amplitude": 255,
                     "frequency": 300
                 },
                 {
-                    "coord": 43,
+                    "coord": 23,
                     "amplitude": 255,
                     "frequency": 300
                 },
                 {
-                    "coord": 44,
+                    "coord": 24,
                     "amplitude": 255,
                     "frequency": 300
                 }
             ],
-            "time": 100
+            "time": 400
         }
     ]
 }

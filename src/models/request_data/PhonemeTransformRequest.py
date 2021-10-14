@@ -1,9 +1,9 @@
+from typing import List, Dict, Any, Union
+
 from definitions import RESOURCES
 from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.AbstractRequest import AbstractRequest
-
-from typing import List, Dict, Any, Union
 
 
 def split_sentences(sentences: List[str]) -> List[List[str]]:
@@ -40,8 +40,8 @@ class PhonemeTransformRequest(AbstractRequest):
     # created by PhonemeDecompositionEvent
     phonemes: List[List[List[List[str]]]]
 
-    # the phoneme decompositions that were sent to the arduino
-    # created by SendPhonemesToArduinoEvent
+    # the phoneme decompositions that were sent to the prototype
+    # created by SendPhonemesToPrototypeEvent
     sent_phonemes: List[List[str]]
 
     def __init__(self, sentences: Union[List[str], List[List[str]]] = None,
@@ -58,7 +58,7 @@ class PhonemeTransformRequest(AbstractRequest):
                                         following form
                                             (1) ["first sentence", "second sentence"]
                                             (2) [["first", "sentence"], ["second", "sentence"]]
-        @param phonemes             Phonemes to be send to the arduino in form
+        @param phonemes             Phonemes to be send to the prototype in form
                                         ["PHO1", "PHO2"]
         @raises ValueError          If both sentences and phonemes are filled with data or when phoneme_patterns is
                                         None.

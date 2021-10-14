@@ -1,21 +1,80 @@
-from flask import request, jsonify
-
-from definitions import API_BASE_URL, RESOURCES
-from src.helpers.ConvertAudioToFlacHelper import convertWebmToFlac
-from src.handlers.Dispatcher import Dispatcher
-from src.helpers.Logger import Logger
-from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
-from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
-from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
-from src.routes.RouteValidation import validate_json
-
 import io
 import json
+from time import sleep
+
+from flask import request, jsonify
 
 from app import app
-
+from definitions import API_BASE_URL, RESOURCES
+from src.handlers.Dispatcher import Dispatcher
+from src.helpers.ConvertAudioToFlacHelper import convertWebmToFlac
+from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
+from src.helpers.Logger import Logger
+from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
+from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
+from src.modules.PrototypeConnection import PrototypeConnection
+from src.routes.RouteValidation import validate_json
 
 dispatcher = Dispatcher()
+
+
+# =============================================================================
+#   Check motors
+# =============================================================================
+
+
+@app.route(API_BASE_URL + '/check_motors', methods=['POST'])
+def check_motors():
+    Logger.log_info("INCOMING API CALL: /check_motors")
+    for i in [11, 12, 13, 14, 15, 16, 21, 22, 23, 24, 25, 26, 31, 32, 33, 34, 35, 36, 41, 42, 43, 44, 45, 46]:
+        dict_pattern = {
+            "pattern": [
+                {
+                    "iteration": [
+                        {
+                            "coord": i,
+                            "amplitude": 255,
+                            "frequency": 300
+                        }
+                    ],
+                    "time": 1000
+                }
+            ]
+        }
+
+        PrototypeConnection().send_pattern(dict_pattern)
+
+        sleep(1)
+
+    return "OK", 200
+
+
+@app.route(API_BASE_URL + '/check_specific_motor', methods=['POST'])
+@validate_json
+def check_specific_motor():
+    Logger.log_info("INCOMING API CALL: /check_specific_motor")
+
+    data = request.json
+    coord = data['coord']
+
+    PrototypeConnection().send_pattern(
+        {
+            "pattern": [
+                {
+                    "iteration": [
+                        {
+                            "coord": int(coord),
+                            "amplitude": 255,
+                            "frequency": 300
+                        }
+                    ],
+                    "time": 1000
+                }
+            ]
+        }
+    )
+
+    return "OK", 200
 
 
 # =============================================================================
@@ -60,7 +119,7 @@ def send_phonemes():
         return message, 500
 
     # empty body return, success code
-    return 200
+    return "OK", 200
 
 
 # =============================================================================
