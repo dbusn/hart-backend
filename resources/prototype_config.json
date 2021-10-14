@@ -1,6 +1,6 @@
 {
     "description" : "config settings for the prototype",
-    "mode" : "debug",
+    "mode" : "production",
     "baudrate" : 115200,
     "serial_numbers" : [
         "A9LTHTFV", 
