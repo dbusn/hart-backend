@@ -19,6 +19,7 @@ This will run through a full fledged installation using a pip virtual environmen
 14. Check if no problems were reported and the installation was succesfull
 15. Go to the backend project folder: `cd ..\backend`
 16. Install all requirements: `pip install -r ./requirements.txt`
+17. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environement variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
 
 Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src/modules/ffmpeg` folder.
 
