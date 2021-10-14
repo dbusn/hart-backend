@@ -35,35 +35,33 @@ app = Flask(__name__)
 CORS(app)
 
 
-if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
+# if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
 
-    # Initialize dispatcher
-    dispatcher = Dispatcher()
+# Initialize dispatcher
+dispatcher = Dispatcher()
 
-    # config singleton PrototypeConnection
-    PrototypeConnection().connect_with_config(os.path.join(RESOURCES, 'prototype_config.json'))
+# config singleton PrototypeConnection
+PrototypeConnection().connect_with_config(os.path.join(RESOURCES, 'prototype_config.json'))
 
-    # Check if google api is working correctly
-    GoogleApiWrapper(credentials_path=os.path.join(RESOURCES, 'gcloud_credentials.json'))
-
-
-if DISTRIBUTION:
-    @app.route('/', methods=['GET'])
-    def standard_route():
-        return render_template("index.html")
+# Check if google api is working correctly
+GoogleApiWrapper(credentials_path=os.path.join(RESOURCES, 'gcloud_credentials.json'))
 
 
-    @app.errorhandler(404)
-    @app.errorhandler(500)
-    def error_route(e):
-        return render_template("index.html")
+@app.route('/', methods=['GET'])
+def standard_route():
+    return render_template("index.html")
 
-if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
-    # Import routes
-    from src.routes.Routes import *
 
-if __name__ == "__main__" and DISTRIBUTION:
-    log.setLevel(logging.INFO)
-    import webbrowser
-    webbrowser.open("http://localhost:5000")
-    app.run(debug=False, use_reloader=False, threaded=True)
+@app.errorhandler(404)
+@app.errorhandler(500)
+def error_route(e):
+    return render_template("index.html")
+#
+# if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
+# Import routes
+from src.routes.Routes import *
+
+log.setLevel(logging.INFO)
+import webbrowser
+webbrowser.open("http://localhost:5000")
+app.run(debug=False, use_reloader=False, threaded=True)
