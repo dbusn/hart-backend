@@ -4,7 +4,7 @@
 This will run through a full fledged installation using a pip virtual environment. 
 0. FOLLOW STEPS CAREFULLY!
 1. Download https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=15 and install the windows SDK.
-2. Have a folder to store all software in (henceforth called <root>\)
+2. Have a folder to store all software in (henceforth called `<root>\\`)
 3. Clone this repository in <root>/ (this creates <root>\backend\)
 4. Also in <root>/, clone pybluez (https://github.com/pybluez/pybluez.git) (this creates <root>\pybluez\
 5. Create a folder for the virtual environment called venv (<root>\venv\)
