@@ -5,21 +5,21 @@ This will run through a full fledged installation using a pip virtual environmen
 0. FOLLOW STEPS CAREFULLY!
 1. Download https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=15 and install the windows SDK.
 2. Have a folder to store all software in (henceforth called `<root>\`)
-3. Clone this repository in <root>/ (this creates <root>\backend\)
-4. Also in <root>/, clone pybluez (https://github.com/pybluez/pybluez.git) (this creates <root>\pybluez\
-5. Create a folder for the virtual environment called venv (<root>\venv\)
+3. Clone this repository in `<root>/` (this creates `<root>\backend\`)
+4. Also in `<root>/`, clone pybluez (https://github.com/pybluez/pybluez.git) (this creates `<root>\pybluez\`)
+5. Create a folder for the virtual environment called venv (`<root>\venv\`)
 6. Open a terminal (admin mode) in the root folder.
-7. Install virtualenv: `pip install virtualenv
+7. Install virtualenv: `pip install virtualenv`
 8. Go to the venv directory: `cd venv`
 9. Create a new venv: `py -m venv backend`
 10. Activate the environment: `.\backend\Scripts\activate`
 11. Check if activation worked: `where python` should return `...\<root>\venv\backend\Scripts\python.exe`
-12. Go to <root>\pybluez\: `cd ..\pybluez`
+12. Go to `<root>\pybluez\`: `cd ..\pybluez`
 13. Install pybluez in the venv: `..\venv\backend\Scripts\python setup.py install`
-14. Check if no problems were reported and the installation was succesfull
+14. Check if no problems were reported, and the installation was successful
 15. Go to the backend project folder: `cd ..\backend`
 16. Install all requirements: `pip install -r ./requirements.txt`
-17. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environement variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
+17. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environment variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
 
 Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src/modules/ffmpeg` folder.
 
