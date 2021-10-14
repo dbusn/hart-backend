@@ -1,10 +1,10 @@
-from src.models.EventTypeEnum import EventType
+from typing import List
+
 from src.events.AbstractEvent import AbstractEvent
 from src.helpers.Logger import Logger
+from src.models.EventTypeEnum import EventType
 from src.models.request_data.AbstractRequest import AbstractRequest
 from src.modules.PrototypeConnection import PrototypeConnection
-
-from typing import List
 
 
 class SendPhonemesToPrototypeEvent(AbstractEvent):

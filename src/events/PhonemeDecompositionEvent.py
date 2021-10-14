@@ -1,13 +1,12 @@
-from src.models.EventTypeEnum import EventType
-from src.events.AbstractEvent import AbstractEvent
-from src.helpers.Logger import Logger
-from src.models.CMUPhonemes import MappingCMUtoReed
-from src.models.request_data.AbstractRequest import AbstractRequest
+from typing import List
 
 import nltk
 
-from typing import List
-
+from src.events.AbstractEvent import AbstractEvent
+from src.helpers.Logger import Logger
+from src.models.CMUPhonemes import MappingCMUtoReed
+from src.models.EventTypeEnum import EventType
+from src.models.request_data.AbstractRequest import AbstractRequest
 
 # Initialize arpabet dictionary
 try:

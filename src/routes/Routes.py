@@ -1,22 +1,19 @@
+import io
+import json
 from time import sleep
 
 from flask import request, jsonify
-from typing import Dict
 
+from app import app
 from definitions import API_BASE_URL, RESOURCES
-from src.helpers.ConvertAudioToFlacHelper import convertWebmToFlac
 from src.handlers.Dispatcher import Dispatcher
-from src.helpers.Logger import Logger
+from src.helpers.ConvertAudioToFlacHelper import convertWebmToFlac
 from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
+from src.helpers.Logger import Logger
 from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
 from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
 from src.modules.PrototypeConnection import PrototypeConnection
 from src.routes.RouteValidation import validate_json
-
-import io
-import json
-
-from app import app
 
 dispatcher = Dispatcher()
 

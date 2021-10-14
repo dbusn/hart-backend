@@ -1,10 +1,9 @@
-from src.events.AbstractEvent import AbstractEvent
-
-from google.cloud import translate
 import html
-
 from typing import List
 
+from google.cloud import translate
+
+from src.events.AbstractEvent import AbstractEvent
 from src.helpers.Logger import Logger
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.AbstractRequest import AbstractRequest
