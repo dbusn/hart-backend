@@ -43,7 +43,7 @@
                     "frequency": 60
                 }
             ],
-            "time": 57
+            "time": 50
         },
         {
             "iteration": [
@@ -88,7 +88,7 @@
                     "frequency": 60
                 }
             ],
-            "time": 57
+            "time": 50
         },
         {
             "iteration": [
@@ -133,7 +133,7 @@
                     "frequency": 60
                 }
             ],
-            "time": 57
+            "time": 50
         },
         {
             "iteration": [
@@ -178,7 +178,7 @@
                     "frequency": 60
                 }
             ],
-            "time": 57
+            "time": 50
         },
         {
             "iteration": [
@@ -223,7 +223,7 @@
                     "frequency": 60
                 }
             ],
-            "time": 57
+            "time": 50
         },
         {
             "iteration": [
@@ -268,7 +268,7 @@
                     "frequency": 60
                 }
             ],
-            "time": 57
+            "time": 50
         },
         {
             "iteration": [
@@ -313,7 +313,7 @@
                     "frequency": 60
                 }
             ],
-            "time": 57
+            "time": 50
         }
     ]
 }

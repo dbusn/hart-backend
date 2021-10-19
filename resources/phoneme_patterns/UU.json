@@ -13,7 +13,7 @@
                     "frequency": 300
                 }
             ],
-            "time": 40
+            "time": 32
         },
         {
             "iteration": [
@@ -38,7 +38,7 @@
                     "frequency": 300
                 }
             ],
-            "time": 40
+            "time": 32
         },
         {
             "iteration": [
@@ -73,7 +73,7 @@
                     "frequency": 300
                 }
             ],
-            "time": 40
+            "time": 32
         },
         {
             "iteration": [
@@ -108,7 +108,7 @@
                     "frequency": 300
                 }
             ],
-            "time": 40
+            "time": 32
         },
         {
             "iteration": [
@@ -133,7 +133,7 @@
                     "frequency": 300
                 }
             ],
-            "time": 40
+            "time": 32
         },
         {
             "iteration": [
@@ -148,7 +148,7 @@
                     "frequency": 300
                 }
             ],
-            "time": 40
+            "time": 32
         }
     ]
 }

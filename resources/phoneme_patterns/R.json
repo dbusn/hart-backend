@@ -23,42 +23,12 @@
                     "frequency": 300
                 }
             ],
-            "time": 75
+            "time": 67
         },
         {
             "iteration": [
             ],
-            "time": 33
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 31,
-                    "amplitude": 255,
-                    "frequency": 300
-                },
-                {
-                    "coord": 32,
-                    "amplitude": 255,
-                    "frequency": 300
-                },
-                {
-                    "coord": 41,
-                    "amplitude": 255,
-                    "frequency": 300
-                },
-                {
-                    "coord": 42,
-                    "amplitude": 255,
-                    "frequency": 300
-                }
-            ],
-            "time": 75
-        },
-        {
-            "iteration": [
-            ],
-            "time": 33
+            "time": 28
         },
         {
             "iteration": [
@@ -83,12 +53,12 @@
                     "frequency": 300
                 }
             ],
-            "time": 75
+            "time": 67
         },
         {
             "iteration": [
             ],
-            "time": 33
+            "time": 28
         },
         {
             "iteration": [
@@ -113,7 +83,37 @@
                     "frequency": 300
                 }
             ],
-            "time": 75
+            "time": 67
+        },
+        {
+            "iteration": [
+            ],
+            "time": 28
+        },
+        {
+            "iteration": [
+                {
+                    "coord": 31,
+                    "amplitude": 255,
+                    "frequency": 300
+                },
+                {
+                    "coord": 32,
+                    "amplitude": 255,
+                    "frequency": 300
+                },
+                {
+                    "coord": 41,
+                    "amplitude": 255,
+                    "frequency": 300
+                },
+                {
+                    "coord": 42,
+                    "amplitude": 255,
+                    "frequency": 300
+                }
+            ],
+            "time": 67
         }
     ]
 }
