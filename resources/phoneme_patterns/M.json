@@ -23,42 +23,12 @@
                     "frequency": 60
                 }
             ],
-            "time": 100
+            "time": 92
         },
         {
             "iteration": [
             ],
-            "time": 50
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 15,
-                    "amplitude": 255,
-                    "frequency": 60
-                },
-                {
-                    "coord": 16,
-                    "amplitude": 255,
-                    "frequency": 60
-                },
-                {
-                    "coord": 25,
-                    "amplitude": 255,
-                    "frequency": 60
-                },
-                {
-                    "coord": 26,
-                    "amplitude": 255,
-                    "frequency": 60
-                }
-            ],
-            "time": 100
-        },
-        {
-            "iteration": [
-            ],
-            "time": 50
+            "time": 45
         },
         {
             "iteration": [
@@ -83,7 +53,37 @@
                     "frequency": 60
                 }
             ],
-            "time": 100
+            "time": 92
+        },
+        {
+            "iteration": [
+            ],
+            "time": 45
+        },
+        {
+            "iteration": [
+                {
+                    "coord": 15,
+                    "amplitude": 255,
+                    "frequency": 60
+                },
+                {
+                    "coord": 16,
+                    "amplitude": 255,
+                    "frequency": 60
+                },
+                {
+                    "coord": 25,
+                    "amplitude": 255,
+                    "frequency": 60
+                },
+                {
+                    "coord": 26,
+                    "amplitude": 255,
+                    "frequency": 60
+                }
+            ],
+            "time": 92
         }
     ]
 }
