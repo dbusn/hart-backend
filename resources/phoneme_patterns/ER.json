@@ -4,251 +4,121 @@
             "iteration": [
                 {
                     "coord": 43,
-                    "amplitude": 204,
+                    "amplitude": 250,
                     "frequency": 300
                 }
             ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 42,
-                    "amplitude": 204,
-                    "frequency": 300
-                },
-                {
-                    "coord": 43,
-                    "amplitude": 153,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 41,
-                    "amplitude": 204,
-                    "frequency": 300
-                },
-                {
-                    "coord": 42,
-                    "amplitude": 153,
-                    "frequency": 300
-                },
-                {
-                    "coord": 43,
-                    "amplitude": 128,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 31,
-                    "amplitude": 204,
-                    "frequency": 300
-                },
-                {
-                    "coord": 41,
-                    "amplitude": 153,
-                    "frequency": 300
-                },
-                {
-                    "coord": 42,
-                    "amplitude": 128,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 32,
-                    "amplitude": 204,
-                    "frequency": 300
-                },
-                {
-                    "coord": 31,
-                    "amplitude": 153,
-                    "frequency": 300
-                },
-                {
-                    "coord": 41,
-                    "amplitude": 128,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
+            "time": 40
         },
         {
             "iteration": [
                 {
                     "coord": 33,
-                    "amplitude": 204,
-                    "frequency": 300
-                },
-                {
-                    "coord": 32,
-                    "amplitude": 153,
-                    "frequency": 300
-                },
-                {
-                    "coord": 31,
-                    "amplitude": 128,
+                    "amplitude": 250,
                     "frequency": 300
                 }
             ],
-            "time": 27
+            "time": 40
+        },
+        {
+            "iteration": [
+                {
+                    "coord": 32,
+                    "amplitude": 250,
+                    "frequency": 300
+                }
+            ],
+            "time": 40
+        },
+        {
+            "iteration": [
+                {
+                    "coord": 31,
+                    "amplitude": 250,
+                    "frequency": 300
+                }
+            ],
+            "time": 40
+        },
+        {
+            "iteration": [
+                {
+                    "coord": 41,
+                    "amplitude": 250,
+                    "frequency": 300
+                }
+            ],
+            "time": 40
+        },
+        {
+            "iteration": [
+                {
+                    "coord": 42,
+                    "amplitude": 250,
+                    "frequency": 300
+                }
+            ],
+            "time": 40
         },
         {
             "iteration": [
                 {
                     "coord": 43,
-                    "amplitude": 204,
+                    "amplitude": 250,
                     "frequency": 300
-                },
+                }
+            ],
+            "time": 40
+        },
+        {
+            "iteration": [
                 {
                     "coord": 33,
-                    "amplitude": 153,
+                    "amplitude": 250,
                     "frequency": 300
-                },
+                }
+            ],
+            "time": 40
+        },
+        {
+            "iteration": [
                 {
                     "coord": 32,
-                    "amplitude": 128,
+                    "amplitude": 250,
                     "frequency": 300
                 }
             ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 42,
-                    "amplitude": 204,
-                    "frequency": 300
-                },
-                {
-                    "coord": 43,
-                    "amplitude": 153,
-                    "frequency": 300
-                },
-                {
-                    "coord": 33,
-                    "amplitude": 128,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 41,
-                    "amplitude": 204,
-                    "frequency": 300
-                },
-                {
-                    "coord": 42,
-                    "amplitude": 153,
-                    "frequency": 300
-                },
-                {
-                    "coord": 43,
-                    "amplitude": 128,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
+            "time": 40
         },
         {
             "iteration": [
                 {
                     "coord": 31,
-                    "amplitude": 204,
+                    "amplitude": 250,
                     "frequency": 300
-                },
+                }
+            ],
+            "time": 40
+        },
+        {
+            "iteration": [
                 {
                     "coord": 41,
-                    "amplitude": 153,
+                    "amplitude": 250,
                     "frequency": 300
-                },
+                }
+            ],
+            "time": 40
+        },
+        {
+            "iteration": [
                 {
                     "coord": 42,
-                    "amplitude": 128,
+                    "amplitude": 250,
                     "frequency": 300
                 }
             ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 32,
-                    "amplitude": 204,
-                    "frequency": 300
-                },
-                {
-                    "coord": 31,
-                    "amplitude": 153,
-                    "frequency": 300
-                },
-                {
-                    "coord": 41,
-                    "amplitude": 128,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 33,
-                    "amplitude": 204,
-                    "frequency": 300
-                },
-                {
-                    "coord": 32,
-                    "amplitude": 153,
-                    "frequency": 300
-                },
-                {
-                    "coord": 31,
-                    "amplitude": 128,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 33,
-                    "amplitude": 153,
-                    "frequency": 300
-                },
-                {
-                    "coord": 32,
-                    "amplitude": 128,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 33,
-                    "amplitude": 128,
-                    "frequency": 300
-                }
-            ],
-            "time": 27
+            "time": 40
         }
     ]
 }

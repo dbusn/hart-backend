@@ -11,39 +11,29 @@
                     "coord": 21,
                     "amplitude": 250,
                     "frequency": 300
-                }
-            ],
-            "time": 80
-        },
-        {
-            "iteration": [
+                },
                 {
-                    "coord": 12,
+                    "coord": 31,
                     "amplitude": 250,
                     "frequency": 300
                 },
                 {
-                    "coord": 22,
+                    "coord": 41,
                     "amplitude": 250,
                     "frequency": 300
                 }
             ],
-            "time": 80
+            "time": 96
         },
         {
             "iteration": [
                 {
-                    "coord": 13,
-                    "amplitude": 250,
-                    "frequency": 300
-                },
-                {
-                    "coord": 23,
-                    "amplitude": 250,
+                    "coord": 41,
+                    "amplitude": 0,
                     "frequency": 300
                 }
             ],
-            "time": 80
+            "time": 48
         },
         {
             "iteration": [
@@ -56,39 +46,19 @@
                     "coord": 24,
                     "amplitude": 250,
                     "frequency": 300
-                }
-            ],
-            "time": 80
-        },
-        {
-            "iteration": [
+                },
                 {
-                    "coord": 15,
+                    "coord": 34,
                     "amplitude": 250,
                     "frequency": 300
                 },
                 {
-                    "coord": 25,
+                    "coord": 44,
                     "amplitude": 250,
                     "frequency": 300
                 }
             ],
-            "time": 80
-        },
-        {
-            "iteration": [
-                {
-                    "coord": 16,
-                    "amplitude": 250,
-                    "frequency": 300
-                },
-                {
-                    "coord": 26,
-                    "amplitude": 250,
-                    "frequency": 300
-                }
-            ],
-            "time": 80
+            "time": 96
         }
     ]
 }
