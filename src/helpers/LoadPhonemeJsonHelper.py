@@ -24,7 +24,9 @@ def get_phoneme_patterns(resources: str):
 
             # CMUPhonemes are the phonemes supported in nltk.cmudict()
             if not (phoneme in REEDPhonemes):
-                raise NameError('The resource ' + phoneme + '.json is not a valid phoneme name')
+                Logger.log_warning('The resource ' + phoneme + '.json is not a valid phoneme name')
+
+                continue
 
             # load all patterns. This means if change of patterns, restart
             with open(os.path.join(resources, 'phoneme_patterns', pattern_file), 'r') as f:
