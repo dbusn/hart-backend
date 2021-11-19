@@ -7,6 +7,7 @@ from flask_cors import CORS
 from definitions import DISTRIBUTION, RESOURCES
 from src.handlers.Dispatcher import Dispatcher
 from src.modules.PrototypeConnection import PrototypeConnection
+from src.modules.ConcurrentStream import ConcurrentStream
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 from src.helpers.Logger import Logger
 
