@@ -26,6 +26,10 @@ Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and
 ## Installation MAC
 Sadly, on IOS we haven't yet completed the bluetooth thingies which makes everything a lot harder. Please go to Robin/Lourens to get your setup done for you.....
 
+## Running for MAC
+You can find some general information about running the software on OSX in the [general documentation on the Drive](https://docs.google.com/document/d/1RFTCGX0A7BAd-lvrdRqAtj_ZibQ0j-yJanyfVRDa4ME/edit).
+
+
 ## Running the application
 ### Development mode
 For running the application in development mode
@@ -40,7 +44,7 @@ For running the application in development mode
 3. Put the rest of the generated frontend files in the `static` folder in the backend.
 4. Change the links in the `index.html` referring to js/img/css files by adding the prefix `static/`
 5. Change the `DISTRIBUTION` boolean in the `definitions.py` file to `True`.
-6. (optional) Change the `debug` option in the `prototype_config.json`. 
+6. Change the `CONNECTED_TO_PROTOTYPE` boolean in the `definitions.py` file to `True`. 
 7. Create a custom additional hook for pyinstaller regarding the `grpc` library. You can do this by going to your environment, in which pyinstaller is installed. Within the pyinstaller folder, go to `hooks/` and create a new file called `hook-grpc.py` in there with the code:
     ```python
     from PyInstaller.utils.hooks import collect_data_files

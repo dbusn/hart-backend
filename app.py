@@ -4,7 +4,7 @@ import atexit
 from flask import Flask, render_template
 from flask_cors import CORS
 
-from definitions import DISTRIBUTION, RESOURCES
+from definitions import DISTRIBUTION, RESOURCES, CONFIG_FILE_NAME
 from src.handlers.Dispatcher import Dispatcher
 from src.modules.PrototypeConnection import PrototypeConnection
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
@@ -41,7 +41,7 @@ CORS(app)
 dispatcher = Dispatcher()
 
 # config singleton PrototypeConnection
-PrototypeConnection().connect_with_config(os.path.join(RESOURCES, 'prototype_config.json'))
+PrototypeConnection().connect_with_config(os.path.join(RESOURCES, "sleeve_config_files", CONFIG_FILE_NAME))
 
 # Check if google api is working correctly
 GoogleApiWrapper(credentials_path=os.path.join(RESOURCES, 'gcloud_credentials.json'))
