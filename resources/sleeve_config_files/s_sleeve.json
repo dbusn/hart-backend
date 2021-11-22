@@ -1,7 +1,5 @@
 {
-    "description" : "config settings for the prototype",
-    "mode" : "debg",
-    "baudrate" : 115200,
+    "description" : "s size sleeve (Created October 2021)",
     "serial_numbers" : [
         "A9LTHTFV", 
         "55838333932351C0C191",
@@ -45,67 +43,67 @@
         }, 
 
         { 
-            "coord" : 21,
+            "coord" : 24,
             "id" : 11
         }, 
 
         { 
-            "coord" : 22,
+            "coord" : 25,
             "id" : 4
         },
         
         { 
-            "coord" : 23,
+            "coord" : 26,
             "id" : 5
         },
         
         { 
-            "coord" : 24,
+            "coord" : 21,
             "id" : 8
         },
         
         { 
-            "coord" : 25,
+            "coord" : 22,
             "id" : 9
         },
         
         { 
-            "coord" : 26,
+            "coord" : 23,
             "id" : 10
         },
         
         { 
-            "coord" : 31,
+            "coord" : 36, 
             "id" : 15
         },
         
         { 
-            "coord" : 32,
+            "coord" : 35,
             "id" : 14
         },
         
         { 
-            "coord" : 33,
+            "coord" : 34,
             "id" : 13
         },
         
         { 
-            "coord" : 34,
+            "coord" : 33,
             "id" : 12
         },
 
         { 
-            "coord" : 35,
+            "coord" : 32,
             "id" : 23
         },
 
         { 
-            "coord" : 36,
+            "coord" : 31,
             "id" : 22
         },
         
         { 
-            "coord" : 41,
+            "coord" : 43,
             "id" : 18
         },
         
@@ -115,7 +113,7 @@
         },
         
         { 
-            "coord" : 43,
+            "coord" : 41,
             "id" : 16
         },
         

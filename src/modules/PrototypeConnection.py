@@ -1,6 +1,6 @@
 from src.helpers.Logger import Logger
 from src.helpers.SingletonHelper import Singleton
-from definitions import CONNECTED_VIA_BLUETOOTH
+from definitions import CONNECTED_TO_PROTOTYPE, CONNECTED_VIA_BLUETOOTH, BAUDRATE
 
 from typing import Dict, Any, List
 
@@ -111,10 +111,10 @@ class PrototypeConnection(metaclass=Singleton):
         self.com_port = config['bluetooth_com_port']
 
         # baudrate that is used in prototype
-        self.baudrate = config['baudrate']
+        self.baudrate = BAUDRATE
 
         # debug mode or not
-        self.debug = (config['mode'] == 'debug')
+        self.debug = not CONNECTED_TO_PROTOTYPE
 
     def find_outgoing_communication_port(self) -> Any:
         """
