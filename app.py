@@ -10,7 +10,6 @@ from src.modules.PrototypeConnection import PrototypeConnection
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 from src.helpers.Logger import Logger
 
-
 if os.environ.keys().__contains__('FLASK_ENV') and os.environ['FLASK_ENV'] == "development" and DISTRIBUTION:
     Logger.log_error("Running in development mode with DISTRIBUTION set to true!")
     raise RuntimeError("Quiting execution!")
@@ -21,7 +20,7 @@ elif os.environ.keys().__contains__('FLASK_ENV') and os.environ['FLASK_ENV'] == 
 
 import logging
 log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
+# log.setLevel(logging.ERROR)
 
 
 def close_prototype_connection():
