@@ -43,7 +43,6 @@ protobuf==3.18.0
 py==1.10.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-PyBluez==0.30
 pyparsing==2.4.7
 pyreadline3==3.3
 pyserial==3.5
