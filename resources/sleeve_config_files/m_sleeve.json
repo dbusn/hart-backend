@@ -8,9 +8,9 @@
         "9004780"
         ],
     "known_bluetooth_mac_addresses": [
-        "00:19:08:36:22:1B"
+        "00:19:08:36:34:8c"
     ],
-    "bluetooth_com_port": "COM16",
+    "bluetooth_com_port": null,
     "mapping" : [
         { 
             "coord" : 11,
@@ -40,7 +40,22 @@
         { 
             "coord" : 16,
             "id" : 6
-        }, 
+        },
+
+        {
+            "coord" : 21,
+            "id" : 8
+        },
+
+        {
+            "coord" : 22,
+            "id" : 9
+        },
+
+        {
+            "coord" : 23,
+            "id" : 10
+        },
 
         { 
             "coord" : 24,
@@ -56,21 +71,7 @@
             "coord" : 26,
             "id" : 5
         },
-        
-        { 
-            "coord" : 21,
-            "id" : 8
-        },
-        
-        { 
-            "coord" : 22,
-            "id" : 9
-        },
-        
-        { 
-            "coord" : 23,
-            "id" : 10
-        },
+
         
         { 
             "coord" : 36, 
