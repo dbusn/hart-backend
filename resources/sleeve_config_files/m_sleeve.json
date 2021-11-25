@@ -1,5 +1,5 @@
 {
-    "description" : "s size sleeve (Created October 2021)",
+    "description" : "m size sleeve (Created October 2021)",
     "serial_numbers" : [
         "A9LTHTFV", 
         "55838333932351C0C191",
@@ -79,57 +79,57 @@
         },
         
         { 
-            "coord" : 35,
+            "coord" : 33,
             "id" : 14
         },
         
         { 
-            "coord" : 34,
+            "coord" : 32,
             "id" : 13
         },
         
         { 
-            "coord" : 33,
+            "coord" : 31,
             "id" : 12
         },
 
         { 
-            "coord" : 32,
+            "coord" : 35,
             "id" : 23
         },
 
         { 
-            "coord" : 31,
+            "coord" : 34,
             "id" : 22
         },
         
         { 
-            "coord" : 43,
+            "coord" : 46,
             "id" : 18
         },
         
         { 
-            "coord" : 42,
+            "coord" : 45,
             "id" : 17
         },
         
         { 
-            "coord" : 41,
+            "coord" : 44,
             "id" : 16
         },
         
         { 
-            "coord" : 44,
+            "coord" : 43,
             "id" : 19
         },
         
         { 
-            "coord" : 45,
+            "coord" : 41,
             "id" : 20
         },
         
         { 
-            "coord" : 46,
+            "coord" : 42,
             "id" : 21
         }
     ]
