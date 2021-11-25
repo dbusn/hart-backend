@@ -10,7 +10,6 @@ options:
     "l_sleeve.json"
 """
 CONFIG_FILE_NAME = "m_sleeve.json"
-
 # Whether the frontend is compiled and located in backend or not
 DISTRIBUTION = True
 
