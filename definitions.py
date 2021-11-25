@@ -9,7 +9,7 @@ options:
     "m_sleeve.json"
     "l_sleeve.json"
 """
-CONFIG_FILE_NAME = "old_sleeve.json"
+CONFIG_FILE_NAME = "s_sleeve.json"
 
 # Whether the frontend is compiled and located in backend or not
 DISTRIBUTION = False
@@ -29,5 +29,11 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))  # this is the project roo
 
 # Shouldn't change
 RESOURCES = os.path.join(ROOT_DIR, "resources")
+
+"""
+Mac addresses
+    "00:19:08:36:22:1B"
+    "00:19:08:36:54:d4"
+"""
 
 API_BASE_URL = "/api/v1"
