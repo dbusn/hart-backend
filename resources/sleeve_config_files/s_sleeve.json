@@ -10,7 +10,7 @@
     "known_bluetooth_mac_addresses": [
         "00:19:08:36:22:1B"
     ],
-    "bluetooth_com_port": "/dev/tty.SECCOPY-SPPDev",
+    "bluetooth_com_port": "/dev/tty.HC-05-SPPDev",
     "mapping" : [
         { 
             "coord" : 11,
