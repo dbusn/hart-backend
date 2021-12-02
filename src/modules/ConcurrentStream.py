@@ -138,7 +138,7 @@ class MicrophoneStream(object):
 
         Logger.log_warning("ConcurrentStream: Generator has stopped. This is the not expected exit-event.")
 
-def listen_print_loop(responses, killswitch):
+def send_transcription_loop(responses, killswitch):
     """Iterates through server responses and prints them.
 
     The responses passed is a generator that will block until a response
@@ -179,8 +179,6 @@ def listen_print_loop(responses, killswitch):
         # If the previous result was longer than this one, we need to print
         # some extra spaces to overwrite the previous result
 
-        # TODO: handle the actual response from backend. Below prints it.
-
         overwrite_chars = " " * (num_chars_printed - len(transcript))
 
         if not result.is_final:
@@ -191,17 +189,30 @@ def listen_print_loop(responses, killswitch):
 
         else:
             print(transcript + overwrite_chars)
-            # TODO: send transcript + overwrite_chars to dispatcher
+            # send transcript + overwrite_chars to dispatcher
 
             # issue translate event
-            translate_request = TranscribeAndTranslateRequest(original_sentences=transcript+overwrite_chars,
-                                                              source_language="nl-NL")
-            try:
-                translate_request = dispatcher.handle(translate_request)
-            except RuntimeError:
-                message = API_BASE_URL + "/microcontroller/sentences: Could not handle TranslateRequest successfully."
-                Logger.log_error("ConcurrentStream.listen_print_loop - " + message)
-                return message, 500
+            # translate_bool = False
+            # if translate_bool:
+            #     translate_request = TranscribeAndTranslateRequest(original_sentences=transcript+overwrite_chars,
+            #                                                        source_language="nl-NL")
+            #     try:
+            #         translate_request = dispatcher.handle(translate_request)
+            #     except RuntimeError:
+            #         message = API_BASE_URL + "/microcontroller/sentences: Could not handle TranslateRequest successfully."
+            #         Logger.log_error("ConcurrentStream.send_transcription_loop - " + message)
+            #         return message, 500
+            #     result = {
+            #         "sentences": translate_request.original_sentences,
+            #         "translation": translate_request.translated_sentences,
+            #     }
+            #     decomposition_request_translated = PhonemeTransformRequest(sentences=result["translation"])
+            #     try:
+            #         dispatcher.handle(decomposition_request_translated)
+            #     except RuntimeError:
+            #         message = API_BASE_URL + "/microcontroller/audiopath: Could not handle PhonemeTransformRequest successfully."
+            #         Logger.log_error("ConcurrentStream.send_transcription_loop - " + message)
+            #     return message, 500
 
             # Issue decomposition into phonemes and sending to microcontroller
             decomposition_request = PhonemeTransformRequest(sentences=transcript+overwrite_chars)
@@ -209,13 +220,10 @@ def listen_print_loop(responses, killswitch):
                 dispatcher.handle(decomposition_request)
             except RuntimeError:
                 message = API_BASE_URL + "/microcontroller/sentences: Could not handle PhonemeTransformRequest successfully."
-                Logger.log_error("ConcurrentStream.listen_print_loop - " + message)
+                Logger.log_error("ConcurrentStream.send_transcription_loop - " + message)
                 return message, 500
 
-            result = {
-                "sentences": translate_request.original_sentences,
-                "translation": translate_request.translated_sentences,
-            }
+
 
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
@@ -225,13 +233,11 @@ def listen_print_loop(responses, killswitch):
 
             num_chars_printed = 0
 
-            # send return, success code
-            return jsonify(result), 200
 
 def start_process(kill_switch):
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
-    language_code = "nl-NL"  # a BCP-47 language tag
+    language_code = "en-US"  # a BCP-47 language tag
     
     client = speech.SpeechClient()
     config = speech.RecognitionConfig(
@@ -255,4 +261,4 @@ def start_process(kill_switch):
         responses = client.streaming_recognize(streaming_config, requests)
 
         # Now, put the transcription responses to use.
-        listen_print_loop(responses, kill_switch)
+        send_transcription_loop(responses, kill_switch)
