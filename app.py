@@ -7,6 +7,7 @@ from flask_cors import CORS
 from definitions import DISTRIBUTION, RESOURCES, CONFIG_FILE_NAME
 from src.handlers.Dispatcher import Dispatcher
 from src.modules.PrototypeConnection import PrototypeConnection
+# from src.modules.ConcurrentStream import start_process
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 from src.helpers.Logger import Logger
 
@@ -46,6 +47,8 @@ if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
     # Check if google api is working correctly
     GoogleApiWrapper(credentials_path=os.path.join(RESOURCES, 'gcloud_credentials.json'))
 
+    # Start audio stream
+    # TODO: implement toggle recording from frontend, should call start_process
 
 if DISTRIBUTION:
     @app.route('/', methods=['GET'])
