@@ -4,13 +4,12 @@ import atexit
 from flask import Flask, render_template
 from flask_cors import CORS
 
-from definitions import DISTRIBUTION, RESOURCES
+from definitions import DISTRIBUTION, RESOURCES, CONFIG_FILE_NAME
 from src.handlers.Dispatcher import Dispatcher
 from src.modules.PrototypeConnection import PrototypeConnection
 # from src.modules.ConcurrentStream import start_process
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 from src.helpers.Logger import Logger
-
 
 if os.environ.keys().__contains__('FLASK_ENV') and os.environ['FLASK_ENV'] == "development" and DISTRIBUTION:
     Logger.log_error("Running in development mode with DISTRIBUTION set to true!")
@@ -22,7 +21,7 @@ elif os.environ.keys().__contains__('FLASK_ENV') and os.environ['FLASK_ENV'] == 
 
 import logging
 log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
+# log.setLevel(logging.ERROR)
 
 
 def close_prototype_connection():
@@ -42,7 +41,7 @@ CORS(app)
 dispatcher = Dispatcher()
 
 # config singleton PrototypeConnection
-PrototypeConnection().connect_with_config(os.path.join(RESOURCES, 'prototype_config.json'))
+PrototypeConnection().connect_with_config(os.path.join(RESOURCES, "sleeve_config_files", CONFIG_FILE_NAME))
 
 
 # Check if google api is working correctly

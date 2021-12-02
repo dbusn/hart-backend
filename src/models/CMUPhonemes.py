@@ -12,7 +12,7 @@ MappingCMUtoReed = {
     'IH': 'IH',
     'UH': 'UU',
     'AH': 'UH',
-    'OW': 'OE',
+    'OW': 'OW', #changed
     'OY': 'OY',
     'D': 'D', 
     'M': 'M', 
@@ -37,7 +37,9 @@ MappingCMUtoReed = {
     'L': 'L',
     'Y': 'Y',
     'N': 'N',
-    'NG': 'NG'
+    'NG': 'NG',
+    'AW': 'OE', #changed
+    'UW': 'OO' #changed
 }   
 
 REEDPhonemes = set(MappingCMUtoReed.values())
