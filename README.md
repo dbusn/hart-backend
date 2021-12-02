@@ -20,7 +20,8 @@ This will run through a full fledged installation using a pip virtual environmen
 15. Go to the backend project folder: `cd ..\backend`
 16. If the line `PyBluez == 0.30` is in requirements.txt (in the backend folder), remove it. 
 17. Install all requirements: `pip install -r ./requirements.txt`
-18. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environment variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
+18. In case you get errors when requests from the frontend are sent to the backend, the errors might tell you PyAudio is missing. To install PyAudio, go to https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio, download the latest version that matches your 64-bit or 32-bit Python, go to the folder it is downloaded to and use `pip install PathToFile`
+19. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environment variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
 
 Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src/modules/ffmpeg` folder.
 
