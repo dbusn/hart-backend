@@ -3,14 +3,22 @@ from __future__ import division
 import re
 import sys
 
+from definitions import API_BASE_URL, RESOURCES
+
 from google.cloud import speech
 
 import pyaudio
 from six.moves import queue
-
+from flask import request, jsonify
 from src.helpers.Logger import Logger
+from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
+from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
+from src.handlers.Dispatcher import Dispatcher
 
 import threading
+
+dispatcher = Dispatcher()
+
 
 # Audio recording parameters
 RATE = 16000
@@ -130,7 +138,7 @@ class MicrophoneStream(object):
 
         Logger.log_warning("ConcurrentStream: Generator has stopped. This is the not expected exit-event.")
 
-def listen_print_loop(responses, killswitch):
+def send_transcription_loop(responses, killswitch):
     """Iterates through server responses and prints them.
 
     The responses passed is a generator that will block until a response
@@ -145,10 +153,10 @@ def listen_print_loop(responses, killswitch):
     the next result to overwrite it, until the response is a final one. For the
     final one, print a newline to preserve the finalized transcription.
     """
-    # num_chars_printed = 0
+    num_chars_printed = 0
     for response in responses:
         if not killswitch.get():
-            # If the killswitch is false, we should stop reading the generator. 
+            # If the killswitch is false, we should stop reading the generator.
             break
 
         print('response came in on thread')
@@ -163,7 +171,7 @@ def listen_print_loop(responses, killswitch):
             continue
 
         # Display the transcription of the top alternative.
-        # transcript = result.alternatives[0].transcript
+        transcript = result.alternatives[0].transcript
 
         # Display interim results, but with a carriage return at the end of the
         # line, so subsequent lines will overwrite them.
@@ -171,32 +179,66 @@ def listen_print_loop(responses, killswitch):
         # If the previous result was longer than this one, we need to print
         # some extra spaces to overwrite the previous result
 
-        # TODO: handle the actual response from backend. Below prints it.
+        overwrite_chars = " " * (num_chars_printed - len(transcript))
 
-        # overwrite_chars = " " * (num_chars_printed - len(transcript))
+        if not result.is_final:
+            sys.stdout.write(transcript + overwrite_chars + "\r")
+            sys.stdout.flush()
 
-        # if not result.is_final:
-        #     sys.stdout.write(transcript + overwrite_chars + "\r")
-        #     sys.stdout.flush()
+            num_chars_printed = len(transcript)
 
-        #     num_chars_printed = len(transcript)
+        else:
+            print(transcript + overwrite_chars)
+            # send transcript + overwrite_chars to dispatcher
 
-        # else:
-        #     print(transcript + overwrite_chars)
+            # issue translate event
+            # translate_bool = False
+            # if translate_bool:
+            #     translate_request = TranscribeAndTranslateRequest(original_sentences=transcript+overwrite_chars,
+            #                                                        source_language="nl-NL")
+            #     try:
+            #         translate_request = dispatcher.handle(translate_request)
+            #     except RuntimeError:
+            #         message = API_BASE_URL + "/microcontroller/sentences: Could not handle TranslateRequest successfully."
+            #         Logger.log_error("ConcurrentStream.send_transcription_loop - " + message)
+            #         return message, 500
+            #     result = {
+            #         "sentences": translate_request.original_sentences,
+            #         "translation": translate_request.translated_sentences,
+            #     }
+            #     decomposition_request_translated = PhonemeTransformRequest(sentences=result["translation"])
+            #     try:
+            #         dispatcher.handle(decomposition_request_translated)
+            #     except RuntimeError:
+            #         message = API_BASE_URL + "/microcontroller/audiopath: Could not handle PhonemeTransformRequest successfully."
+            #         Logger.log_error("ConcurrentStream.send_transcription_loop - " + message)
+            #     return message, 500
 
-        #     # Exit recognition if any of the transcribed phrases could be
-        #     # one of our keywords.
-        #     if re.search(r"\b(exit|quit)\b", transcript, re.I):
-        #         print("Exiting..")
-        #         break
+            # Issue decomposition into phonemes and sending to microcontroller
+            decomposition_request = PhonemeTransformRequest(sentences=transcript+overwrite_chars)
+            try:
+                dispatcher.handle(decomposition_request)
+            except RuntimeError:
+                message = API_BASE_URL + "/microcontroller/sentences: Could not handle PhonemeTransformRequest successfully."
+                Logger.log_error("ConcurrentStream.send_transcription_loop - " + message)
+                return message, 500
 
-        #     num_chars_printed = 0
+
+
+            # Exit recognition if any of the transcribed phrases could be
+            # one of our keywords.
+            if re.search(r"\b(exit|quit)\b", transcript, re.I):
+                print("Exiting..")
+                break
+
+            num_chars_printed = 0
+
 
 def start_process(kill_switch):
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
-    language_code = "nl-NL"  # a BCP-47 language tag
-    
+    language_code = "en-US"  # a BCP-47 language tag
+
     client = speech.SpeechClient()
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
@@ -219,4 +261,4 @@ def start_process(kill_switch):
         responses = client.streaming_recognize(streaming_config, requests)
 
         # Now, put the transcription responses to use.
-        listen_print_loop(responses, kill_switch)
+        send_transcription_loop(responses, kill_switch)
