@@ -169,7 +169,7 @@ class PrototypeConnection(metaclass=Singleton):
             try:
                 self.device.flushInput()
 
-                self.device.write(message.strip().encode())
+                self.device.write(message.strip().replace(" ", "").replace("\n", "").encode())
 
                 # Make sure the prototype always gives an output, otherwise Python will wait forever.
                 prototype_log = self.device.readline().decode()
