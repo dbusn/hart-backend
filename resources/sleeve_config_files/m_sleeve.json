@@ -10,6 +10,7 @@
     "known_bluetooth_mac_addresses": [
         "00:19:08:36:34:8c"
     ],
+    "bluetooth_device_name": "SECCOPY",
     "bluetooth_com_port": null,
     "mapping" : [
         { 

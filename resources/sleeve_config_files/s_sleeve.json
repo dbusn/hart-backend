@@ -10,6 +10,7 @@
     "known_bluetooth_mac_addresses": [
         "00:19:08:36:22:1B"
     ],
+    "bluetooth_device_name": "HC-05",
     "bluetooth_com_port": "COM16",
     "mapping" : [
         { 
