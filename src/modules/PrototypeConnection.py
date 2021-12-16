@@ -206,9 +206,10 @@ class PrototypeConnection(metaclass=Singleton):
 
         mac = None
 
-        # Find COM port with LookFor name
+        # Find all com ports on device, and include names
         nb = bluetooth.discover_devices(lookup_names=True)
 
+        # Loop over ports to check if device in question is in there.
         for address, name in list(nb):
             if bluetooth_device_name == name:
                 mac = address
@@ -216,16 +217,20 @@ class PrototypeConnection(metaclass=Singleton):
                 break
 
         if mac is not None:
+            # Get a list of COM ports
             com_ports = list(serial.tools.list_ports.comports())
-
             stripped_mac = mac.replace(":", "")
+
+            # Loop over ports, and check which one corresponds to the MAC address
             for COM, _, hwid in com_ports:
                 if stripped_mac in hwid:
                     return COM
 
+            # Nothing corresponding was found, log warning and return
             Logger.log_warning("Could not find com port corresponding to found MAC address")
             return None
         else:
+            # MAC address was not found, so user most likely has never yet paired their device with the sleeve.
             Logger.log_warning("MAC address of given bluetooth chip name could not be determined.")
             Logger.log_warning("Make sure to pair the computer to the bluetooth chip if you are using it "
                                "for the first time")
