@@ -1,4 +1,5 @@
 from pybluez import bluetooth
+from serial import Serial
 
 from src.helpers.Logger import Logger
 from src.helpers.SingletonHelper import Singleton
@@ -27,18 +28,16 @@ class PrototypeConnection(metaclass=Singleton):
     # whether backend in debug (so no connected prototype)
     debug: bool
 
-    # baudrate for connected Teensy
+    # baudrate for connection to sleeve
     baudrate: int
+
+    # Connection to the sleeve
+    device: Serial
 
     # list of serials of known microcontrollers (should include current connected microcontroller)
     serials: List[str]
 
-    #  Stores the COM port for connecting with bluetooth if done manually
-    com_port: str
-
-    # list of known MAC addresses of HC-05 bluetooth module chips
-    known_bluetooth_mac_addresses: List[str]
-
+    # Name of bluetooth device to connect to
     bluetooth_device_name: str
 
     def __init__(self):
@@ -62,7 +61,7 @@ class PrototypeConnection(metaclass=Singleton):
         if not self.debug:
             try:
                 if CONNECTED_VIA_BLUETOOTH:
-                    self.find_port(self.bluetooth_device_name)
+                    port = self.find_bluetooth_port_windows(self.bluetooth_device_name)
                     # if self.com_port is None:
                     #     if len(self.known_bluetooth_mac_addresses) == 1:
                     #         mac = self.known_bluetooth_mac_addresses[0]
@@ -82,7 +81,8 @@ class PrototypeConnection(metaclass=Singleton):
                 Logger.log_warning("Prototype connection NOT successfully created! " + str(e))
                 if CONNECTED_VIA_BLUETOOTH:
                     Logger.log_warning("First, make sure that your bluetooth is on!")
-                    Logger.log_warning("Additionally, for the bluetooth connection it might help to restart the prototype.")
+                    Logger.log_warning(
+                        "Additionally, for the bluetooth connection it might help to restart the prototype.")
                 self.configured = False
                 return
 
@@ -106,12 +106,6 @@ class PrototypeConnection(metaclass=Singleton):
 
         # serials of known microcontrollers
         self.serials = config['serial_numbers']
-
-        # Reads known bluetooth mac addresses
-        self.known_bluetooth_mac_addresses = config['known_bluetooth_mac_addresses']
-
-        # Reads (possible) manually set bluetooth com port
-        self.com_port = config['bluetooth_com_port']
 
         # baudrate that is used in prototype
         self.baudrate = BAUDRATE
@@ -200,23 +194,39 @@ class PrototypeConnection(metaclass=Singleton):
 
         return prototype_log
 
-    def find_port(self, bluetooth_device_name: str):
+    def find_bluetooth_port_windows(self, bluetooth_device_name: str):
+        """
+        Functionality to find the bluetooth COM port corresponding to a given bluetooth device name for
+        windows operating system. Does not work if bluetooth device was never paired before.
+        :param bluetooth_device_name:   Name of the bluetooth device to find the COM port for.
+        :return:                        String containing the COM port.
+        """
+        Logger.log_info("Searching for windows com port corresponding to bluetooth chip with name "
+                        + bluetooth_device_name)
+
+        mac = None
+
         # Find COM port with LookFor name
         nb = bluetooth.discover_devices(lookup_names=True)
-        for addr, name in list(nb):
-            if bluetooth_device_name == name:
-                break
-            else:
-                name = None
-                addr = None
 
-        if name == bluetooth_device_name:
+        for address, name in list(nb):
+            if bluetooth_device_name == name:
+                mac = address
+                Logger.log_info("MAC address to connect to: " + str(mac))
+                break
+
+        if mac is not None:
             com_ports = list(serial.tools.list_ports.comports())
-            addr = addr.replace(":", "")
-            for COM, des, hwenu in com_ports:
-                if addr in hwenu:
+
+            stripped_mac = mac.replace(":", "")
+            for COM, _, hwid in com_ports:
+                if stripped_mac in hwid:
                     return COM
-                if name is not None:
-                    print("COM=", COM, "   BTid=", name)
-                else:
-                    print(bluetooth_device_name, " not found.")
+
+            Logger.log_warning("Could not find com port corresponding to found MAC address")
+            return None
+        else:
+            Logger.log_warning("MAC address of given bluetooth chip name could not be determined.")
+            Logger.log_warning("Make sure to pair the computer to the bluetooth chip if you are using it "
+                               "for the first time")
+            return None
