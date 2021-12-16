@@ -156,7 +156,7 @@ def send_transcription_loop(responses, killswitch):
     num_chars_printed = 0
     for response in responses:
         if not killswitch.get():
-            # If the killswitch is false, we should stop reading the generator.
+            # If the killswitch is false, we should stop reading the generator. 
             break
 
         print('response came in on thread')
@@ -188,7 +188,8 @@ def send_transcription_loop(responses, killswitch):
             num_chars_printed = len(transcript)
 
         else:
-            print(transcript + overwrite_chars)
+            result_text = transcript + overwrite_chars
+            print(result_text)
             # send transcript + overwrite_chars to dispatcher
 
             # issue translate event
@@ -215,7 +216,12 @@ def send_transcription_loop(responses, killswitch):
             #     return message, 500
 
             # Issue decomposition into phonemes and sending to microcontroller
-            decomposition_request = PhonemeTransformRequest(sentences=transcript+overwrite_chars)
+
+            result_list = []
+            result_list.append(result_text) #maybe make mod 10 iterator
+            decomposition_request = PhonemeTransformRequest(sentences=result_list)
+
+
             try:
                 dispatcher.handle(decomposition_request)
             except RuntimeError:
