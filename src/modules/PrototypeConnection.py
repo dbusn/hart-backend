@@ -85,6 +85,8 @@ class PrototypeConnection(metaclass=Singleton):
                         "Additionally, for the bluetooth connection it might help to restart the prototype.")
                 self.configured = False
                 return
+        else:
+            Logger.log_info("PrototypeConnection initialized in debug mode.")
 
         self.configured = True
 

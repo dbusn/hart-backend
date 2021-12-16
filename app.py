@@ -31,14 +31,9 @@ def close_prototype_connection():
 atexit.register(close_prototype_connection)
 
 
-app = Flask(__name__)
-CORS(app)
-
-
-if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
-
+def initialize():
     # Initialize dispatcher
-    dispatcher = Dispatcher()
+    Dispatcher()
 
     # config singleton PrototypeConnection
     PrototypeConnection().connect_with_config(os.path.join(RESOURCES, "sleeve_config_files", CONFIG_FILE_NAME))
@@ -46,6 +41,19 @@ if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
     # Check if google api is working correctly
     GoogleApiWrapper(credentials_path=os.path.join(RESOURCES, 'gcloud_credentials.json'))
 
+
+if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
+    # print("hey")
+    # Import routes
+    from src.routes.Routes import *
+
+
+app = Flask(__name__)
+CORS(app)
+initialize()
+
+if __name__ == "__main__":
+    app.run(debug=False, use_reloader=False, threaded=True)
 
 if DISTRIBUTION:
     @app.route('/', methods=['GET'])
@@ -58,12 +66,6 @@ if DISTRIBUTION:
     def error_route(e):
         return render_template("index.html")
 
-if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
-    # Import routes
-    from src.routes.Routes import *
-
-if __name__ == "__main__" and DISTRIBUTION:
     log.setLevel(logging.INFO)
     import webbrowser
     webbrowser.open("http://localhost:5000")
-    app.run(debug=False, use_reloader=False, threaded=True)
