@@ -181,6 +181,7 @@ def send_transcription_loop(responses, killswitch):
 
         overwrite_chars = " " * (num_chars_printed - len(transcript))
 
+        # result.is_final tells us whether the Google algorithm thinks the sentence is finished
         if not result.is_final:
             sys.stdout.write(transcript + overwrite_chars + "\r")
             sys.stdout.flush()
@@ -218,10 +219,11 @@ def send_transcription_loop(responses, killswitch):
             # Issue decomposition into phonemes and sending to microcontroller
 
             result_list = []
-            result_list.append(result_text) #maybe make mod 10 iterator
+            result_list.append(result_text) #maybe make mod 10 iterator to save the context of the sentences
             decomposition_request = PhonemeTransformRequest(sentences=result_list)
 
-
+            # The Dispatcher instance will try to handle all the required events for translation
+            # If unsuccessful, we will log an error message. 
             try:
                 dispatcher.handle(decomposition_request)
             except RuntimeError:
@@ -243,6 +245,12 @@ def send_transcription_loop(responses, killswitch):
 def start_process(kill_switch):
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
+    """Initializes the microphone in the backend and the required threads
+    when toggle_stream is triggered by a frontend request. 
+    
+    By using the state of the microphone (on/off) whose state can be changed 
+    by requests from the Frontend, the microphone stream and transcription loop 
+    will automatically terminate when kill_switch is False."""
     language_code = "en-US"  # a BCP-47 language tag
 
     client = speech.SpeechClient()
@@ -257,7 +265,7 @@ def start_process(kill_switch):
     )
 
     with MicrophoneStream(RATE, CHUNK) as stream:
-
+        
         audio_generator = stream.generator()
         requests = (
             speech.StreamingRecognizeRequest(audio_content=content)
@@ -267,4 +275,5 @@ def start_process(kill_switch):
         responses = client.streaming_recognize(streaming_config, requests)
 
         # Now, put the transcription responses to use.
+        # Code terminates when kill_swith == False
         send_transcription_loop(responses, kill_switch)
