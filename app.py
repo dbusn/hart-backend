@@ -9,6 +9,7 @@ from src.handlers.Dispatcher import Dispatcher
 from src.modules.PrototypeConnection import PrototypeConnection
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 from src.helpers.Logger import Logger
+from src.routes.Routes import init_views
 
 
 if os.environ.keys().__contains__('FLASK_ENV') and os.environ['FLASK_ENV'] == "development" and DISTRIBUTION:
@@ -31,9 +32,9 @@ def close_prototype_connection():
 atexit.register(close_prototype_connection)
 
 
-def initialize():
+def initialize(application):
     # Initialize dispatcher
-    Dispatcher()
+    dispatcher = Dispatcher()
 
     # config singleton PrototypeConnection
     PrototypeConnection().connect_with_config(os.path.join(RESOURCES, "sleeve_config_files", CONFIG_FILE_NAME))
@@ -41,19 +42,14 @@ def initialize():
     # Check if google api is working correctly
     GoogleApiWrapper(credentials_path=os.path.join(RESOURCES, 'gcloud_credentials.json'))
 
-
-if os.environ.get("WERKZEUG_RUN_MAIN") or __name__ == "__main__":
-    # print("hey")
-    # Import routes
-    from src.routes.Routes import *
+    init_views(application, dispatcher)
 
 
 app = Flask(__name__)
 CORS(app)
-initialize()
+initialize(app)
+app.run(debug=False, threaded=True)
 
-if __name__ == "__main__":
-    app.run(debug=False, use_reloader=False, threaded=True)
 
 if DISTRIBUTION:
     @app.route('/', methods=['GET'])
