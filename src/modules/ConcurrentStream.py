@@ -5,7 +5,7 @@ import sys
 
 from definitions import API_BASE_URL, RESOURCES
 
-from google.cloud import speech
+from google.cloud import speech_v1p1beta1 as speech
 
 import pyaudio
 from six.moves import queue
@@ -172,6 +172,7 @@ def send_transcription_loop(responses, killswitch):
 
         # Display the transcription of the top alternative.
         transcript = result.alternatives[0].transcript
+        alternatives = result.alternatives[0]
 
         # Display interim results, but with a carriage return at the end of the
         # line, so subsequent lines will overwrite them.
@@ -183,6 +184,11 @@ def send_transcription_loop(responses, killswitch):
 
         # result.is_final tells us whether the Google algorithm thinks the sentence is finished
         if not result.is_final:
+            print(
+                    u"First Word and Confidence: ({}, {})".format(
+                    alternatives.words[0].word, alternatives.words[0].confidence
+                )
+            )
             sys.stdout.write(transcript + overwrite_chars + "\r")
             sys.stdout.flush()
 
@@ -258,6 +264,7 @@ def start_process(kill_switch):
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=RATE,
         language_code=language_code,
+        enable_word_confidence=True
     )
 
     streaming_config = speech.StreamingRecognitionConfig(
