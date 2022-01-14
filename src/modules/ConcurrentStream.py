@@ -153,13 +153,37 @@ def send_transcription_loop(responses, killswitch):
     the next result to overwrite it, until the response is a final one. For the
     final one, print a newline to preserve the finalized transcription.
     """
+    percentages_array = [0 for _ in range(100+1)]
     num_chars_printed = 0
+    global hypothesis
+    hypothesis = 90
+
+    global breached_hypothesis
+    breached_hypothesis = False
+
+    global inter_res
+    inter_res = ""
+
+    global sentence_count
+    sentence_count = 0
+
+    global hypothesis_correct
+    hypothesis_correct = 0
+
+    global not_reached
+    not_reached = 0
     for response in responses:
         if not killswitch.get():
             # If the killswitch is false, we should stop reading the generator. 
+            print("percentages_array: {}".format(percentages_array))
+            print("sentence_count: {}".format(sentence_count))
+            print("hypothesis_correct: {}".format(hypothesis_correct))
+            print("not_reached: {}".format(not_reached))
+            print("not_reached percentage: {}".format(not_reached / sentence_count))
+            print("accuracy: {}".format(hypothesis_correct / sentence_count))
             break
 
-        print('response came in on thread')
+        # print('response came in on thread')
         if not response.results:
             continue
 
@@ -172,7 +196,7 @@ def send_transcription_loop(responses, killswitch):
 
         # Display the transcription of the top alternative.
         transcript = result.alternatives[0].transcript
-        alternatives = result.alternatives[0]
+        print(transcript + "\n STABILITY: " + str(result.stability))
 
         # Display interim results, but with a carriage return at the end of the
         # line, so subsequent lines will overwrite them.
@@ -184,12 +208,22 @@ def send_transcription_loop(responses, killswitch):
 
         # result.is_final tells us whether the Google algorithm thinks the sentence is finished
         if not result.is_final:
-            print(
-                    u"First Word and Confidence: ({}, {})".format(
-                    alternatives.words[0].word, alternatives.words[0].confidence
-                )
-            )
-            sys.stdout.write(transcript + overwrite_chars + "\r")
+            # Intermediate result
+            int_result = transcript + overwrite_chars
+
+            # Accuracy testing
+            stability = result.stability
+            rounded_stability = int(round(stability * 100.0))
+            if (not breached_hypothesis and rounded_stability >= hypothesis):
+                breached_hypothesis = True
+                inter_res = int_result
+                inter_res = re.sub(r"[^\sA-Za-z]+", "", inter_res)
+                inter_res = inter_res.rstrip()
+                # inter_res = re.sub(r"[^A-Za-z\s]+", "", inter_res)
+            percentages_array[rounded_stability] += 1
+
+            # print("stability: {}". format(stability))
+            sys.stdout.write(int_result + "\r")
             sys.stdout.flush()
 
             num_chars_printed = len(transcript)
@@ -228,6 +262,28 @@ def send_transcription_loop(responses, killswitch):
             result_list.append(result_text) #maybe make mod 10 iterator to save the context of the sentences
             decomposition_request = PhonemeTransformRequest(sentences=result_list)
 
+            # Accuracy testing
+            sentence_count += 1
+            
+            print(inter_res + " | " + result_text)
+            if (len(inter_res) > 0):
+                res_copy = result_text[:len(inter_res)]
+                res_copy = re.sub(r"[^\sA-Za-z]+", "", res_copy).rstrip()
+                if (inter_res == res_copy):
+                        hypothesis_correct += 1
+                # for i in range(len(inter_res)):
+                #     if (inter_res[i] != result_text[i]):
+                #         # Hypothesis wrong!
+                #         break
+                #     elif (inter_res[i] == result_text[i] and i == len(inter_res) - 1):
+                #         # Hypothesis correct!
+                #         hypothesis_correct += 1
+            else:
+                # Hypothesis not reached!
+                not_reached += 1
+            inter_res = ""
+            breached_hypothesis = False
+
             # The Dispatcher instance will try to handle all the required events for translation
             # If unsuccessful, we will log an error message. 
             try:
@@ -264,7 +320,8 @@ def start_process(kill_switch):
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=RATE,
         language_code=language_code,
-        enable_word_confidence=True
+        enable_word_confidence=True,
+        enable_automatic_punctuation=True
     )
 
     streaming_config = speech.StreamingRecognitionConfig(
@@ -284,3 +341,4 @@ def start_process(kill_switch):
         # Now, put the transcription responses to use.
         # Code terminates when kill_swith == False
         send_transcription_loop(responses, kill_switch)
+
