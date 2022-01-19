@@ -217,8 +217,7 @@ def send_transcription_loop(responses, killswitch):
             if (not breached_hypothesis and rounded_stability >= hypothesis):
                 breached_hypothesis = True
                 inter_res = int_result
-                inter_res = re.sub(r"[^\sA-Za-z]+", "", inter_res)
-                inter_res = inter_res.rstrip()
+                inter_res = re.sub(r"[^\sA-Za-z]+", "", inter_res).rstrip()
                 # inter_res = re.sub(r"[^A-Za-z\s]+", "", inter_res)
             percentages_array[rounded_stability] += 1
 
@@ -227,6 +226,8 @@ def send_transcription_loop(responses, killswitch):
             sys.stdout.flush()
 
             num_chars_printed = len(transcript)
+
+            #TODO: Parse intermediate result with high enough stability to microcontroller, and left-delete it from string
 
         else:
             result_text = transcript + overwrite_chars
@@ -264,11 +265,11 @@ def send_transcription_loop(responses, killswitch):
 
             # Accuracy testing
             sentence_count += 1
-            
-            print(inter_res + " | " + result_text)
+
             if (len(inter_res) > 0):
                 res_copy = result_text[:len(inter_res)]
                 res_copy = re.sub(r"[^\sA-Za-z]+", "", res_copy).rstrip()
+                print(inter_res + " | " + res_copy)
                 if (inter_res == res_copy):
                         hypothesis_correct += 1
                 # for i in range(len(inter_res)):
