@@ -1,6 +1,6 @@
 import bluetooth
 from serial import Serial
-
+import os
 from src.helpers.Logger import Logger
 from src.helpers.SingletonHelper import Singleton
 from definitions import CONNECTED_TO_PROTOTYPE, CONNECTED_VIA_BLUETOOTH, BAUDRATE, RUNNING_ON_MAC
@@ -64,7 +64,16 @@ class PrototypeConnection(metaclass=Singleton):
                     if not RUNNING_ON_MAC:
                         port = self.find_bluetooth_port_windows(self.bluetooth_device_name)
                     else:
-                        port = "/dev/tty." + self.bluetooth_device_name + "-SPPDev"
+                        number_of_findings = 0
+                        portsList = os.listdir("/dev/")
+                        for p in portsList:
+                            if str(p).find("tty." + self.bluetooth_device_name) != -1 and number_of_findings == 0:
+                                number_of_findings += 1
+                                port = str(p)
+                            elif str(p).find("tty." + self.bluetooth_device_name) != -1 and number_of_findings > 0:
+                                Logger.log_warning("More than one port found with name" + str(p))
+                            else:
+                                Logger.log_warning("Bluetooth device not found")
                 else:
                     port = self.find_outgoing_communication_port()
 
