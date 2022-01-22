@@ -1,4 +1,4 @@
-from pybluez import bluetooth
+import bluetooth
 from serial import Serial
 
 from src.helpers.Logger import Logger
