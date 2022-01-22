@@ -3,7 +3,7 @@ from serial import Serial
 
 from src.helpers.Logger import Logger
 from src.helpers.SingletonHelper import Singleton
-from definitions import CONNECTED_TO_PROTOTYPE, CONNECTED_VIA_BLUETOOTH, BAUDRATE
+from definitions import CONNECTED_TO_PROTOTYPE, CONNECTED_VIA_BLUETOOTH, BAUDRATE, RUNNING_ON_MAC
 
 from typing import Dict, Any, List
 
@@ -61,15 +61,10 @@ class PrototypeConnection(metaclass=Singleton):
         if not self.debug:
             try:
                 if CONNECTED_VIA_BLUETOOTH:
-                    port = self.find_bluetooth_port_windows(self.bluetooth_device_name)
-                    # if self.com_port is None:
-                    #     if len(self.known_bluetooth_mac_addresses) == 1:
-                    #         mac = self.known_bluetooth_mac_addresses[0]
-                    #     else:
-                    #         mac = self.find_in_reach_bluetooth_known_mac()
-                    #     port = self.get_spp_com_port(mac)
-                    # else:
-                    #     port = self.com_port
+                    if not RUNNING_ON_MAC:
+                        port = self.find_bluetooth_port_windows(self.bluetooth_device_name)
+                    else:
+                        port = "/dev/tty." + self.bluetooth_device_name + "-SPPDev"
                 else:
                     port = self.find_outgoing_communication_port()
 
