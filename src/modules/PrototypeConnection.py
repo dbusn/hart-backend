@@ -60,22 +60,32 @@ class PrototypeConnection(metaclass=Singleton):
         # set found device if not in backend-debug mode
         if not self.debug:
             try:
+                port = None
                 if CONNECTED_VIA_BLUETOOTH:
                     if not RUNNING_ON_MAC:
+                        # If running on windows, then find the bluetooth port using pybluez
                         port = self.find_bluetooth_port_windows(self.bluetooth_device_name)
                     else:
+                        # Mac has standardized ports. The names of the ports include the name of the bluetooth chip,
+                        # which we customized upon building and can be found in the sleeve config files.
+                        # Gotta love mac sometimes for making it easy ;)
                         number_of_findings = 0
                         portsList = os.listdir("/dev/")
                         for p in portsList:
                             if str(p).find("tty." + self.bluetooth_device_name) != -1 and number_of_findings == 0:
                                 number_of_findings += 1
                                 port = str(p)
-                            elif str(p).find("tty." + self.bluetooth_device_name) != -1 and number_of_findings > 0:
-                                Logger.log_warning("More than one port found with name" + str(p))
-                            else:
-                                Logger.log_warning("Bluetooth device not found")
+
+                        if number_of_findings > 1:
+                            # Should not happen
+                            Logger.log_warning("More than one correct port found!")
+                        elif number_of_findings == 0:
+                            Logger.log_warning("No port found that corresponds to name")
                 else:
                     port = self.find_outgoing_communication_port()
+
+                if port is None:
+                    raise Exception("No port found to connect to while not running in debug mode. Terminating..")
 
                 Logger.log_info("Connecting to port: " + port)
 

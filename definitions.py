@@ -15,11 +15,11 @@ CONFIG_FILE_NAME = "m_sleeve.json"
 DISTRIBUTION = False
 
 # Whether the prototype is connected or not
-CONNECTED_TO_PROTOTYPE = False
+CONNECTED_TO_PROTOTYPE = True
 
 # If prototype is connected, is it connected by bluetooth, or by cable (also depends on the software on the
 #       microcontroller
-CONNECTED_VIA_BLUETOOTH = False
+CONNECTED_VIA_BLUETOOTH = True
 
 RUNNING_ON_MAC = False
 
