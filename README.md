@@ -3,7 +3,7 @@
 ## Installation
 This will run through a full fledged installation using a pip virtual environment.
 0. FOLLOW STEPS CAREFULLY!
-1. Make sure you have Python 3.7 installed and ready to go (python 3.8 is not guaranteed to work).   
+1. Make sure you have Python 3.7 installed and ready to go (python 3.8 is not guaranteed to work. Tip: if you have different python versions installe (check with command `py --list`), you can specify version in the following way: `py file.py -3.7-64`, using pip with `py -3.7-64 -m pip install packagename` ).   
 2. Have a folder to store all software in (henceforth called `<root>\`)
 3. Clone this repository in `<root>/` (this creates `<root>\backend\`)
 4. Create a folder for the virtual environment called venv (`<root>\venv\`)
@@ -12,7 +12,7 @@ This will run through a full fledged installation using a pip virtual environmen
 7. Go to the venv directory: `cd venv`
 8. Create a new venv: `py -m venv backend`
 9. Activate the environment: `.\backend\Scripts\activate`
-10. Check if activation worked: `where python` should return `...\<root>\venv\backend\Scripts\python.exe`
+10. Check if activation worked: `where python` should return `...\<root>\venv\backend\Scripts\python.exe`  (use `where.exe python` in Powershell)
 11. Go to the backend project folder: `cd ..\backend`
 12. Install all requirements: `pip install -r ./requirements.txt`
 13. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environment variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
@@ -22,23 +22,23 @@ This will run through a full fledged installation using a pip virtual environmen
     2. Go to `<root>\pybluez\`: `cd ..\pybluez`
     3. Install pybluez in the venv: `..\venv\backend\Scripts\python setup.py install`
     4. Check if no problems were reported, and the installation was successful
-14. **For OSX/Linux**:
+15. **For OSX/Linux**:
     1. Install pybluez using `pip install pybluez==0.23`
-15. _In case you want to use a microphone to transform your own speech to vibrations on the sleeve_: Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src/modules/ffmpeg` folder.
+16. _In case you want to use a microphone to transform your own speech to vibrations on the sleeve_: Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src/modules/ffmpeg` folder.
 
 ## Running the application
 ### Development mode
 For running the application in development mode
 1. Set the environment variables `FLASK_ENV=development` and `FLASK_APP=app.py`
-  1. If you use an IDE for running the code, you can usually set these in the configuration settings.
-  2. on Windows this is done by `set <varname>=<varvalue>`
-  3. On Mac this is done by `export <varname>=<valvalue>`
+    1. If you use an IDE for running the code, you can usually set these in the configuration settings.
+    2. on Windows Command Prompt this is done by `set <varname>=<varvalue>`, In Powershell it is `$env:<varname>='<varvalue>`
+    3. On Mac this is done by `export <varname>=<valvalue>`
 2. Make sure the boolean variables in definitions.py are set correctly:
-  1. Set `DISTRIBUTION` to False if the frontend is run separately.
-  2. Set `CONNECTED_TO_PROTOTYPE` to True if you want the software to connect to the physical prototype.
-  3. Set `CONNECTION_VIA_BLUETOOH` to True if you want the software to connect to the physical prototype using bluetooth. (Note, you will have to have `CONNECTED_TO_PROTOTYPE` on True as well)
-  4. Set `RUNNING_ON_MAC` to True if you are running the software on a MAC or Linux machine   
-  5. Set `CONFIG_FILE_NAME` to the config file name of the sleeve that you want to connect to (only matters if you want to connect to physical prototype)
+    1. Set `DISTRIBUTION` to False if the frontend is run separately.
+    2. Set `CONNECTED_TO_PROTOTYPE` to True if you want the software to connect to the physical prototype.
+    3. Set `CONNECTION_VIA_BLUETOOH` to True if you want the software to connect to the physical prototype using bluetooth. (Note, you will have to have `CONNECTED_TO_PROTOTYPE` on True as well)
+    4. Set `RUNNING_ON_MAC` to True if you are running the software on a MAC or Linux machine   
+    5. Set `CONFIG_FILE_NAME` to the config file name of the sleeve that you want to connect to (only matters if you want to connect to physical prototype)
 4. Run the app with `flask run`
 
 ## Creating distribution
