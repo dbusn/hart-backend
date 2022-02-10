@@ -29,11 +29,12 @@ This will run through a full fledged installation using a pip virtual environmen
 ## Running the application
 ### Development mode
 For running the application in development mode
-1. Set the environment variables `FLASK_ENV=development` and `FLASK_APP=app.py`
+1. Activate your environment (from `<root>\backend`) do `..\venv\backend\Scripts\activate`)
+2. Set the environment variables `FLASK_ENV=development` and `FLASK_APP=app.py`
     1. If you use an IDE for running the code, you can usually set these in the configuration settings.
     2. on Windows Command Prompt this is done by `set <varname>=<varvalue>`, In Powershell it is `$env:<varname>='<varvalue>`
     3. On Mac this is done by `export <varname>=<valvalue>`
-2. Make sure the boolean variables in definitions.py are set correctly:
+3. Make sure the boolean variables in definitions.py are set correctly:
     1. Set `DISTRIBUTION` to False if the frontend is run separately.
     2. Set `CONNECTED_TO_PROTOTYPE` to True if you want the software to connect to the physical prototype.
     3. Set `CONNECTION_VIA_BLUETOOH` to True if you want the software to connect to the physical prototype using bluetooth. (Note, you will have to have `CONNECTED_TO_PROTOTYPE` on True as well)

@@ -1,6 +1,3 @@
-import bluetooth
-from serial import Serial
-import os
 from src.helpers.Logger import Logger
 from src.helpers.SingletonHelper import Singleton
 from definitions import CONNECTED_TO_PROTOTYPE, CONNECTED_VIA_BLUETOOTH, BAUDRATE, RUNNING_ON_MAC
@@ -10,6 +7,8 @@ from typing import Dict, Any, List
 import serial
 import serial.tools.list_ports
 
+import bluetooth
+import os
 import json
 import copy
 
@@ -32,7 +31,7 @@ class PrototypeConnection(metaclass=Singleton):
     baudrate: int
 
     # Connection to the sleeve
-    device: Serial
+    device: serial.Serial
 
     # list of serials of known microcontrollers (should include current connected microcontroller)
     serials: List[str]
@@ -58,50 +57,36 @@ class PrototypeConnection(metaclass=Singleton):
         self.parse_config_JSON(json_config)
 
         # set found device if not in backend-debug mode
-        if not self.debug:
-            try:
-                port = None
-                if CONNECTED_VIA_BLUETOOTH:
-                    if not RUNNING_ON_MAC:
-                        # If running on windows, then find the bluetooth port using pybluez
-                        port = self.find_bluetooth_port_windows(self.bluetooth_device_name)
-                    else:
-                        # Mac has standardized ports. The names of the ports include the name of the bluetooth chip,
-                        # which we customized upon building and can be found in the sleeve config files.
-                        # Gotta love mac sometimes for making it easy ;)
-                        number_of_findings = 0
-                        portsList = os.listdir("/dev/")
-                        for p in portsList:
-                            if str(p).find("tty." + self.bluetooth_device_name) != -1 and number_of_findings == 0:
-                                number_of_findings += 1
-                                port = str(p)
-
-                        if number_of_findings > 1:
-                            # Should not happen
-                            Logger.log_warning("More than one correct port found!")
-                        elif number_of_findings == 0:
-                            Logger.log_warning("No port found that corresponds to name")
-                else:
-                    port = self.find_outgoing_communication_port()
-
-                if port is None:
-                    raise Exception("No port found to connect to while not running in debug mode. Terminating..")
-
-                Logger.log_info("Connecting to port: " + port)
-
-                self.device = serial.Serial(port, baudrate=self.baudrate, timeout=5)
-
-                Logger.log_info("Connection is open: " + str(self.device.is_open))
-            except Exception as e:
-                Logger.log_warning("Prototype connection NOT successfully created! " + str(e))
-                if CONNECTED_VIA_BLUETOOTH:
-                    Logger.log_warning("First, make sure that your bluetooth is on!")
-                    Logger.log_warning(
-                        "Additionally, for the bluetooth connection it might help to restart the prototype.")
-                self.configured = False
-                return
-        else:
+        if self.debug:
             Logger.log_info("PrototypeConnection initialized in debug mode.")
+            return
+
+        try:
+            port = None
+            if CONNECTED_VIA_BLUETOOTH:
+                if RUNNING_ON_MAC:
+                    port = self.get_bluetooth_port_mac()
+                else:
+                    port = self.get_bluetooth_port_windows(self.bluetooth_device_name)
+            else:
+                port = self.find_outgoing_communication_port()
+
+            if port is None:
+                raise Exception("No port found to connect to while not running in debug mode. Terminating..")
+
+            Logger.log_info("Connecting to port: " + port)
+
+            self.device = serial.Serial(port, baudrate=self.baudrate, timeout=5)
+
+            Logger.log_info("Connection is open: " + str(self.device.is_open))
+        except Exception as e:
+            Logger.log_warning("Prototype connection NOT successfully created! " + str(e))
+            if CONNECTED_VIA_BLUETOOTH:
+                Logger.log_warning("First, make sure that your bluetooth is on!")
+                Logger.log_warning(
+                    "Additionally, for the bluetooth connection it might help to restart the prototype.")
+            self.configured = False
+            return
 
         self.configured = True
 
@@ -211,10 +196,35 @@ class PrototypeConnection(metaclass=Singleton):
 
         return prototype_log
 
-    def find_bluetooth_port_windows(self, bluetooth_device_name: str):
+    def get_bluetooth_port_mac(self):
+        """
+        get the bluetooth port when on Mac operating system
+        """
+
+        # Mac has standardized ports. The names of the ports include the name of the bluetooth chip,
+        # which we customized upon building and can be found in the sleeve config files.
+        # Gotta love mac sometimes for making it easy ;)
+        number_of_findings = 0
+        port = None
+        portsList = os.listdir("/dev/")
+        for p in portsList:
+            if str(p).find("tty." + self.bluetooth_device_name) != -1 and number_of_findings == 0:
+                number_of_findings += 1
+                port = str(p)
+
+        if number_of_findings > 1:
+            # Should not happen
+            Logger.log_warning("More than one correct port found!")
+        elif number_of_findings == 0:
+            Logger.log_warning("No port found that corresponds to name")
+
+        return port
+
+    def get_bluetooth_port_windows(self, bluetooth_device_name: str):
         """
         Functionality to find the bluetooth COM port corresponding to a given bluetooth device name for
         windows operating system. Does not work if bluetooth device was never paired before.
+        Uses pyBluez
         :param bluetooth_device_name:   Name of the bluetooth device to find the COM port for.
         :return:                        String containing the COM port.
         """
@@ -233,22 +243,22 @@ class PrototypeConnection(metaclass=Singleton):
                 Logger.log_info("MAC address to connect to: " + str(mac))
                 break
 
-        if mac is not None:
-            # Get a list of COM ports
-            com_ports = list(serial.tools.list_ports.comports())
-            stripped_mac = mac.replace(":", "")
-
-            # Loop over ports, and check which one corresponds to the MAC address
-            for COM, _, hwid in com_ports:
-                if stripped_mac in hwid:
-                    return COM
-
-            # Nothing corresponding was found, log warning and return
-            Logger.log_warning("Could not find com port corresponding to found MAC address")
-            return None
-        else:
+        if mac is None:
             # MAC address was not found, so user most likely has never yet paired their device with the sleeve.
             Logger.log_warning("MAC address of given bluetooth chip name could not be determined.")
             Logger.log_warning("Make sure to pair the computer to the bluetooth chip if you are using it "
                                "for the first time")
             return None
+
+        # Get a list of COM ports
+        com_ports = list(serial.tools.list_ports.comports())
+        stripped_mac = mac.replace(":", "")
+
+        # Loop over ports, and check which one corresponds to the MAC address
+        for COM, _, hwid in com_ports:
+            if stripped_mac in hwid:
+                return COM
+
+        # Nothing corresponding was found, log warning and return
+        Logger.log_warning("Could not find com port corresponding to found MAC address")
+        return None
