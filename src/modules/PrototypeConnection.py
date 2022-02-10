@@ -64,7 +64,7 @@ class PrototypeConnection(metaclass=Singleton):
         try:
             port = None
             if CONNECTED_VIA_BLUETOOTH:
-                if os.name == 'nt': # Check if running on windows
+                if os.name == 'nt':  # Check if running on windows
                     port = self.get_bluetooth_port_mac()
                 else:
                     port = self.get_bluetooth_port_windows(self.bluetooth_device_name)
