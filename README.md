@@ -5,26 +5,26 @@ This will run through a full fledged installation using a pip virtual environmen
 0. FOLLOW STEPS CAREFULLY!
 1. Make sure you have Python 3.7 installed and ready to go (python 3.8 is not guaranteed to work. Tip: if you have different python versions installe (check with command `py --list`), you can specify version in the following way: `py file.py -3.7-64`, using pip with `py -3.7-64 -m pip install packagename` ).   
 2. Have a folder to store all software in (henceforth called `<root>\`)
-3. Clone this repository in `<root>/` (this creates `<root>\backend\`)
+3. Clone this repository in `<root>\` (this creates `<root>\backend\`)
 4. Create a folder for the virtual environment called venv (`<root>\venv\`)
 5. Open a terminal (admin mode) in the root folder.
 6. Install virtualenv: `pip install virtualenv`
 7. Go to the venv directory: `cd venv`
 8. Create a new venv: `py -m venv backend`
-9. Activate the environment: `.\backend\Scripts\activate`
+9. Activate the environment: `.\backend\Scripts\activate` (mac: `backend/bin/activate`)
 10. Check if activation worked: `where python` should return `...\<root>\venv\backend\Scripts\python.exe`  (use `where.exe python` in Powershell)
 11. Go to the backend project folder: `cd ..\backend`
-12. Install all requirements: `pip install -r ./requirements.txt`
+12. Install all requirements: `pip install -r .\requirements.txt`
 13. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environment variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
 14. **For Windows**:
     
-    1. in `<root>/`, clone pybluez (https://github.com/pybluez/pybluez.git) (this creates `<root>\pybluez\`)
+    1. in `<root>\`, clone pybluez (https://github.com/pybluez/pybluez.git) (this creates `<root>\pybluez\`)
     2. Go to `<root>\pybluez\`: `cd ..\pybluez`
     3. Install pybluez in the venv: `..\venv\backend\Scripts\python setup.py install`
     4. Check if no problems were reported, and the installation was successful
 15. **For OSX/Linux**:
     1. Install pybluez using `pip install pybluez==0.23`
-16. _In case you want to use a microphone to transform your own speech to vibrations on the sleeve_: Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src/modules/ffmpeg` folder.
+16. _In case you want to use a microphone to transform your own speech to vibrations on the sleeve_: Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src\modules\ffmpeg` folder.
 
 ## Running the application
 ### Development mode
@@ -45,7 +45,7 @@ For running the application in development mode
 1. build the frontend with `npm run build`
 2. Put the `index.html` just generated in the `templates` folder in the backend.
 3. Put the rest of the generated frontend files in the `static` folder in the backend.
-4. Change the links in the `index.html` referring to js/img/css files by adding the prefix `static/`
+4. Change the links in the `index.html` referring to js/img/css files by adding the prefix `static\`
 5. Change the `DISTRIBUTION` boolean in the `definitions.py` file to `True`.
 6. Change the `CONNECTED_TO_PROTOTYPE` boolean in the `definitions.py` file to `True`. 
 
