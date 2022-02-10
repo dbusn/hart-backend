@@ -1,7 +1,7 @@
 # backend
 
 ## Installation
-This will run through a full fledged installation using a pip virtual environment.
+This will run through a full fledged installation using a pip virtual environment. Note: people that have experience with virtualenvironments might find this explanation a bit exhaustive. In such cases, you can skip most of the steps, but make sure to pick up again at step 13.
 0. FOLLOW STEPS CAREFULLY!
 1. Make sure you have Python 3.7 installed and ready to go (python 3.8 is not guaranteed to work. Tip: if you have different python versions installe (check with command `py --list`), you can specify version in the following way: `py file.py -3.7-64`, using pip with `py -3.7-64 -m pip install packagename` ).   
 2. Have a folder to store all software in (henceforth called `<root>\`)
@@ -14,7 +14,7 @@ This will run through a full fledged installation using a pip virtual environmen
 9. Activate the environment:
    1. For windows:`.\backend\Scripts\activate`
    2. For mac: `backend/bin/activate`
-10. Check if activation worked: `where python` should return `...\<root>\venv\backend\Scripts\python.exe`  (use `where.exe python` in Powershell)
+10. Check if activation worked: `where python` should return the python instance in the virtual environment directory  (use `where.exe python` in Powershell)
 11. Go to the backend project folder: `cd ..\backend`
 12. Install all requirements: `pip install -r .\requirements.txt`
 13. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environment variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
