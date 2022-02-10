@@ -11,7 +11,9 @@ This will run through a full fledged installation using a pip virtual environmen
 6. Install virtualenv: `pip install virtualenv`
 7. Go to the venv directory: `cd venv`
 8. Create a new venv: `py -m venv backend`
-9. Activate the environment: `.\backend\Scripts\activate` (mac: `backend/bin/activate`)
+9. Activate the environment:
+   1. For windows:`.\backend\Scripts\activate`
+   2. For mac: `backend/bin/activate`
 10. Check if activation worked: `where python` should return `...\<root>\venv\backend\Scripts\python.exe`  (use `where.exe python` in Powershell)
 11. Go to the backend project folder: `cd ..\backend`
 12. Install all requirements: `pip install -r .\requirements.txt`
@@ -38,8 +40,7 @@ For running the application in development mode
     1. Set `DISTRIBUTION` to False if the frontend is run separately.
     2. Set `CONNECTED_TO_PROTOTYPE` to True if you want the software to connect to the physical prototype.
     3. Set `CONNECTION_VIA_BLUETOOH` to True if you want the software to connect to the physical prototype using bluetooth. (Note, you will have to have `CONNECTED_TO_PROTOTYPE` on True as well)
-    4. Set `RUNNING_ON_MAC` to True if you are running the software on a MAC or Linux machine   
-    5. Set `CONFIG_FILE_NAME` to the config file name of the sleeve that you want to connect to (only matters if you want to connect to physical prototype)
+    4. Set `CONFIG_FILE_NAME` to the config file name of the sleeve that you want to connect to (only matters if you want to connect to physical prototype)
 4. Run the app with `flask run`
 
 ## Creating distribution

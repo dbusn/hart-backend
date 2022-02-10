@@ -64,7 +64,7 @@ class PrototypeConnection(metaclass=Singleton):
         try:
             port = None
             if CONNECTED_VIA_BLUETOOTH:
-                if RUNNING_ON_MAC:
+                if os.name == 'nt': # Check if running on windows
                     port = self.get_bluetooth_port_mac()
                 else:
                     port = self.get_bluetooth_port_windows(self.bluetooth_device_name)
@@ -170,7 +170,9 @@ class PrototypeConnection(metaclass=Singleton):
             try:
                 self.device.flushInput()
 
-                self.device.write(message.strip().encode())
+                mes = message.strip().replace(" ", "").replace("\n", "").encode()
+
+                self.device.write(mes)
 
                 # Make sure the prototype always gives an output, otherwise Python will wait forever.
                 prototype_log = self.device.readline().decode()

@@ -21,8 +21,6 @@ CONNECTED_TO_PROTOTYPE = False
 #       microcontroller
 CONNECTED_VIA_BLUETOOTH = False
 
-RUNNING_ON_MAC = False
-
 # Dont touch this if you don't know what this is :P
 BAUDRATE = 115200
 
