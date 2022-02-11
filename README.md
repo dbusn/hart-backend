@@ -14,7 +14,9 @@ This will run through a full fledged installation using a pip virtual environmen
 9. Activate the environment:
    1. For windows:`.\backend\Scripts\activate`
    2. For mac: `backend/bin/activate`
-10. Check if activation worked: `where python` should return the python instance in the virtual environment directory  (use `where.exe python` in Powershell)
+10. Check if activation worked:
+    1. For windows: `where python` should return the python instance in the virtual environment directory  (use `where.exe python` in Powershell)
+    2. For mac: Use `which python` or `echo $VIRTUAL_ENV` instead.
 11. Go to the backend project folder: `cd ..\backend`
 12. Install all requirements: `pip install -r .\requirements.txt`
 13. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environment variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
