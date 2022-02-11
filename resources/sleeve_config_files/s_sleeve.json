@@ -7,10 +7,7 @@
         "9586730",
         "9004780"
         ],
-    "known_bluetooth_mac_addresses": [
-        "00:19:08:36:22:1B"
-    ],
-    "bluetooth_com_port": "COM16",
+    "bluetooth_device_name": "HC-05",
     "mapping" : [
         { 
             "coord" : 11,

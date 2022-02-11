@@ -9,7 +9,7 @@ options:
     "m_sleeve.json"
     "l_sleeve.json"
 """
-CONFIG_FILE_NAME = "s_sleeve.json"
+CONFIG_FILE_NAME = "m_sleeve.json"
 
 # Whether the frontend is compiled and located in backend or not
 DISTRIBUTION = False
@@ -19,7 +19,7 @@ CONNECTED_TO_PROTOTYPE = False
 
 # If prototype is connected, is it connected by bluetooth, or by cable (also depends on the software on the
 #       microcontroller
-CONNECTED_VIA_BLUETOOTH = True
+CONNECTED_VIA_BLUETOOTH = False
 
 # Dont touch this if you don't know what this is :P
 BAUDRATE = 115200

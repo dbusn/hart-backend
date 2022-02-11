@@ -6,9 +6,9 @@ from typing import Dict, Any, List
 
 import serial
 import serial.tools.list_ports
-import winreg
-import bluetooth
 
+import bluetooth
+import os
 import json
 import copy
 
@@ -27,17 +27,17 @@ class PrototypeConnection(metaclass=Singleton):
     # whether backend in debug (so no connected prototype)
     debug: bool
 
-    # baudrate for connected Teensy
+    # baudrate for connection to sleeve
     baudrate: int
+
+    # Connection to the sleeve
+    device: serial.Serial
 
     # list of serials of known microcontrollers (should include current connected microcontroller)
     serials: List[str]
 
-    #  Stores the COM port for connecting with bluetooth if done manually
-    com_port: str
-
-    # list of known MAC addresses of HC-05 bluetooth module chips
-    known_bluetooth_mac_addresses: List[str]
+    # Name of bluetooth device to connect to
+    bluetooth_device_name: str
 
     def __init__(self):
         pass
@@ -57,31 +57,36 @@ class PrototypeConnection(metaclass=Singleton):
         self.parse_config_JSON(json_config)
 
         # set found device if not in backend-debug mode
-        if not self.debug:
-            try:
-                if CONNECTED_VIA_BLUETOOTH:
-                    if self.com_port is None:
-                        if len(self.known_bluetooth_mac_addresses) == 1:
-                            mac = self.known_bluetooth_mac_addresses[0]
-                        else:
-                            mac = self.find_in_reach_bluetooth_known_mac()
-                        port = self.get_spp_com_port(mac)
-                    else:
-                        port = self.com_port
-                else:
-                    port = self.find_outgoing_communication_port()
+        if self.debug:
+            Logger.log_info("PrototypeConnection initialized in debug mode.")
+            return
 
-                Logger.log_info("Connecting to port: " + port)
+        try:
+            port = None
+            if CONNECTED_VIA_BLUETOOTH:
+                if os.name == 'nt':  # Check if running on windows
+                    port = self.get_bluetooth_port_windows(self.bluetooth_device_name)
+                else:                # Not running on windows, assuming mac
+                    port = self.get_bluetooth_port_mac()
+            else:
+                port = self.find_outgoing_communication_port()
 
-                self.device = serial.Serial(port, baudrate=self.baudrate, timeout=5)
-                Logger.log_info("Connection is open: " + str(self.device.is_open))
-            except Exception as e:
-                Logger.log_warning("Prototype connection NOT successfully created! " + str(e))
-                if CONNECTED_VIA_BLUETOOTH:
-                    Logger.log_warning("First, make sure that your bluetooth is on!")
-                    Logger.log_warning("Additionally, for the bluetooth connection it might help to restart the prototype.")
-                self.configured = False
-                return
+            if port is None:
+                raise Exception("No port found to connect to while not running in debug mode. Terminating..")
+
+            Logger.log_info("Connecting to port: " + port)
+
+            self.device = serial.Serial(port, baudrate=self.baudrate, timeout=5)
+
+            Logger.log_info("Connection is open: " + str(self.device.is_open))
+        except Exception as e:
+            Logger.log_warning("Prototype connection NOT successfully created! " + str(e))
+            if CONNECTED_VIA_BLUETOOTH:
+                Logger.log_warning("First, make sure that your bluetooth is on!")
+                Logger.log_warning(
+                    "Additionally, for the bluetooth connection it might help to restart the prototype.")
+            self.configured = False
+            return
 
         self.configured = True
 
@@ -104,17 +109,13 @@ class PrototypeConnection(metaclass=Singleton):
         # serials of known microcontrollers
         self.serials = config['serial_numbers']
 
-        # Reads known bluetooth mac addresses
-        self.known_bluetooth_mac_addresses = config['known_bluetooth_mac_addresses']
-
-        # Reads (possible) manually set bluetooth com port
-        self.com_port = config['bluetooth_com_port']
-
         # baudrate that is used in prototype
         self.baudrate = BAUDRATE
 
         # debug mode or not
         self.debug = not CONNECTED_TO_PROTOTYPE
+
+        self.bluetooth_device_name = config['bluetooth_device_name']
 
     def find_outgoing_communication_port(self) -> Any:
         """
@@ -169,7 +170,9 @@ class PrototypeConnection(metaclass=Singleton):
             try:
                 self.device.flushInput()
 
-                self.device.write(message.strip().encode())
+                mes = message.strip().replace(" ", "").replace("\n", "").encode()
+
+                self.device.write(mes)
 
                 # Make sure the prototype always gives an output, otherwise Python will wait forever.
                 prototype_log = self.device.readline().decode()
@@ -195,58 +198,69 @@ class PrototypeConnection(metaclass=Singleton):
 
         return prototype_log
 
-    # Windows registry location storing bluetooth details
-    key_bthenum = r"SYSTEM\CurrentControlSet\Enum\BTHENUM"
-
-    def find_in_reach_bluetooth_known_mac(self):
+    def get_bluetooth_port_mac(self):
         """
-        Looks around for discoverable bluetooth devices and returns the mac address of a discoverable bluetooth device
-        of which the mac address is known and in the prototype configurations file.
-        :return: String containing MAC address.
+        get the bluetooth port when on Mac operating system
         """
-        Logger.log_info("PrototypeConnection.find_in_reach_bluetooth_known_mac: Looking for devices")
 
-        # sometimes bluetooth.discover_devices() fails to find all the devices
-        for i in range(3):
-            nearby_devices = bluetooth.discover_devices()
+        # Mac has standardized ports. The names of the ports include the name of the bluetooth chip,
+        # which we customized upon building and can be found in the sleeve config files.
+        # Gotta love mac sometimes for making it easy ;)
+        number_of_findings = 0
+        port = None
+        portsList = os.listdir("/dev/")
+        for p in portsList:
+            if str(p).find("tty." + self.bluetooth_device_name) != -1 and number_of_findings == 0:
+                number_of_findings += 1
+                port = str(p)
 
-            for mac in nearby_devices:
-                if mac in self.known_bluetooth_mac_addresses:
-                    return mac
+        if number_of_findings > 1:
+            # Should not happen
+            Logger.log_warning("More than one correct port found!")
+        elif number_of_findings == 0:
+            Logger.log_warning("No port found that corresponds to name")
 
-            Logger.log_info("PrototypeConnection.find_in_reach_bluetooth_known_mac: "
-                            "Try one more time to find target device..")
+        return port
 
-    def get_spp_com_port(self, bt_mac_addr):
-        bt_mac_addr = bt_mac_addr.replace(':', '').upper()
-        for i in self.gen_enum_key('', 'LOCALMFG'):
-            for j in self.gen_enum_key(i, bt_mac_addr):
-                subkey = self.key_bthenum + '\\' + i + '\\' + j
-                port = self.get_reg_data(subkey, 'FriendlyName')
-                assert ('Standard Serial over Bluetooth link' in port[0])
-                items = port[0].split()
-                port = items[5][1:-1]
-                return port
+    def get_bluetooth_port_windows(self, bluetooth_device_name: str):
+        """
+        Functionality to find the bluetooth COM port corresponding to a given bluetooth device name for
+        windows operating system. Does not work if bluetooth device was never paired before.
+        Uses pyBluez
+        :param bluetooth_device_name:   Name of the bluetooth device to find the COM port for.
+        :return:                        String containing the COM port.
+        """
+        Logger.log_info("Searching for windows com port corresponding to bluetooth chip with name "
+                        + bluetooth_device_name)
 
-    def gen_enum_key(self, subkey, search_str):
-        hKey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, self.key_bthenum + '\\' + subkey)
+        mac = None
 
-        try:
-            i = 0
-            while True:
-                output = winreg.EnumKey(hKey, i)
-                if search_str in output:
-                    yield output
-                i += 1
+        # Find all com ports on device, and include names
+        nb = bluetooth.discover_devices(lookup_names=True)
 
-        except:
-            pass
+        # Loop over ports to check if device in question is in there.
+        for address, name in list(nb):
+            if bluetooth_device_name == name:
+                mac = address
+                Logger.log_info("MAC address to connect to: " + str(mac))
+                break
 
-        winreg.CloseKey(hKey)
+        if mac is None:
+            # MAC address was not found, so user most likely has never yet paired their device with the sleeve.
+            Logger.log_warning("MAC address of given bluetooth chip name could not be determined.")
+            Logger.log_warning("Make sure to pair the computer to the bluetooth chip if you are using it "
+                               "for the first time")
+            return None
 
-    def get_reg_data(self, subkey, name):
-        hKey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
-                              subkey)
-        output = winreg.QueryValueEx(hKey, name)
-        winreg.CloseKey(hKey)
-        return output
+        # Get a list of COM ports
+        com_ports = list(serial.tools.list_ports.comports())
+        stripped_mac = mac.replace(":", "")
+
+        # Loop over ports, and check which one corresponds to the MAC address
+        for COM, _, hwid in com_ports:
+            if stripped_mac in hwid:
+                return COM
+
+        # Nothing corresponding was found, log warning and return
+        Logger.log_warning("Could not find com port corresponding to found MAC address")
+        return None
