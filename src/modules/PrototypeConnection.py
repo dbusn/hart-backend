@@ -1,6 +1,6 @@
 from src.helpers.Logger import Logger
 from src.helpers.SingletonHelper import Singleton
-from definitions import CONNECTED_TO_PROTOTYPE, CONNECTED_VIA_BLUETOOTH, BAUDRATE, RUNNING_ON_MAC
+from definitions import CONNECTED_TO_PROTOTYPE, CONNECTED_VIA_BLUETOOTH, BAUDRATE
 
 from typing import Dict, Any, List
 
@@ -65,9 +65,9 @@ class PrototypeConnection(metaclass=Singleton):
             port = None
             if CONNECTED_VIA_BLUETOOTH:
                 if os.name == 'nt':  # Check if running on windows
-                    port = self.get_bluetooth_port_mac()
-                else:
                     port = self.get_bluetooth_port_windows(self.bluetooth_device_name)
+                else:                # Not running on windows, assuming mac
+                    port = self.get_bluetooth_port_mac()
             else:
                 port = self.find_outgoing_communication_port()
 
