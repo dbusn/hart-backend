@@ -6,6 +6,7 @@ protobuf==3.19.3
 pyserial==3.5
 ffmpeg
 nltk
+grpcio
 google-api-core
 google-auth
 google-cloud-core

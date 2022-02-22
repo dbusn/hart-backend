@@ -7,11 +7,12 @@ from typing import Dict, Any, List
 import serial
 import serial.tools.list_ports
 
-import bluetooth
 import os
 import json
 import copy
 
+if CONNECTED_VIA_BLUETOOTH:
+    import bluetooth
 
 class PrototypeConnection(metaclass=Singleton):
     """
