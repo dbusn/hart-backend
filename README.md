@@ -36,7 +36,7 @@ For running the application in development mode
 1. Activate your environment (from `<root>\backend`) do `..\venv\backend\Scripts\activate`)
 2. Set the environment variables `FLASK_ENV=development` and `FLASK_APP=app.py`
     1. If you use an IDE for running the code, you can usually set these in the configuration settings.
-    2. on Windows Command Prompt this is done by `set <varname>=<varvalue>`, In Powershell it is `$env:<varname>='<varvalue>`
+    2. on Windows Command Prompt this is done by `set <varname>=<varvalue>`, In Powershell it is `$env:<varname>='<varvalue>'`
     3. On Mac this is done by `export <varname>=<valvalue>`
 3. Make sure the boolean variables in definitions.py are set correctly:
     1. Set `DISTRIBUTION` to False if the frontend is run separately.
