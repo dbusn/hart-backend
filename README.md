@@ -1,4 +1,4 @@
-# backend
+# hart-backend
 
 ## Installation
 This will run through a full fledged installation using a pip virtual environment. Note: people that have experience with virtualenvironments might find this explanation a bit exhaustive. In such cases, you can skip most of the steps, but make sure to pick up again at step 13.
