@@ -14,8 +14,6 @@ from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequ
 from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
 from src.modules.PrototypeConnection import PrototypeConnection
 from src.routes.RouteValidation import validate_json
-from src.models.EventTypeEnum import EventType
-
 
 user_testing = UserTestingHelper()
 
@@ -332,10 +330,10 @@ def init_views(app, dispatcher):
         Logger.log_info("INCOMING API CALL: /microcontroller/combination")
 
         # get body from api
-        requested_pattern = request.json
+        # requested_pattern = request.json
 
         # make the event request data
-        request_data = PhonemeTransformRequest(phonemes=requested_pattern)
+        # request_data = PhonemeTransformRequest(phonemes=requested_pattern)
 
         PrototypeConnection().send_pattern(request.json)
         # send to dispatcher
