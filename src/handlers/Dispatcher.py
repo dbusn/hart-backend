@@ -1,21 +1,18 @@
+import importlib
+import os
 import pkgutil
 from typing import Dict, List
-import os 
-import importlib
 
-from src.helpers.Logger import Logger
 from src import events
 from src.events import AbstractEvent as AE
 from src.events.AbstractEvent import AbstractEvent
+from src.helpers.Logger import Logger
 from src.helpers.SingletonHelper import Singleton
 from src.models.EventTypeEnum import EventType
 from src.models.request_data import AbstractRequest
 
+
 ### SOLELY NEEDED FOR THE DISTRIBUTION WITH PYINSTALLER (SADFACE)
-from src.events.PhonemeDecompositionEvent import PhonemeDecompositionEvent
-from src.events.SendPhonemesToPrototypeEvent import SendPhonemesToPrototypeEvent
-from src.events.GoogleTranscribeFileEvent import GoogleTranscribeEvent
-from src.events.GoogleTranslateEvent import GoogleTranslateEvent
 
 
 class Dispatcher(metaclass=Singleton):

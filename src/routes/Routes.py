@@ -9,10 +9,15 @@ from definitions import API_BASE_URL, RESOURCES
 from src.helpers.ConvertAudioToFlacHelper import convertWebmToFlac
 from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
 from src.helpers.Logger import Logger
+from src.helpers.UserTestingHelper import UserTestingHelper
 from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
 from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
 from src.modules.PrototypeConnection import PrototypeConnection
 from src.routes.RouteValidation import validate_json
+from src.models.EventTypeEnum import EventType
+
+
+user_testing = UserTestingHelper()
 
 
 def init_views(app, dispatcher):
@@ -100,11 +105,11 @@ def init_views(app, dispatcher):
         data = request.json
 
         # make the event request data
-        request_data = PhonemeTransformRequest(phonemes=data['phonemes'])
+        # request_data = PhonemeTransformRequest(phonemes=data['phonemes'])
 
         # send to dispatcher
         try:
-            dispatcher.handle(request_data)
+            dispatcher.handle(data)
         except RuntimeError:
             message = API_BASE_URL + "/microcontroller/phonemes: Could not handle PhonemeTransformRequest successfully."
             Logger.log_error("Routes.send_phonemes - " + message)
@@ -172,7 +177,7 @@ def init_views(app, dispatcher):
             dispatcher.handle(decomposition_request)
         except RuntimeError:
             message = API_BASE_URL + "/microcontroller/sentences: " \
-                                        "Could not handle PhonemeTransformRequest successfully."
+                                     "Could not handle PhonemeTransformRequest successfully."
             Logger.log_error("Routes.send_sentences - " + message)
             return message, 500
 
@@ -221,7 +226,7 @@ def init_views(app, dispatcher):
             dispatcher.handle(decomposition_request)
         except RuntimeError:
             message = API_BASE_URL + "/microcontroller/audiopath: " \
-                                        "Could not handle PhonemeTransformRequest successfully."
+                                     "Could not handle PhonemeTransformRequest successfully."
             Logger.log_error("Routes.send_audiopath - " + message)
             return message, 500
 
@@ -288,7 +293,7 @@ def init_views(app, dispatcher):
             dispatcher.handle(decomposition_request)
         except RuntimeError:
             message = API_BASE_URL + "/microcontroller/audiofile: " \
-                                        "Could not handle PhonemeTransformRequest successfully."
+                                     "Could not handle PhonemeTransformRequest successfully."
             Logger.log_error("Routes.send_audiofile - " + message)
             return message, 500
 
@@ -300,5 +305,49 @@ def init_views(app, dispatcher):
 
         # send return, success code
         return jsonify(result), 200
+
+    # =============================================================================
+    #  USER TESTING
+    # =============================================================================
+    @app.route(API_BASE_URL + '/combination')
+    def get_combination_data():
+        """
+        GET combinations of patterns for user testing
+        """
+        Logger.log_info("INCOMING API CALL: /combination")
+        pair = user_testing.get_random_pair()
+
+        # get names of the patterns
+        available = list(pair.keys())
+
+        # return json data and success code
+        return jsonify({'phonemes': available}), 200
+
+    @app.route(API_BASE_URL + '/microcontroller/combination', methods=['POST'])
+    @validate_json
+    def send_combination():
+        """
+        POST sending a combination to the microcontroller
+        """
+        Logger.log_info("INCOMING API CALL: /microcontroller/combination")
+
+        # get body from api
+        requested_pattern = request.json
+
+        # make the event request data
+        request_data = PhonemeTransformRequest(phonemes=requested_pattern)
+
+        PrototypeConnection().send_pattern(request.json)
+        # send to dispatcher
+        # try:
+        #     dispatcher.handle(request_data)
+        # except RuntimeError:
+        #     message = API_BASE_URL + "/microcontroller/combination: Could not handle PhonemeTransformRequest " \
+        #                              "successfully. "
+        #     Logger.log_error("Routes.send_phonemes - " + message)
+        #     return message, 500
+
+        # empty body return, success code
+        return "OK", 200
 
     Logger.log_info("Routes initialized")
