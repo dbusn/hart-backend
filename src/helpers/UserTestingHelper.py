@@ -44,4 +44,6 @@ class UserTestingHelper:
             pattern_b_json = json.load(f)
         patterns[pattern_b] = pattern_b_json
 
+        Logger.log_info(f"Selected random pair of patterns: ({pattern_a}, {pattern_b})")
+
         return patterns
