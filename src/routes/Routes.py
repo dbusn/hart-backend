@@ -103,11 +103,11 @@ def init_views(app, dispatcher):
         data = request.json
 
         # make the event request data
-        # request_data = PhonemeTransformRequest(phonemes=data['phonemes'])
+        request_data = PhonemeTransformRequest(phonemes=data['phonemes'])
 
         # send to dispatcher
         try:
-            dispatcher.handle(data)
+            dispatcher.handle(request_data)
         except RuntimeError:
             message = API_BASE_URL + "/microcontroller/phonemes: Could not handle PhonemeTransformRequest successfully."
             Logger.log_error("Routes.send_phonemes - " + message)
@@ -314,6 +314,7 @@ def init_views(app, dispatcher):
         """
         Logger.log_info("INCOMING API CALL: /combination")
         pair = user_testing.get_random_pair()
+        Logger.log_info(list(pair.keys()))
 
         # get names of the patterns
         available = list(pair.keys())
@@ -328,6 +329,7 @@ def init_views(app, dispatcher):
         POST sending a combination to the microcontroller
         """
         Logger.log_info("INCOMING API CALL: /microcontroller/combination")
+        Logger.log_info(request.json)
 
         # get body from api
         # requested_pattern = request.json

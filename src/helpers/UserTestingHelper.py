@@ -9,7 +9,6 @@ class UserTestingHelper:
     """
     Helper class for user testing
     """
-
     all_patterns = []
 
     def __init__(self):

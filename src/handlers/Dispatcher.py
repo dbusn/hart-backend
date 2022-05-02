@@ -13,8 +13,6 @@ from src.models.request_data import AbstractRequest
 
 
 ### SOLELY NEEDED FOR THE DISTRIBUTION WITH PYINSTALLER (SADFACE)
-
-
 class Dispatcher(metaclass=Singleton):
     """
     The dispatcher links events to their corresponding triggers and fires them. Extends on Singleton helper, thus there

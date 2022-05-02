@@ -11,7 +11,7 @@ def get_phoneme_patterns(resources: str, user_testing=False):
     """
 
     patterns = {}
-    final_dir = 'phoneme_patterns' if user_testing is False else 'experiment_patterns'
+    final_dir = 'experiment_patterns'if user_testing is True else 'phoneme_patterns'
 
     # loop through available phoneme patterns
     for pattern_file in os.listdir(os.path.join(resources, final_dir)):
