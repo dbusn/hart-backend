@@ -8,6 +8,7 @@ from flask_cors import CORS
 from definitions import DISTRIBUTION, RESOURCES, CONFIG_FILE_NAME
 from src.handlers.Dispatcher import Dispatcher
 from src.modules.PrototypeConnection import PrototypeConnection
+# from src.modules.ConcurrentStream import start_process
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 from src.routes.Routes import init_views
 
@@ -34,6 +35,8 @@ def initialize(application):
 
     # Initialize routes
     init_views(application, dispatcher)
+    # Start audio stream
+    # TODO: implement toggle recording from frontend, should call start_process
 
     # If running in distribution mode, then set standard routes and launch browser
     if DISTRIBUTION:
