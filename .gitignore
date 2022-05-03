@@ -104,6 +104,11 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+# Pattern files
+p_*.json
+experiment_patterns/
+
+
 # Environments
 .env
 .venv
