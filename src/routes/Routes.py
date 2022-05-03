@@ -6,6 +6,7 @@ from flask import request, jsonify
 
 # from app import app
 from definitions import API_BASE_URL, RESOURCES
+from src.handlers.Dispatcher import Dispatcher
 from src.helpers.ConvertAudioToFlacHelper import convertWebmToFlac
 from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
 from src.helpers.Logger import Logger
@@ -13,10 +14,14 @@ from src.helpers.UserTestingHelper import UserTestingHelper
 from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
 from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
 from src.modules.PrototypeConnection import PrototypeConnection
+from src.modules.ConcurrentStream import ConcurrentStream
 from src.routes.RouteValidation import validate_json
 
+dispatcher = Dispatcher()
 user_testing = UserTestingHelper()
 
+# for realtime functionality
+concurrent_stream = ConcurrentStream()
 
 def init_views(app, dispatcher):
     # =============================================================================
@@ -302,6 +307,24 @@ def init_views(app, dispatcher):
         }
 
         # send return, success code
+        return jsonify(result), 200
+
+    @app.route(API_BASE_URL + "/microcontroller/togglestream")
+    def toggle_stream():
+        """
+        GET start a realtime audio stream using the backend's microphone, to be transcribed, translated and sent to the microcontroller
+        """
+        Logger.log_info("INCOMING API CALL: /microcontroller/togglestream")
+
+        # if currently streaming microphone
+        if concurrent_stream.get_state():
+            concurrent_stream.stop()
+            result = {'is_stream_live': concurrent_stream.get_state()}
+        # if not currently streaming microphone
+        else:
+            concurrent_stream.start()
+            result = {'is_stream_live': concurrent_stream.get_state()}
+
         return jsonify(result), 200
 
     # =============================================================================

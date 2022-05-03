@@ -1,34 +1,29 @@
 # hart-backend
 
-## Installation
-This will run through a full fledged installation using a pip virtual environment. Note: people that have experience with virtualenvironments might find this explanation a bit exhaustive. In such cases, you can skip most of the steps, but make sure to pick up again at step 13.
+## Installation 
+This will run through a full fledged installation using a pip virtual environment. 
 0. FOLLOW STEPS CAREFULLY!
 1. Make sure you have Python 3.7 installed and ready to go (python 3.8 is not guaranteed to work. Tip: if you have different python versions installe (check with command `py --list`), you can specify version in the following way: `py file.py -3.7-64`, using pip with `py -3.7-64 -m pip install packagename` ).   
 2. Have a folder to store all software in (henceforth called `<root>\`)
-3. Clone this repository in `<root>\` (this creates `<root>\backend\`)
-4. Create a folder for the virtual environment called venv (`<root>\venv\`)
-5. Open a terminal (admin mode) in the root folder.
-6. Install virtualenv: `pip install virtualenv`
-7. Go to the venv directory: `cd venv`
-8. Create a new venv: `py -m venv backend`
-9. Activate the environment:
-   1. For windows:`.\backend\Scripts\activate`
-   2. For mac: `backend/bin/activate`
-10. Check if activation worked:
-    1. For windows: `where python` should return the python instance in the virtual environment directory  (use `where.exe python` in Powershell)
-    2. For mac: Use `which python` or `echo $VIRTUAL_ENV` instead.
-11. Go to the backend project folder: `cd ..\backend`
-12. Install all requirements: `pip install -r .\requirements.txt`
-13. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environment variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
-14. **For Windows**:
-    
-    1. in `<root>\`, clone pybluez (https://github.com/pybluez/pybluez.git) (this creates `<root>\pybluez\`)
-    2. Go to `<root>\pybluez\`: `cd ..\pybluez`
-    3. Install pybluez in the venv: `..\venv\backend\Scripts\python setup.py install`
-    4. Check if no problems were reported, and the installation was successful
-15. **For OSX/Linux**:
-    1. Install pybluez using `pip install pybluez==0.23`
-16. _In case you want to use a microphone to transform your own speech to vibrations on the sleeve_: Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src\modules\ffmpeg` folder.
+3. Clone this repository in `<root>/` (this creates `<root>\backend\`)
+4. Also in `<root>/`, clone pybluez (https://github.com/pybluez/pybluez.git) (this creates `<root>\pybluez\`)
+5. Create a folder for the virtual environment called venv (`<root>\venv\`)
+6. Open a terminal (admin mode) in the root folder.
+7. Install virtualenv: `pip install virtualenv`
+8. Go to the venv directory: `cd venv`
+9. Create a new venv: `py -m venv backend`
+10. Activate the environment: `.\backend\Scripts\activate`
+11. Check if activation worked: `where python` should return `...\<root>\venv\backend\Scripts\python.exe`
+12. Go to `<root>\pybluez\`: `cd ..\pybluez`
+13. Install pybluez in the venv: `..\venv\backend\Scripts\python setup.py install`
+14. Check if no problems were reported, and the installation was successful
+15. Go to the backend project folder: `cd ..\backend`
+16. If the line `PyBluez == 0.30` is in requirements.txt (in the backend folder), remove it. 
+17. Install all requirements: `pip install -r ./requirements.txt`
+18. In case you get errors when requests from the frontend are sent to the backend, the errors might tell you PyAudio is missing. To install PyAudio, go to https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio, download the latest version that matches your 64-bit or 32-bit Python, go to the folder it is downloaded to and use `pip install PathToFile`
+19. If you want google cloud functionalities, add the `gcloud_credentials.json` to `resources\` folder, or set a global environment variable with the correct path. You can download the credential json from the lastpass or get a personal one yourself through google cloud.
+
+Download the newest version of ffmpeg (https://www.ffmpeg.org/download.html) and place the `ffmpeg.exe` in the `src/modules/ffmpeg` folder.
 
 ## Running the application
 ### Development mode
