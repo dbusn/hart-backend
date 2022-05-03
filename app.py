@@ -1,5 +1,6 @@
-import os
 import atexit
+import logging
+import os
 
 from flask import Flask, render_template
 from flask_cors import CORS
@@ -9,8 +10,6 @@ from src.handlers.Dispatcher import Dispatcher
 from src.modules.PrototypeConnection import PrototypeConnection
 from src.modules.google_api.GoogleApiWrapper import GoogleApiWrapper
 from src.routes.Routes import init_views
-import logging
-
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)

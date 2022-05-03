@@ -1,15 +1,14 @@
-from src.helpers.Logger import Logger
-from src.helpers.SingletonHelper import Singleton
-from definitions import CONNECTED_TO_PROTOTYPE, CONNECTED_VIA_BLUETOOTH, BAUDRATE
-
+import copy
+import json
+import os
 from typing import Dict, Any, List
 
 import serial
 import serial.tools.list_ports
 
-import os
-import json
-import copy
+from definitions import CONNECTED_TO_PROTOTYPE, CONNECTED_VIA_BLUETOOTH, BAUDRATE
+from src.helpers.Logger import Logger
+from src.helpers.SingletonHelper import Singleton
 
 if CONNECTED_VIA_BLUETOOTH:
     import bluetooth

@@ -7,6 +7,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Don't upload all 32k json files for the experiment.
+# We'll keep the reed_patterns bundled with the backend
+*.json
+
 # Distribution / packaging
 .Python
 build/

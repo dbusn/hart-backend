@@ -1,7 +1,7 @@
+import pytest
+
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest, split_sentences
-
-import pytest
 
 
 def test_split_sentences():

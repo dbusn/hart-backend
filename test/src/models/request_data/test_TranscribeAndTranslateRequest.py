@@ -1,7 +1,7 @@
+import pytest
+
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
-
-import pytest
 
 
 def test_constructor_error_1():
