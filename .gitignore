@@ -110,7 +110,7 @@ celerybeat.pid
 
 # Pattern files
 p_*.json
-experiment_patterns/
+# experiment_patterns/
 
 
 # Environments

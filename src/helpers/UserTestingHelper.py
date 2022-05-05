@@ -20,13 +20,17 @@ class UserTestingHelper:
 
     # Read all the available patterns
     def read_patterns(self):
-        for pattern_file in os.listdir(os.path.join('resources', 'experiment_patterns')):
-            if pattern_file[-5::] != '.json':
-                Logger.log_warning(f"{pattern_file} in \\resources\\phonemepatterns\\ is not a .json, ignoring! ")
-            else:
-                # get phoneme name
-                phoneme = pattern_file.replace('.json', '')
-                self.all_patterns.append(phoneme)
+        if os.path.exists(os.path.join('resources', 'experiment_patterns')):
+            for pattern_file in os.listdir(os.path.join('resources', 'experiment_patterns')):
+                if pattern_file[-5::] != '.json':
+                    Logger.log_warning(f"{pattern_file} in \\resources\\phonemepatterns\\ is not a .json, ignoring! ")
+                else:
+                    # get phoneme name
+                    phoneme = pattern_file.replace('.json', '')
+                    self.all_patterns.append(phoneme)
+        else:
+            Logger.log_error('resources/experiment_patterns directory does not exist!')
+
 
     # Returns a randomly chosen pair of patterns and removes it from the pool of all patterns
     def get_random_pair(self):
