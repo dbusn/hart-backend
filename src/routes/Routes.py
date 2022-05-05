@@ -328,7 +328,7 @@ def init_views(app, dispatcher):
         return jsonify(result), 200
 
     # =============================================================================
-    #  USER TESTING
+    #  PATTERN GEN
     # =============================================================================
     @app.route(API_BASE_URL + '/combination')
     def get_combination_data():
