@@ -108,11 +108,11 @@ def init_views(app, dispatcher):
         data = request.json
 
         # make the event request data
-        # request_data = PhonemeTransformRequest(phonemes=data['phonemes'])
+        request_data = PhonemeTransformRequest(phonemes=data['phonemes'])
 
         # send to dispatcher
         try:
-            dispatcher.handle(data)
+            dispatcher.handle(request_data)
         except RuntimeError:
             message = API_BASE_URL + "/microcontroller/phonemes: Could not handle PhonemeTransformRequest successfully."
             Logger.log_error("Routes.send_phonemes - " + message)
