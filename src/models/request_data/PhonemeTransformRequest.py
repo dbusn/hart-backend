@@ -67,7 +67,7 @@ class PhonemeTransformRequest(AbstractRequest):
             raise ValueError("PhonemeTransformRequest.__init__: both sentences and phonemes parameter was passed.")
 
         # set phoneme pattern
-        # self.phoneme_patterns = get_phoneme_patterns(RESOURCES, user_testing=user_testing)
+        self.phoneme_patterns = get_phoneme_patterns(RESOURCES, user_testing=user_testing)
 
         if phonemes is not None:
             # Creation for purpose 2
