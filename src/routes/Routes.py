@@ -120,6 +120,13 @@ def init_views(app, dispatcher):
 
         # empty body return, success code
         return "OK", 200
+    
+    @app.route(API_BASE_URL + '/getAnimation', methods=['POST'])
+    @validate_json
+    def send_animation():
+        data = request.json
+        phoneme_patterns = get_phoneme_patterns(RESOURCES, user_testing=False)
+        return jsonify(phoneme_patterns[data['phonemes'][0]]), 200
 
     # =============================================================================
     #  Words
