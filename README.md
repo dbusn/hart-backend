@@ -3,7 +3,7 @@
 ## Installation 
 This will run through a full fledged installation using a pip virtual environment. 
 0. FOLLOW STEPS CAREFULLY!
-1. Make sure you have Python 3.7 installed and ready to go (python 3.8 is not guaranteed to work. Tip: if you have different python versions installe (check with command `py --list`), you can specify version in the following way: `py file.py -3.7-64`, using pip with `py -3.7-64 -m pip install packagename` ).   
+1. Make sure you have Python 3.7 installed and ready to go (python 3.8 is not guaranteed to work. Tip: if you have different python versions installe (check with command `python --list`), you can specify version in the following way: `python file.py -3.7-64`, using pip with `python -3.7-64 -m pip install packagename` ).   
 2. Have a folder to store all software in (henceforth called `<root>\`)
 3. Clone this repository in `<root>/` (this creates `<root>\backend\`)
 4. Also in `<root>/`, clone pybluez (https://github.com/pybluez/pybluez.git) (this creates `<root>\pybluez\`)
@@ -11,7 +11,7 @@ This will run through a full fledged installation using a pip virtual environmen
 6. Open a terminal (admin mode) in the root folder.
 7. Install virtualenv: `pip install virtualenv`
 8. Go to the venv directory: `cd venv`
-9. Create a new venv: `py -m venv backend`
+9. Create a new venv: `python -m venv backend`
 10. Activate the environment: `.\backend\Scripts\activate`
 11. Check if activation worked: `where python` should return `...\<root>\venv\backend\Scripts\python.exe`
 12. Go to `<root>\pybluez\`: `cd ..\pybluez`
