@@ -21,10 +21,7 @@ def setup():
     print("2. Main working directory is {}... OK".format(os.getcwd()))
 
     # Clone the repository at BACKEND_URL
-    print("3. Checking to make sure the backend is installed... ", end="")
-    if not os.path.exists(os.path.join(os.getcwd(), "backend")):
-        subprocess.run(["git", "clone", BACKEND_URL], stdout=LOG, stderr=LOG)
-    print("OK")
+    print("3. You cloned the backend so it is installed OK", end="")
 
     # Clone the repository at PYBLUEZ_URL
     print("4. Checking to make sure the pybluez is installed... ", end="")
@@ -90,8 +87,8 @@ def setup():
     print("OK")
 
     # Set cwd to main directory
-    print("15. Entering backend directory... ", end="")
-    os.chdir("../backend")
+    print("15. Entering main directory... ", end="")
+    os.chdir("../")
     print("OK")
 
     # If there is a line in requirements.txt with "PyBluez == 0.30" remove it
@@ -122,7 +119,7 @@ def run():
 
     # Running the backend
     print("1. Activating virtual environment... ", end="")
-    subprocess.run(["../venv/backend/Scripts/activate.bat"], stdout=LOG, stderr=LOG)
+    subprocess.run(["./venv/backend/Scripts/activate.bat"], stdout=LOG, stderr=LOG)
     print("OK")
 
     # Set flask environment variables
