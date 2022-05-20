@@ -1,3 +1,13 @@
+# Our own stuff
+log.txt
+venv/*
+/venv/
+pyblues/*
+/pyblues/
+
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 .idea/
