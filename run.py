@@ -61,7 +61,7 @@ def setup():
     print("10. Activating virtual environment... ", end="")
     script_loc = os.path.join(os.getcwd(), "backend", "Scripts", "Activate.bat")
     # print("@ {} ".format(script_loc), end="")
-    subprocess.run([script_loc], stdout=LOG, stderr=LOG)
+    subprocess.run(["'{}'".format(script_loc)], stdout=LOG, stderr=LOG)
     print("OK")
 
     # Check if activation successful by ensuring `where python` returns venv/backend/Scripts/python
