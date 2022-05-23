@@ -1,3 +1,4 @@
+from site import venv
 import sys
 import os
 import subprocess
@@ -54,14 +55,15 @@ def setup():
 
     # Create new virtual environment
     print("9. Creating virtual environment... ", end="")
-    subprocess.run(["python", "-m", "venv", "backend"], stdout=LOG, stderr=LOG)
+    venv("backend")
+    # subprocess.run(["python", "-m", "venv", "backend"], stdout=LOG, stderr=LOG)
     print("OK")
 
     # Activate the virtual environment
     print("10. Activating virtual environment... ", end="")
-    script_loc = os.path.join(os.getcwd(), "backend", "Scripts", "Activate.bat")
-    # print("@ {} ".format(script_loc), end="")
-    subprocess.run(["powershell '{}'".format(script_loc)], stdout=LOG, stderr=LOG)
+    script_loc = os.path.join(os.getcwd(), "backend", "Scripts", "Activate")
+    print("@ {} ".format(script_loc), end="")
+    subprocess.run(["powershell", "'{}'".format(script_loc)], stdout=LOG, stderr=LOG)
     print("OK")
 
     # Check if activation successful by ensuring `where python` returns venv/backend/Scripts/python
