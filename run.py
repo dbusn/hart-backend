@@ -10,11 +10,12 @@ LOG = open("log.txt", "w")
 def setup():
 
 
-    # Check if python version is 3.7
+    # Check if python version is later than or equal to 3.7
     print("1. Checking python version... ", end="")
-    if sys.version_info[0] != 3 or sys.version_info[1] != 7:
-        print("\nThis program requires Python 3.7, you have {}.{}".format(sys.version_info[0], sys.version_info[1]))
-        exit(1)
+    if sys.version_info[0] < 3 or (sys.version_info[0] == 3 and sys.version_info[1] < 7):
+        print("ERROR")
+        print("Python version is too old. Please upgrade to at least 3.7")
+        sys.exit()
     print("OK")
 
     # Print current working directory
