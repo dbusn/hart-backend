@@ -185,10 +185,11 @@ def init_views(app, dispatcher):
         decomposition_request = PhonemeTransformRequest(sentences=translate_request.translated_sentences)
         try:
             dispatcher.handle(decomposition_request)
-        except RuntimeError:
+        except RuntimeError as e:
             message = API_BASE_URL + "/microcontroller/sentences: " \
                                      "Could not handle PhonemeTransformRequest successfully."
             Logger.log_error("Routes.send_sentences - " + message)
+            Logger.log_exception(e)
             return message, 500
 
         result = {
@@ -234,10 +235,11 @@ def init_views(app, dispatcher):
         decomposition_request = PhonemeTransformRequest(sentences=transcribe_translate_request.translated_sentences)
         try:
             dispatcher.handle(decomposition_request)
-        except RuntimeError:
+        except RuntimeError as e:
             message = API_BASE_URL + "/microcontroller/audiopath: " \
                                      "Could not handle PhonemeTransformRequest successfully."
             Logger.log_error("Routes.send_audiopath - " + message)
+            Logger.log_exception(e)
             return message, 500
 
         result = {
@@ -301,10 +303,11 @@ def init_views(app, dispatcher):
             sentences=transcribe_translate_request.translated_sentences)
         try:
             dispatcher.handle(decomposition_request)
-        except RuntimeError:
+        except RuntimeError as e:
             message = API_BASE_URL + "/microcontroller/audiofile: " \
                                      "Could not handle PhonemeTransformRequest successfully."
             Logger.log_error("Routes.send_audiofile - " + message)
+            Logger.log_exception(e)
             return message, 500
 
         # format result

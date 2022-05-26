@@ -71,6 +71,7 @@ class Dispatcher(metaclass=Singleton):
                 Logger.log_error("FATAL ERROR! Stopping event execution!")
                 Logger.log_error("Dispatcher.handle: Stopped event was of type " + event.__name__ + ".")
                 Logger.log_error("Complete error: " + str(e))
+                Logger.log_exception(e)
                 raise RuntimeError("Event chain " + data.get_event_type().name + " could not be successfully complete.")
 
         return data

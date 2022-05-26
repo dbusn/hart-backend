@@ -1,3 +1,4 @@
+from site import venv
 import sys
 import os
 import subprocess
@@ -10,11 +11,12 @@ LOG = open("log.txt", "w")
 def setup():
 
 
-    # Check if python version is 3.7
+    # Check if python version is later than or equal to 3.7
     print("1. Checking python version... ", end="")
-    if sys.version_info[0] != 3 or sys.version_info[1] != 7:
-        print("\nThis program requires Python 3.7, you have {}.{}".format(sys.version_info[0], sys.version_info[1]))
-        exit(1)
+    if sys.version_info[0] < 3 or (sys.version_info[0] == 3 and sys.version_info[1] < 7):
+        print("ERROR")
+        print("Python version is too old. Please upgrade to at least 3.7")
+        sys.exit()
     print("OK")
 
     # Print current working directory
@@ -53,14 +55,15 @@ def setup():
 
     # Create new virtual environment
     print("9. Creating virtual environment... ", end="")
-    subprocess.run(["python", "-m", "venv", "backend"], stdout=LOG, stderr=LOG)
+    venv("backend")
+    # subprocess.run(["python", "-m", "venv", "backend"], stdout=LOG, stderr=LOG)
     print("OK")
 
     # Activate the virtual environment
     print("10. Activating virtual environment... ", end="")
-    script_loc = os.path.join(os.getcwd(), "backend", "Scripts", "Activate.bat")
-    # print("@ {} ".format(script_loc), end="")
-    subprocess.run([script_loc], stdout=LOG, stderr=LOG)
+    script_loc = os.path.join(os.getcwd(), "backend", "Scripts", "Activate")
+    print("@ {} ".format(script_loc), end="")
+    subprocess.run(["powershell", "'{}'".format(script_loc)], stdout=LOG, stderr=LOG)
     print("OK")
 
     # Check if activation successful by ensuring `where python` returns venv/backend/Scripts/python

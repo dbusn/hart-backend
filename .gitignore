@@ -156,3 +156,5 @@ resources/gcloud_credentials.json
 # ffmpeg
 ffmpeg.exe
 pybluez/
+
+sleeve_exception_logs/
