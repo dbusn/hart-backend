@@ -1,5 +1,5 @@
 {
-    "description" : "s size sleeve (Created October 2021)",
+    "description" : "L size sleeve (Created October 2021)",
     "serial_numbers" : [
         "A9LTHTFV", 
         "55838333932351C0C191",
@@ -7,7 +7,7 @@
         "9586730",
         "9004780"
         ],
-    "bluetooth_device_name": "THRDCOPY",
+    "bluetooth_device_name": "SLEEVE2",
     "mapping" : [
         { 
             "coord" : 11,
