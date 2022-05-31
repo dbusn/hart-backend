@@ -5,6 +5,7 @@ from src.helpers.Logger import Logger
 from src.models.EventTypeEnum import EventType
 from src.models.request_data.AbstractRequest import AbstractRequest
 from src.modules.PrototypeConnection import PrototypeConnection
+from definitions import CONNECTED_TO_PROTOTYPE
 
 
 class SendPhonemesToPrototypeEvent(AbstractEvent):
@@ -52,7 +53,8 @@ class SendPhonemesToPrototypeEvent(AbstractEvent):
 
                     # send phonemes to the prototype
                     for phoneme in word[i]:
-                        PrototypeConnection().send_pattern(request_data.phoneme_patterns[phoneme])
+                        if (CONNECTED_TO_PROTOTYPE):
+                            PrototypeConnection().send_pattern(request_data.phoneme_patterns[phoneme])
                         # TODO save data somewhere here to a database/csv
 
                         # add the fulfilled effect to the result field

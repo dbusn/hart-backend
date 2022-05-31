@@ -9,7 +9,7 @@ options:
     "m_sleeve.json"
     "l_sleeve.json"
 """
-CONFIG_FILE_NAME = "m_sleeve.json"
+CONFIG_FILE_NAME = "l_sleeve.json"
 
 # Whether the frontend is compiled and located in backend or not
 DISTRIBUTION = False
@@ -34,6 +34,7 @@ RESOURCES = os.path.join(ROOT_DIR, "resources")
 Mac addresses
     "00:19:08:36:22:1B"
     "00:19:08:36:54:d4"
+	"00:19:08:36:34:8C"
 """
 
 API_BASE_URL = "/api/v1"
