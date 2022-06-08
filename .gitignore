@@ -5,6 +5,8 @@ venv/*
 pyblues/*
 /pyblues/
 
+# Zip archives
+*.zip
 
 
 
