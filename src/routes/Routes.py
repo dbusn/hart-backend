@@ -5,7 +5,7 @@ from time import sleep
 from flask import request, jsonify
 
 # from app import app
-from definitions import API_BASE_URL, RESOURCES
+from definitions import API_BASE_URL, RESOURCES, CONNECTED_TO_PROTOTYPE
 from src.handlers.Dispatcher import Dispatcher
 from src.helpers.ConvertAudioToFlacHelper import convertWebmToFlac
 from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns

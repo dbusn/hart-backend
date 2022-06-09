@@ -9,17 +9,17 @@ options:
     "m_sleeve.json"
     "l_sleeve.json"
 """
-CONFIG_FILE_NAME = "m_sleeve.json"
+CONFIG_FILE_NAME = "s_sleeve.json"
 
 # Whether the frontend is compiled and located in backend or not
 DISTRIBUTION = False
 
 # Whether the prototype is connected or not
-CONNECTED_TO_PROTOTYPE = False
+CONNECTED_TO_PROTOTYPE = True
 
 # If prototype is connected, is it connected by bluetooth, or by cable (also depends on the software on the
 #       microcontroller
-CONNECTED_VIA_BLUETOOTH = False
+CONNECTED_VIA_BLUETOOTH = True
 
 # Dont touch this if you don't know what this is :P
 BAUDRATE = 115200
@@ -34,6 +34,7 @@ RESOURCES = os.path.join(ROOT_DIR, "resources")
 Mac addresses
     "00:19:08:36:22:1B"
     "00:19:08:36:54:d4"
+	"00:19:08:36:34:8C"
 """
 
 API_BASE_URL = "/api/v1"
