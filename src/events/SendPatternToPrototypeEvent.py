@@ -17,6 +17,7 @@ class SendPatternToPrototypeEvent(AbstractEvent):
     expects request_data to have attribute "phonemes" which is followed by a filename of the pattern to send.
     """
 
+    # Priority equal to sending a phoneme to the prototype
     PRIORITY: int = 90
 
     def __init__(self):
@@ -26,7 +27,7 @@ class SendPatternToPrototypeEvent(AbstractEvent):
         # for each sentence
         request_data.sent_phonemes = []
 
-        pattern_id = request_data.phonemes
+        pattern_id = request_data.patterns[0]
         Logger.log_info("Request to send Pattern ID: {} obtained".format(pattern_id))
         pattern_path = (
             os.path.join(RESOURCES, "experiment_patterns", pattern_id) + ".json"
@@ -46,6 +47,7 @@ class SendPatternToPrototypeEvent(AbstractEvent):
                 )
             )
 
+            # Load the JSON file
             with open(pattern_path, "r") as f:
                 pattern_json = json.load(f)
 

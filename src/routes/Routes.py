@@ -12,6 +12,7 @@ from src.helpers.LoadPhonemeJsonHelper import get_phoneme_patterns
 from src.helpers.Logger import Logger
 from src.helpers.UserTestingHelper import UserTestingHelper
 from src.models.request_data.PhonemeTransformRequest import PhonemeTransformRequest
+from src.models.request_data.PatternDispatchRequest import PatternDispatchRequest
 from src.models.request_data.TranscribeAndTranslateRequest import TranscribeAndTranslateRequest
 from src.modules.PrototypeConnection import PrototypeConnection
 from src.modules.ConcurrentStream import ConcurrentStream
@@ -363,20 +364,21 @@ def init_views(app, dispatcher):
         Logger.log_info("INCOMING API CALL: /microcontroller/combination")
 
         # get body from api
-        # requested_pattern = request.json
+        requested_pattern = request.json
+
+        print(requested_pattern)
 
         # make the event request data
-        # request_data = PhonemeTransformRequest(phonemes=requested_pattern)
+        request_data = PatternDispatchRequest(pattern_name=requested_pattern['phonemes'])
 
-        PrototypeConnection().send_pattern(request.json)
         # send to dispatcher
-        # try:
-        #     dispatcher.handle(request_data)
-        # except RuntimeError:
-        #     message = API_BASE_URL + "/microcontroller/combination: Could not handle PhonemeTransformRequest " \
-        #                              "successfully. "
-        #     Logger.log_error("Routes.send_phonemes - " + message)
-        #     return message, 500
+        try:
+            dispatcher.handle(request_data)
+        except RuntimeError:
+            message = API_BASE_URL + "/microcontroller/combination: Could not handle PhonemeTransformRequest " \
+                                     "successfully. "
+            Logger.log_error("Routes.send_phonemes - " + message)
+            return message, 500
 
         # empty body return, success code
         return "OK", 200
