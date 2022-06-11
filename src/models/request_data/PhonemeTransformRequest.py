@@ -45,7 +45,7 @@ class PhonemeTransformRequest(AbstractRequest):
     sent_phonemes: List[List[str]]
 
     def __init__(self, sentences: Union[List[str], List[List[str]]] = None,
-                 phonemes: List[str] = None, user_testing = False):
+                 phonemes: List[str] = None):
         """
         Constructor to make object for sentence processing or phoneme processing. This constructor has 2 purposes:
             (1) To create a PhonemeTransformRequest with the purpose of processing sentences into phonemes and sending
@@ -60,6 +60,7 @@ class PhonemeTransformRequest(AbstractRequest):
                                             (2) [["first", "sentence"], ["second", "sentence"]]
         @param phonemes             Phonemes to be send to the prototype in form
                                         ["PHO1", "PHO2"]
+                                        
         @raises ValueError          If both sentences and phonemes are filled with data or when phoneme_patterns is
                                         None.
         """
@@ -67,7 +68,7 @@ class PhonemeTransformRequest(AbstractRequest):
             raise ValueError("PhonemeTransformRequest.__init__: both sentences and phonemes parameter was passed.")
 
         # set phoneme pattern
-        self.phoneme_patterns = get_phoneme_patterns(RESOURCES, user_testing=user_testing)
+        self.phoneme_patterns = get_phoneme_patterns(RESOURCES)
 
         if phonemes is not None:
             # Creation for purpose 2
