@@ -10,7 +10,7 @@
     "bluetooth_device_name": "SLEEVE1",
     "mapping" : [
         { 
-            "coord" : 11,
+            "coord" : 13,
             "id" : 3
         }, 
 
@@ -20,12 +20,12 @@
         }, 
 
         { 
-            "coord" : 13,
+            "coord" : 11,
             "id" : 1
         }, 
 
         { 
-            "coord" : 14,
+            "coord" : 16,
             "id" : 0
         }, 
 
@@ -35,7 +35,7 @@
         }, 
 
         { 
-            "coord" : 16,
+            "coord" : 14,
             "id" : 6
         },
 
@@ -71,62 +71,62 @@
 
         
         { 
-            "coord" : 36, 
+            "coord" : 33, 
             "id" : 15
         },
         
         { 
-            "coord" : 35,
+            "coord" : 32,
             "id" : 14
         },
         
         { 
-            "coord" : 34,
+            "coord" : 31,
             "id" : 13
         },
         
         { 
-            "coord" : 33,
+            "coord" : 36,
             "id" : 12
         },
 
         { 
-            "coord" : 32,
+            "coord" : 35,
             "id" : 23
         },
 
         { 
-            "coord" : 31,
+            "coord" : 34,
             "id" : 22
         },
         
         { 
-            "coord" : 43,
+            "coord" : 45,
             "id" : 18
         },
         
         { 
-            "coord" : 42,
+            "coord" : 44,
             "id" : 17
         },
         
         { 
-            "coord" : 41,
+            "coord" : 46,
             "id" : 16
         },
         
         { 
-            "coord" : 44,
+            "coord" : 43,
             "id" : 19
         },
         
         { 
-            "coord" : 45,
+            "coord" : 42,
             "id" : 20
         },
         
         { 
-            "coord" : 46,
+            "coord" : 41,
             "id" : 21
         }
     ]
