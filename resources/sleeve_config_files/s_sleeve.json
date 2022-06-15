@@ -100,32 +100,32 @@
         },
         
         { 
-            "coord" : 44,
+            "coord" : 43,
             "id" : 18
         },
         
         { 
-            "coord" : 45,
+            "coord" : 42,
             "id" : 17
         },
         
         { 
-            "coord" : 46,
+            "coord" : 41,
             "id" : 16
         },
         
         { 
-            "coord" : 43,
+            "coord" : 44,
             "id" : 19
         },
         
         { 
-            "coord" : 42,
+            "coord" : 45,
             "id" : 20
         },
         
         { 
-            "coord" : 41,
+            "coord" : 46,
             "id" : 21
         }
     ]
