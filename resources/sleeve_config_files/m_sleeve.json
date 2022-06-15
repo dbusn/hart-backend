@@ -10,7 +10,7 @@
     "bluetooth_device_name": "SLEEVE1",
     "mapping" : [
         { 
-            "coord" : 11,
+            "coord" : 13,
             "id" : 3
         }, 
 
@@ -20,12 +20,12 @@
         }, 
 
         { 
-            "coord" : 13,
+            "coord" : 11,
             "id" : 1
         }, 
 
         { 
-            "coord" : 14,
+            "coord" : 16,
             "id" : 0
         }, 
 
@@ -35,78 +35,78 @@
         }, 
 
         { 
-            "coord" : 16,
+            "coord" : 14,
             "id" : 6
         },
 
         {
-            "coord" : 21,
+            "coord" : 26,
             "id" : 8
         },
 
         {
-            "coord" : 22,
+            "coord" : 25,
             "id" : 9
         },
 
         {
-            "coord" : 23,
+            "coord" : 24,
             "id" : 10
         },
 
         { 
-            "coord" : 24,
+            "coord" : 23,
             "id" : 11
         }, 
 
         { 
-            "coord" : 25,
+            "coord" : 22,
             "id" : 4
         },
         
         { 
-            "coord" : 26,
+            "coord" : 21,
             "id" : 5
         },
 
         
         { 
-            "coord" : 36, 
+            "coord" : 33, 
             "id" : 15
         },
         
         { 
-            "coord" : 35,
+            "coord" : 32,
             "id" : 14
         },
         
         { 
-            "coord" : 34,
+            "coord" : 31,
             "id" : 13
         },
         
         { 
-            "coord" : 33,
+            "coord" : 36,
             "id" : 12
         },
 
         { 
-            "coord" : 32,
+            "coord" : 35,
             "id" : 23
         },
 
         { 
-            "coord" : 31,
+            "coord" : 34,
             "id" : 22
         },
         
         { 
-            "coord" : 43,
+            "coord" : 42,
             "id" : 18
         },
         
         { 
-            "coord" : 42,
+            "coord" : 43,
             "id" : 17
         },
         
