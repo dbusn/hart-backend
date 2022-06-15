@@ -40,32 +40,32 @@
         },
 
         {
-            "coord" : 21,
+            "coord" : 26,
             "id" : 8
         },
 
         {
-            "coord" : 22,
+            "coord" : 25,
             "id" : 9
         },
 
         {
-            "coord" : 23,
+            "coord" : 24,
             "id" : 10
         },
 
         { 
-            "coord" : 24,
+            "coord" : 23,
             "id" : 11
         }, 
 
         { 
-            "coord" : 25,
+            "coord" : 22,
             "id" : 4
         },
         
         { 
-            "coord" : 26,
+            "coord" : 21,
             "id" : 5
         },
 
@@ -101,32 +101,32 @@
         },
         
         { 
-            "coord" : 45,
+            "coord" : 42,
             "id" : 18
         },
         
         { 
-            "coord" : 44,
+            "coord" : 43,
             "id" : 17
         },
         
         { 
-            "coord" : 46,
+            "coord" : 41,
             "id" : 16
         },
         
         { 
-            "coord" : 43,
+            "coord" : 44,
             "id" : 19
         },
         
         { 
-            "coord" : 42,
+            "coord" : 45,
             "id" : 20
         },
         
         { 
-            "coord" : 41,
+            "coord" : 46,
             "id" : 21
         }
     ]
